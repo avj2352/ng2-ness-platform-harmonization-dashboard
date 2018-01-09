@@ -1,0 +1,233 @@
+/*
+* author: Pramod AJ
+* date: 29th Nov 2017
+* description: Font, Type definitions
+*/
+
+@font-face {
+  font-family: 'Centrale-Sans';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_1_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_1_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_1_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_1_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_1_0.ttf') format('truetype');    
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Centrale-Sans-italic-bold';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_0_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_0_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_0_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_0_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_0_0.ttf') format('truetype');  
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Centrale-Sans-100';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_3_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_3_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_3_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_3_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_3_0.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Centrale-Sans-02';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_5_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_5_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_5_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_5_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_5_0.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Centrale-Sans-03';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_10_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_10_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_10_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_10_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_10_0.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Centrale-Sans-04';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_11_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_11_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_11_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_11_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_11_0.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Centrale-Sans-05';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_A_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_A_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_A_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_A_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_A_0.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Centrale-Sans-06';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_B_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_B_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_B_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_B_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_B_0.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Centrale-Sans-07';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_F_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_F_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_F_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_F_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_F_0.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Centrale-Sans-08';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_6_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_6_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_6_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_6_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_6_0.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Centrale-Sans-09';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_7_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_7_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_7_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_7_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_7_0.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Centrale-Sans-10';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_2_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_2_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_2_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_2_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_2_0.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Centrale-Sans-11';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_9_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_9_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_9_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_9_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_9_0.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Centrale-Sans-12';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_8_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_8_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_8_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_8_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_8_0.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Centrale-Sans-13';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_4_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_4_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_4_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_4_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_4_0.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Centrale-Sans-14';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_0_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_0_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_0_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_0_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_0_0.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Centrale-Sans-15';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_C_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_C_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_C_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_C_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_C_0.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Centrale-Sans-16';
+  src: url('/assets/fonts/centrale-sans/2E3D5C_D_0.eot');
+  src: url('/assets/fonts/centrale-sans/2E3D5C_D_0.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/centrale-sans/2E3D5C_D_0.woff2') format('woff2'),
+    url('/assets/fonts/centrale-sans/2E3D5C_D_0.woff') format('woff'),
+    url('/assets/fonts/centrale-sans/2E3D5C_D_0.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+
+body {
+    font-family: "Centrale-Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color:#777;  
+  }
+
+//Giving a Gradient H2
+.heading-secondary {
+  display: inline-block;
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+  -webkit-background-clip: text; //The background will be seen, only where the text is
+  color: transparent;
+  transition:all .2s;
+
+  &:hover{
+    // transform: skewY(2deg) skewX(15deg) scale(1.1);
+    transform: scale(1.1);
+    text-shadow: .5rem 1rem 2rem rgba($color-black,.2);
+  }
+}//end:heading-secondary
+
+
+.section-about {  
+  p.sub-heading {
+      font-size: 1.2rem;
+  }
+
+  h3.heading-tertiary {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  p.paragraph {
+    &:not(:last-child) {
+      margin-bottom: 40px;
+    }
+  }
+}//end:about-us section

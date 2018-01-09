@@ -1,0 +1,32 @@
+/*
+* author: Pramod AJ
+* date: 29th Nov 2017
+* description: Common mixins will be provided here
+*/
+
+@mixin clearfix {
+    &::after{
+        content:""; //Without the content ppty, a pseudo-element will not appear on the page.
+        display: table; // Standard version of the clearfix
+        clear:both;
+    }
+}//end:clearfix
+
+@mixin style-link-text($color) { // @include style-link-text($color-text-light);
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $color;
+}//end:style-link-text
+
+@mixin box-shadow-effect {
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+
+}
+
+@mixin box-shadow-effect-02 {
+    -webkit-box-shadow: 10px 10px 19px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 19px -6px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 19px -6px rgba(0,0,0,0.75);
+}

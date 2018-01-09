@@ -1,0 +1,54 @@
+//NOTE: Remember 10px is 1 rem;
+.row {
+    // border:1px solid red;
+    max-width:$grid-width; //Standard for mordern browsers - 
+    // background-color: $color-dull-white; 
+    padding: 0 15px;
+    margin: 0 auto;
+    //Without the not(), this would select the last child, but with not we can continue our original styling
+    //not(:last-child) - Everything, except the last child element
+    &:not(:last-child){
+        margin-bottom: $gutter-vertical;
+    }//end::not
+    // in CSS there is a powerful function called calc()
+    @include clearfix;
+    // with CSS calc() we can mix in units, this is not possible using SASS functions
+    
+    //Attribute selector to apply to all the columns
+    //^= we can select the attributes which start with 
+    //*= we can select the attribute with contain
+    //$= we can select the attribute with end with
+
+    [class^="col-"] {
+        // background-color: orangered;
+        float: left;
+        &:not(:last-child){
+            margin-right: $gutter-horizontal;
+        }
+    }//end:[class]
+
+    .col-1-of-2 {
+        width: calc((100% - #{$gutter-horizontal}) / 2);        
+    }//end:.col-1-of-2
+    
+    .col-1-of-3{
+        width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+    }//end:.col-1-of-3
+
+    .col-1-of-4{
+        width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+    }//end:.col-1-of-4
+
+    .col-2-of-3{
+        width: calc(2*((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal});
+    }//end:.col-2-of-3
+
+    .col-2-of-4{
+        width: calc(2*((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal});
+    }//end:.col-2-of-4
+
+    .col-3-of-4{
+        width: calc(3*((100% - 3 * #{$gutter-horizontal}) / 4) + 2*(#{$gutter-horizontal}));
+    }//end:.col-3-of-4
+
+}//end:row

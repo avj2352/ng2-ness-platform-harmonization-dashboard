@@ -1,0 +1,60 @@
+/*
+* author: Pramod AJ
+* date: 29th Nov 2017
+* description: All Animations will be defined here.
+*/
+
+//Animations part - for main and sub spans
+// NOTE: Browsers are optimized for 2 main propertis - opacity and transform ppty
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px); //We want it to animate in the X-direction
+    }
+    
+    60% {        
+        transform: translateX(10px); //We want it to animate in the X-direction
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translate(0); //Its going to look exactly the same state
+    }
+}//end:moveInLeft
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px); //We want it to animate in the X-direction
+    }
+    
+    60% {        
+        transform: translateX(-10px); //We want it to animate in the X-direction
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translate(0); //Its going to look exactly the same state
+    }
+}//end:moveInRight
+
+@keyframes fadeIn{
+    0% {
+        opacity: 0;        
+    }
+
+    100% {
+        opacity: 1;        
+    }
+}//end:fadeIn
+
+@keyframes moveInBottom {
+    0%{
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100%{
+        opacity: 1;        
+        transform: translate(0);
+    }
+}

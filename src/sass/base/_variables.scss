@@ -1,0 +1,87 @@
+/*
+* author: Pramod AJ
+* date: 29th Nov 2017
+* description: This is where all the variables are defined
+*/
+
+//Background Colors
+$light-green: rgba(126,213,111,0.8);
+$medium-green: #55c57a;
+$dark-green: rgba(40,180,131,0.8);
+
+
+//Philips Background Gradients
+$dark-blue-start: #132958;
+$medium-blue-end:#195956;
+$light-blue-tint:rgb(59, 203, 231);
+
+$button-grey:#777;
+$color-white:#fff;
+$color-black:#000;
+$color-grey-light-01:#f7f7f7;
+$color-dull-white:#eee;
+
+//Button Colors
+$color-primary:$medium-green;
+$button-grey:#777;
+$button-green: rgb(41, 182, 128);
+$button-blue: rgb(39, 112, 214);
+$button-red: rgb(201, 24, 24);
+$button-gold: rgb(236, 178, 76);
+
+//Text colors
+$color-text-light:rgb(255, 255, 255);
+
+//Grid Variables
+$grid-width:114rem;
+$gutter-vertical:8rem;
+$gutter-horizontal:2rem;
+
+//Font sizes
+$default-font-size: 1.2rem;
+
+//Rotating Cards Color
+$color-primary-light:#7ed56f;
+$color-primary-dark:#28b485;
+
+$color-secondary-light:#ffb900;
+$color-secondary-dark:#ff7730;
+
+$color-tertiary-light:#2998ff;
+$color-tertiary-dark:#5643fa;
+
+
+//FORMS related variables
+$body-bg: #fff;
+// Shadows
+$shadow-inset: inset 0 2px 2px 0 rgba(0,0,0,.14);
+$shadow-0: 0 0 1px rgba(0, 0, 0, 0);
+$shadow-2: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+$shadow-3: 0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.2),0 1px 8px 0 rgba(0,0,0,.12);
+$shadow-4: 0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2);
+$shadow-6: 0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12),0 3px 5px -1px rgba(0,0,0,.2);
+$shadow-8: 0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.2);
+
+// Font Sizes
+$mf-font-size: 1rem !default;
+$mf-active-font-size: $mf-font-size * 0.8 !default;
+$mf-active-top: -$mf-font-size*1.5 !default;
+
+// Margin & Paddings
+$mf-gap: $mf-font-size * 1.5 !default;
+$mf-spacer: $mf-font-size / 8 !default;
+$mf-fieldset-margin: 0 0 $mf-gap * 2 !default;
+$mf-checkbox-gap: $mf-font-size * 2 !default;
+$mf-checkbox-top: 0 !default;
+$mf-radio-margin: $mf-font-size / -4 !default;
+
+// Colors
+$mf-input-color:$color-white !default;
+$mf-border-color: #999 !default;
+$mf-label-color: lighten($mf-border-color, 10%) !default;
+$mf-active-color: darken($mf-border-color, 10%) !default;
+$mf-focus-color: #337ab7 !default;
+$mf-error-color: #d9534f !default;
+
+// Animation
+$mf-transition-speed: 0.28s !default;

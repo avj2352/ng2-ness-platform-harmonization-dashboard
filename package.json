@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^4.4.5",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
@@ -20,8 +21,22 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^2.0.0",
+    "@ngrx/router-store": "^1.2.5",
+    "@ngrx/store": "^2.2.3",
+    "@ngrx/store-devtools": "^3.2.4",
+    "@types/lodash": "^4.14.52",
+    "ag-grid": "^15.0.0",
+    "ag-grid-angular": "^15.0.0",
+    "angular-2-local-storage": "^1.0.1",
+    "body-parser": "^1.17.1",
     "core-js": "^2.4.1",
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.1",
     "rxjs": "^5.1.0",
+    "uuid": "^3.0.1",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
@@ -41,6 +56,9 @@
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0"
+    "typescript": "~2.2.0",
+    "@types/express": "^4.0.34",
+    "@types/lodash": "^4.14.44",
+    "ngrx-store-freeze": "^0.1.6"
   }
 }

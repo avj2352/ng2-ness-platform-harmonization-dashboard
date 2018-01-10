@@ -5,13 +5,15 @@ import { HttpModule } from '@angular/http';
 import { ExtraOptions, RouterModule, Routes } from "@angular/router";
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-//Custom Components
-import { LoginComponent } from './views/login/login.component';
+//Custom Views/Pages
 import { AppComponent } from './app.component';
+import { LoginComponent } from './views/login/login.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
+//Custom Components
+import { LoaderComponent } from './components/loader/loader.component';
+import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 //AG-Grid dependencies
 import {AgGridModule} from 'ag-grid-angular/main';
-import { LoaderComponent } from './components/loader/loader.component';
 
 const appRoutes: Routes = [  
   { path: 'login', component: LoginComponent },  
@@ -29,7 +31,8 @@ const config: ExtraOptions = {
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    LoaderComponent
+    LoaderComponent,
+    PopupInfoComponent
   ],
   imports: [
     BrowserModule,

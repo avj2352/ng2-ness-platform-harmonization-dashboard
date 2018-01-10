@@ -3,10 +3,13 @@
     <phd-loader></phd-loader>
   </div>
   <header>
-    <button class="btn btn-menu">
+    <button class="btn">
       <img src="/assets/svg/010-menu-button.svg" alt="menu-button"/>
     </button>
     <p class="header-title">Platform Adoption Roadmap</p>
+    <button class="btn btn--right" (click)="logout()">
+      <img src="/assets/svg/005-settings-work-tool.svg" alt="menu-button"/>
+    </button>
     <div class="primary-navigation"></div>
     <div class="secondary-navigation"></div>
   </header>
@@ -15,3 +18,4 @@
     <div>MainContent</div>
   </section>
 </div>
+<phd-popup-info visible="isPopupVisible"></phd-popup-info>

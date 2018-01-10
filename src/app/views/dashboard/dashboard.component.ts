@@ -7,7 +7,9 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 })
 export class DashboardComponent implements OnInit {
 
-  public isVisible:boolean;
+  private isVisible:boolean;
+  private isPopupVisible:boolean;
+
 
   constructor() { 
 
@@ -15,6 +17,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.isVisible = false;
+    this.isPopupVisible = false;
   }//end:ngOnInit
+
+  logout(){
+    this.isPopupVisible = true;
+  }
 
 }//end:class-DashboardComponent

@@ -20,7 +20,8 @@
         @include box-shadow-effect;
 
         p.header-title {
-            padding: 8px 5px 0;
+            // border: 1px solid red;
+            padding: 0.2% 5px;
             font-size: 1.4rem;
         }
 
@@ -38,7 +39,11 @@
                 background-color: rgba(black,0.5);
                 @include box-shadow-effect;
             }
-        }
+            &--right {
+                // border: 1px solid white;
+                margin-left: auto;
+            }
+        }//end:btn
     }//end:header
 
     section {

@@ -9,7 +9,7 @@
     background: linear-gradient(to right,$dark-blue-start,$medium-blue-end);
     background-size: cover;
     background-blend-mode: color;
-
+    @include clearfix;
     header {
         // border: 1px solid red;
         display: flex;
@@ -101,9 +101,22 @@
 
     section {
         // border: 1px solid green;
+        position: relative;
         display: flex;
         flex-direction: row;
         height: 93vh;
+        padding: 10px 5%;
+
+        .main-section {
+            border-radius: 5px;
+            padding: 5px;
+            background-color: $color-white;
+            position: absolute;
+            width: 92%;
+            height: 85vh;
+            @include box-shadow-effect-02;            
+        }//end:main-section
+        
     }//end:section
 
 }//end:dashboard-view

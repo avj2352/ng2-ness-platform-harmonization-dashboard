@@ -4,18 +4,28 @@
   </div>
   <header>
     <button class="btn">
-      <img src="/assets/svg/010-menu-button.svg" alt="menu-button"/>
+      <img src="/assets/svg/014-menu-button.svg" alt="menu-button"/>
     </button>
-    <p class="header-title">Platform Adoption Roadmap</p>
-    <button class="btn btn--right" (click)="logout()">
-      <img src="/assets/svg/005-settings-work-tool.svg" alt="menu-button"/>
-    </button>
-    <div class="primary-navigation"></div>
-    <div class="secondary-navigation"></div>
+    <p class="header-title">Platform Adoption Roadmap</p>            
+    <div class="right-navigation">
+      <button class="btn btn--right" (click)="logout()">
+        <img src="/assets/svg/006-notification.svg" alt="menu-button"/>
+      </button>
+      <button class="btn btn--right" (click)="logout()">
+        <img src="/assets/svg/002-power.svg" alt="menu-button"/>
+      </button>
+    </div>
   </header>
+  <nav>
+    <button class="btn">Adoption Entry</button>
+    <button class="btn">Adoption View</button>
+    <button class="btn">Manage Users</button>
+    <button class="btn">Manage Platforms</button>
+    <button class="btn">Manage Business</button>
+  </nav>
   <section>
     <aside>SideBar</aside>
     <div>MainContent</div>
   </section>
 </div>
-<phd-popup-info visible="isPopupVisible"></phd-popup-info>
+<!-- <phd-popup-info visible="isPopupVisible"></phd-popup-info> -->

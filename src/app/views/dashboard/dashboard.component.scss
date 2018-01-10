@@ -6,33 +6,42 @@
     flex-direction: column;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to right,$dark-blue-start,$medium-blue-end),url('/assets/img/eraser_board_image.png');
+    background: linear-gradient(to right,$dark-blue-start,$medium-blue-end);
     background-size: cover;
     background-blend-mode: color;
 
     header {
         // border: 1px solid red;
         display: flex;
+        width: 100%;
+        height: 6vh;
         flex-direction: row;
+        justify-content: space-between;
+
         background-color:(rgba(black,0.3));
-        height: 7vh;
         color: $color-white;
         @include box-shadow-effect;
 
         p.header-title {
             // border: 1px solid red;
-            padding: 0.2% 5px;
-            font-size: 1.4rem;
+            padding: 8px 5px;
+            font-size: 1rem;
+        }        
+        .right-navigation {            
+            right: 0;
+            margin-left: auto;            
+            // border: 1px solid red;
         }
 
         .btn {
             width: 50px;
+            height: 100%;
             background: none;
             border: none;            
             outline: none; 
-            margin: 0px 10px;
+            margin: 0px 5px;
             padding: 5px 5px 0;
-            img {width: 65%;}
+            img {width: 40%;}
             &:hover {
                 // border-right: 1px solid black;
                 // border-left: 1px solid black;
@@ -41,10 +50,50 @@
             }
             &--right {
                 // border: 1px solid white;
-                margin-left: auto;
-            }
+                
+            }        
         }//end:btn
     }//end:header
+
+    nav {
+        // border: 1px solid red;
+        display: flex;
+        width: 100%;
+        height: 5.5vh;
+        flex-direction: row;
+        text-align: center;
+        margin:0 auto;
+        font-size: 0.9rem;
+        justify-content:center;
+        background-color:(rgba(black,0.5));
+        color: $color-white;
+
+        @include box-shadow-effect;
+        .btn {
+            &:not(:last-child){
+                border-right: 1px solid rgba($color-white, 0.2); 
+            }
+            color: $color-white;
+            background: none;
+            border: none;            
+            outline: none; 
+            margin: 0;
+            padding: 5px 10px 0;
+            img {width: 40%;}
+            &:hover {
+                // border-right: 1px solid black;
+                // border-left: 1px solid black;
+                background-color: rgba(black,0.5);
+                @include box-shadow-effect;
+            }
+            &:hover {
+                transform:translateY(-1px);
+            }
+            &:active {
+                transform: translateY(0px);
+            }       
+        }//end:btn
+    }//end:nav
 
     section {
         // border: 1px solid green;
@@ -52,4 +101,21 @@
         flex-direction: row;
         height: 93vh;
     }//end:section
+
 }//end:dashboard-view
+
+//Creating a bottom line animation using SASS
+.btn {
+    transition: all 0.2s;
+    &:link,
+    &:visited {
+    text-decoration: none;
+    display: inline-block;
+    }
+    &:hover {
+        transform:translateY(-2px);
+    }
+    &:active {
+        transform: translateY(-1px);
+    }
+}

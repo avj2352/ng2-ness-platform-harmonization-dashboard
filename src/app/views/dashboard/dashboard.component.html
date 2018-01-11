@@ -1,7 +1,5 @@
-<div class="dashboard-view">
-  <div *ngIf="isVisible">
-    <phd-loader></phd-loader>
-  </div>
+<div class="dashboard-view">  
+    <phd-loader content="Loading Dashboard" [visible]="isVisible"></phd-loader>  
   <header>
     <button class="btn">
       <img src="/assets/svg/014-menu-button.svg" alt="menu-button"/>
@@ -9,7 +7,7 @@
     <p class="header-title">Platform Adoption Roadmap</p>            
     <div class="right-navigation">
       <p>BU User (BU Owner)</p>            
-      <button class="btn btn--right" (click)="logout()">
+      <button class="btn btn--right">
         <img src="/assets/svg/006-notification.svg" alt="menu-button"/>
       </button>
       <button class="btn btn--right" (click)="logout()">
@@ -25,10 +23,13 @@
     <button class="btn">Manage Business</button>
   </nav>
   <section>
-    <aside>SideBar</aside>
+    <!-- <aside>SideBar</aside> -->
     <div class="main-section">
-      
+      <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
+                 [rowData]="rowData"
+                 [columnDefs]="columnDefs">
+      </ag-grid-angular>
     </div>
   </section>
 </div>
-<!-- <phd-popup-info visible="isPopupVisible"></phd-popup-info> -->
+<phd-popup-info [visible]="isPopupVisible" title="Do you want to log out?" content="Please save your changes before logging out." (closePopup)="onPopupInfoClose($event)" (cancelPopup)="onPopupInfoCancel($event)"></phd-popup-info>

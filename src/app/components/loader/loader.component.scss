@@ -1,3 +1,4 @@
+@import './../../../styles.scss';
 //Loader variables
 $count: 10;
 $time: 2; //in seconds
@@ -14,6 +15,20 @@ $color: #ffffff;
   width: 100%;
   height: 100vh;
   background-color: rgba(black,0.5);  
+  z-index: 1000;
+  display: none;
+}
+
+.holder-visible {
+  display: block;
+}
+
+.content {
+  position:absolute;
+  color: $color-white;
+  top:56%;  
+  left:50%;
+  transform: translate(-50%,-50%);
 }
 
 .preloader {

@@ -12,6 +12,7 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 //Custom Components
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
+import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
 //AG-Grid dependencies
 import {AgGridModule} from 'ag-grid-angular/main';
 
@@ -32,7 +33,8 @@ const config: ExtraOptions = {
     LoginComponent,
     DashboardComponent,
     LoaderComponent,
-    PopupInfoComponent
+    PopupInfoComponent,
+    ButtonDropdownComponent    
   ],
   imports: [
     BrowserModule,

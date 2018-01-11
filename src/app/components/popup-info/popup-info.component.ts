@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'phd-popup-info',
@@ -7,10 +7,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PopupInfoComponent implements OnInit {
 
-  @Input() private visible:boolean;
-  constructor() { 
+  @Input() visible:boolean;
+  @Input() content:String;
+  @Input() title:String;
+  
+  @Output() closePopup:EventEmitter<boolean>;
+  @Output() cancelPopup:EventEmitter<boolean>;
 
+  constructor() { 
+    this.closePopup = new EventEmitter<boolean>();
+    this.cancelPopup = new EventEmitter<boolean>();
   }//end:constructor
+
+  close(){
+    this.closePopup.emit(false);
+  }//end:close
+
+  cancel(){
+    this.cancelPopup.emit(false);
+  }//end:cancel
 
   ngOnInit() {
     

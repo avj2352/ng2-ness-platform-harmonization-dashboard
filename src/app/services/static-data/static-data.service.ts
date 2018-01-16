@@ -17,7 +17,7 @@ export class StaticDataService {
   getStaticDelay(){
     return this.http
     .get('http://localhost:3000/iatreia')
-    .delay(1000)
+    .delay(3000)
     .map(response => response.json())
     .catch((err:Response) => {
       let details = err.json();

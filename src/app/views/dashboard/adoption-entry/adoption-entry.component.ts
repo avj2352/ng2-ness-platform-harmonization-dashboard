@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StaticDataService } from './../../../services/static-data.service';
+import { StaticDataService } from './../../../services/static-data/static-data.service';
 @Component({
   selector: 'app-adoption-entry',
   templateUrl: './adoption-entry.component.html',
@@ -27,7 +27,7 @@ export class AdoptionEntryComponent implements OnInit {
   configAgGridStyle(){
     let styles = {
       'width':'100%',
-      'height':'500px'
+      'height':'420px'
     };
     return styles;
   }//end:configAgGridStyle()

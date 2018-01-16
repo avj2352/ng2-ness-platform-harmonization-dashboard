@@ -1,0 +1,26 @@
+<div class="adoption-view">
+  <h1>Adoption View</h1>
+  <hr>
+  <form class="select-quarter-form">
+    <div class="form-group">
+      <div class="select-label">
+        <p><strong>Select Quarter:</strong></p>
+      </div>
+      <div class="select-div">
+        <select>
+          <option>Q2 Platform</option>
+          <option>Q1 2018 Report</option>
+        </select>
+        <i class="bar"></i>
+      </div>
+    </div>    
+  </form>
+  <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs">
+  </ag-grid-angular>
+  <div class="button-section">
+    <button class="btn-material"><span>Download Report</span></button>     
+  </div>
+</div>
+<phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  

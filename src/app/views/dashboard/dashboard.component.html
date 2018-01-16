@@ -1,17 +1,35 @@
-<div class="dashboard-view">
-  <div *ngIf="isVisible">
-    <phd-loader></phd-loader>
-  </div>
+<div class="dashboard-view">      
   <header>
-    <button class="btn btn-menu">
-      <img src="/assets/svg/010-menu-button.svg" alt="menu-button"/>
+    <button class="btn">
+      <img src="/assets/svg/014-menu-button.svg" alt="menu-button"/>
     </button>
-    <p class="header-title">Platform Adoption Roadmap</p>
-    <div class="primary-navigation"></div>
-    <div class="secondary-navigation"></div>
+    <p class="header-title">Platform Adoption Roadmap</p>            
+    <div class="right-navigation">
+      <p>BU User (BU Owner)</p>            
+      <button class="btn btn--right">
+        <img src="/assets/svg/006-notification.svg" alt="menu-button"/>
+      </button>
+      <button class="btn btn--right" (click)="logout()">
+        <img src="/assets/svg/002-power.svg" alt="menu-button"/>
+      </button>
+    </div>
   </header>
+  <nav>
+    <button class="btn" (click)="showAdoptionEntry()">Adoption Entry</button>
+    <button class="btn" (click)="showAdoptionView()">Adoption View</button>
+    <button class="btn">Report Management</button>
+    <button class="btn">Manage Platforms</button>
+    <button class="btn">Manage Hierarchy</button>
+  </nav>
   <section>
-    <aside>SideBar</aside>
-    <div>MainContent</div>
+    <!-- <aside>SideBar</aside> -->
+    <div class="main-section">
+      <!-- <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
+                 [rowData]="rowData"
+                 [columnDefs]="columnDefs">
+      </ag-grid-angular> -->
+      <router-outlet></router-outlet>
+    </div>
   </section>
 </div>
+<phd-popup-info [visible]="isPopupVisible" title="Do you want to log out?" content="NOTE: Please save your changes before logging out. Continue with Logout?" (closePopup)="onPopupInfoClose($event)" (cancelPopup)="onPopupInfoCancel($event)"></phd-popup-info>

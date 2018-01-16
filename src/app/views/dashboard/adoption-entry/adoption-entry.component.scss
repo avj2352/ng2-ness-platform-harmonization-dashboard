@@ -1,0 +1,26 @@
+@import './../../../../styles.scss';
+
+.adoption-view {
+    margin: 0;    
+
+    h1 {
+        margin: 0 15px;
+        color: $dark-blue-start;
+    }
+    ag-grid-angular {        
+        margin: 10px 0;
+        font-family: "Centrale-Sans", sans-serif;        
+    }
+    .button-section {
+        display: flex;        
+        button {
+            margin: 0 5px;
+            font-family: "Centrale-Sans", sans-serif;        
+            padding: 10px 25px;
+            font-size: 0.9rem;
+            &:first-child {
+                color: $color-green-dark;
+            }
+        }
+    }
+}//end:adoption-view

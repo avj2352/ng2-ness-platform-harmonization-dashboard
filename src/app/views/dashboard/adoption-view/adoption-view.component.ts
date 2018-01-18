@@ -35,7 +35,7 @@ export class AdoptionViewComponent implements OnInit {
 
   ngOnInit() {
     this.isVisible = true;
-    this.staticDataService.getStaticDelay().subscribe((response) => {this.isVisible = false},(error)=>{this.isVisible = false});
+    this.staticDataService.threeSecondDelay().then((response) => {this.isVisible = false},(error)=>{this.isVisible = false});
   }//end:ngOnInit
 
 }//end:class-AdoptionViewComponent

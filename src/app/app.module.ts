@@ -21,7 +21,7 @@ import { StaticDataService } from './services/static-data/static-data.service';
 //AG-Grid dependencies
 import {AgGridModule} from 'ag-grid-angular/main';
 import { AgGridConfigureService } from 'app/services/ag-grid-configure/ag-grid-configure.service';
-import { SideBarComponent } from './components/side-bar/side-bar/side-bar.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 const appRoutes: Routes = [  
   { path: 'login', component: LoginComponent },  
@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   children : [      
     { path: '', redirectTo: 'adoption-entry', pathMatch: 'full' },
     { path: 'adoption-entry', component: AdoptionEntryComponent },
-    { path: 'adoption-view', component: AdoptionViewComponent }
+    { path: 'adoption-view', component: AdoptionViewComponent},    
     ]
   },  
   { path: '', redirectTo: 'login', pathMatch: 'full' },

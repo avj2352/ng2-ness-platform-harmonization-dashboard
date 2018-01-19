@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterContentInit, Inject } from '@angular/core';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { Router } from '@angular/router';
+import { SideBarComponent } from './../../components/side-bar/side-bar.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ export class DashboardComponent implements OnInit {
 
   private isVisible:boolean;
   private isPopupVisible:boolean;
-  
+  private isSideBarVisible:boolean;
 
   constructor(
     private router: Router
@@ -39,6 +40,11 @@ export class DashboardComponent implements OnInit {
     this.isPopupVisible = true;
   }//end:logout
 
+  toggleSideBar(){
+    this.isSideBarVisible = !this.isSideBarVisible;
+    console.log('Toggle Side Bar', this.isSideBarVisible);
+  }
+
   showAdoptionEntry(){
     this.router.navigateByUrl('/dashboard/adoption-entry');
   }//end:showAdoptionEntry()
@@ -47,7 +53,8 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/adoption-view');
   }//end:showAdoptionView()
 
-  ngOnInit() {    
+  ngOnInit() { 
+    this.isSideBarVisible = false;   
   }//end:ngOnInit  
 
 }//end:class-DashboardComponent

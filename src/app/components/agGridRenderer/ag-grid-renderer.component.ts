@@ -15,7 +15,7 @@ export class AssetRenderer implements ICellRendererAngularComp {
 
     agInit(params: any): void {
         this.params = params;
-        console.log(params.eParentOfValue);
+        //console.log(params.eParentOfValue);
         this.setAsset(params);
     }
 

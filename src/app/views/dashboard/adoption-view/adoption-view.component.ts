@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StaticDataService } from './../../../services/static-data/static-data.service';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-adoption-view',
   templateUrl: './adoption-view.component.html',
@@ -11,7 +13,8 @@ export class AdoptionViewComponent implements OnInit {
   private isVisible:boolean;
 
   constructor(
-    private staticDataService:StaticDataService
+    private staticDataService:StaticDataService,
+    private route:ActivatedRoute
   ) {
     this.columnDefs = [
       {headerName: "Make", field: "make"},
@@ -34,8 +37,21 @@ export class AdoptionViewComponent implements OnInit {
   }//end:configAgGridStyle()
 
   ngOnInit() {
+    //Route
+    this.route.params.subscribe(params=>{
+      console.log('Param are',params);
+    });
     this.isVisible = true;
-    this.staticDataService.threeSecondDelay().then((response) => {this.isVisible = false},(error)=>{this.isVisible = false});
+    //Service related
+    this.staticDataService.threeSecondDelay().then((response) => {
+      this.isVisible = false;      
+    },
+    (error)=>{
+      this.isVisible = false;
+    });
+
+    // this.staticDataService.createMergeMapExample().subscribe(x=>console.log('Merge Map: ',x));
+    // this.staticDataService.createSwitchMapExample().subscribe(x=>console.log('Switch Map', x));
   }//end:ngOnInit
 
 }//end:class-AdoptionViewComponent

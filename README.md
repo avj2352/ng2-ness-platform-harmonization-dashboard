@@ -124,3 +124,15 @@ export class StaticDataService {
 # What the Hell are Operators
 
 Operators are used to modify an observable midstream WITHOUT unwrapping it. 
+
+
+# Todo-Tasks
+
+- `Sourav`: Change the following values to their respective new names
+
+```js
+{
+  'reportEdit':'adoptionEntry',
+  'quarterlyStatus':'adoptionView'
+}
+```

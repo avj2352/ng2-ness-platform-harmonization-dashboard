@@ -1,12 +1,11 @@
 import { environment } from './../../../environments/environment';
-
-// 'base': 'http://localhots:8080/',
-//http://161.85.105.168:8080/shpar_dev/report,
+const apiURL = require("./../../../assets/data/env.config.json");
+//http://161.85.105.168:8080/shpar_dev/,
 let base = '';
 if(environment.production){
-    base = 'http://161.85.105.168:8080/shpar_prod/';
+    base = apiURL.prod.target;
 }else {
-    base = 'http://161.85.105.168:8080/shpar_dev/';
+    base = apiURL.dev.target;
 };
 
 export const appURL = {    
@@ -17,6 +16,7 @@ export const appURL = {
     'allReports': base+'report',
     'allPlatforms':base+'platform',
     'allAsset':base+'asset',
+    
     'allAssetType':base+'assettype', 
     'loginEndPoint':base+'login',
     'logoutEndPoint': base+ 'logout',           

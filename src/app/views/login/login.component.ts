@@ -6,7 +6,7 @@ import { LoginService } from 'app/services/auth/login.service';
 @Component({
   selector: 'phd-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss']  
 })
 export class LoginComponent implements OnInit {
   private version:String;
@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
         this.isValidError = true;
         console.error('Login Error: ', res);
       }else{
+        console.log('Success Response contains: ', res);
+        this.loginService.storeCredentials(res);
         this.router.navigateByUrl('/dashboard');
       }
     });

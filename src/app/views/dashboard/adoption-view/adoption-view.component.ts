@@ -35,7 +35,15 @@ export class AdoptionViewComponent implements OnInit {
 
   ngOnInit() {
     this.isVisible = true;
-    this.staticDataService.threeSecondDelay().then((response) => {this.isVisible = false},(error)=>{this.isVisible = false});
+    this.staticDataService.threeSecondDelay().then((response) => {
+      this.isVisible = false;      
+    },
+    (error)=>{
+      this.isVisible = false;
+    });
+
+    this.staticDataService.createMergeMapExample().subscribe(x=>console.log('Merge Map: ',x));
+    this.staticDataService.createSwitchMapExample().subscribe(x=>console.log('Switch Map', x));
   }//end:ngOnInit
 
 }//end:class-AdoptionViewComponent

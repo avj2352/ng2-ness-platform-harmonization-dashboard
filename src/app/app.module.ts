@@ -21,6 +21,7 @@ import { StaticDataService } from './services/static-data/static-data.service';
 //AG-Grid dependencies
 import {AgGridModule} from 'ag-grid-angular/main';
 import { AgGridConfigureService } from 'app/services/ag-grid-configure/ag-grid-configure.service';
+import { SideBarComponent } from './components/side-bar/side-bar/side-bar.component';
 
 const appRoutes: Routes = [  
   { path: 'login', component: LoginComponent },  
@@ -48,7 +49,8 @@ const config: ExtraOptions = {
     AdoptionViewComponent,
     LoaderComponent,
     PopupInfoComponent,
-    ButtonDropdownComponent    
+    ButtonDropdownComponent,
+    SideBarComponent    
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import 'rxjs/add/operator/delay';
 import { Observable } from 'rxjs/Observable';
 
 
+
 @Injectable()
 export class StaticDataService {
 
@@ -14,7 +15,6 @@ export class StaticDataService {
   ) {
 
   }//end:constructor
-
   getPackageDetails(){
     return this.http
     .get('http://localhost:4200/assets/package.json')    
@@ -24,8 +24,7 @@ export class StaticDataService {
       return Observable.throw(new Error('Error occured'));
    });
   }//end:getPackageDetails
-
-  getStaticDelay(){
+  getAdoptionResult(){
     return this.http
     .get('http://localhost:4200/assets/data/asset-adoption.json')
     .delay(3000)
@@ -34,14 +33,23 @@ export class StaticDataService {
       let details = err.json();
       return Observable.throw(new Error('Error occured'));
    });
-  }//end:getStaticDelay
-
+  }//end:getAdoptionResult
   threeSecondDelay(){
     return new Promise(function(resolve,reject){
       setTimeout(function(){
         resolve();
       },3000);
     });
-  }//end:threeSecondDelay
+  }//end
+
+  geUnitType(){
+    return this.http
+    .get('http://localhost:4200/assets/data/unitType.json')
+    .map(response => response.json())
+    .catch((err:Response) => {
+      let details = err.json();
+      return Observable.throw(new Error('Error occured'));
+   });
+  }//end:geUnitType
 
 }//end:StaticDataService

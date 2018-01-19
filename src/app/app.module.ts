@@ -15,6 +15,8 @@ import { AdoptionViewComponent } from './views/dashboard/adoption-view/adoption-
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
+import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
+
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 
@@ -48,7 +50,8 @@ const config: ExtraOptions = {
     AdoptionViewComponent,
     LoaderComponent,
     PopupInfoComponent,
-    ButtonDropdownComponent    
+    ButtonDropdownComponent,
+    AssetRenderer
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,7 @@ const config: ExtraOptions = {
       prefix:'phd-app',
       storageType:'localStorage'
     }),
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([AssetRenderer])
   ],
   providers: [
     StaticDataService,

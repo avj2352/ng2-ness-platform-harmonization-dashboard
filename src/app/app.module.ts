@@ -17,11 +17,13 @@ import { PopupInfoComponent } from './components/popup-info/popup-info.component
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
-
+import { LoginService } from 'app/services/auth/login.service';
+import { LogoutService } from 'app/services/auth/logout.service';
 //AG-Grid dependencies
 import {AgGridModule} from 'ag-grid-angular/main';
 import { AgGridConfigureService } from 'app/services/ag-grid-configure/ag-grid-configure.service';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+
 
 const appRoutes: Routes = [  
   { path: 'login', component: LoginComponent },  
@@ -66,7 +68,9 @@ const config: ExtraOptions = {
   ],
   providers: [
     StaticDataService,
-    AgGridConfigureService
+    AgGridConfigureService,
+    LoginService,
+    LogoutService
   ],
   bootstrap: [AppComponent]
 })

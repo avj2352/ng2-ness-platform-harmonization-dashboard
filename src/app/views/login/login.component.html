@@ -1,9 +1,11 @@
+<phd-loader content="Logging User..." [visible]="isVisible"></phd-loader>  
 <div class="login-view">  
   <!-- Username Password Section -->
   <div class="form-container">
     <img src="assets/img/philips-logo.png" alt="philips logo">
     <h1>Philips <span>Software Harmonization - Platform Adoption Roadmap</span></h1>    
     <p>version {{version}}</p>
+    <h4 *ngIf="isValidError">INVALID USERNAME / PASSWORD</h4>
     <form>
       <div class="form-group">
         <input type="text" required="required"/>

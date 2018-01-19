@@ -5,18 +5,21 @@
     left: 0;
     top:0;
     height: 89vh;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    text-transform: uppercase;
     align-items: center;
     width: 20%;
     z-index: 100;    
-    display: none;
+    display: flex;
     flex-direction: column;
     color: $color-white;
     background-color: rgba(#0A1B2B,0.9);
     @include box-shadow-effect-02;
-
+    transform: translateX(-100%);
+    transition: all 0.2s ease-in-out;
     &__visible {
-        display: flex;        
+        // display: flex;        
+        transform: translateX(0);
     }
 
     header {
@@ -24,14 +27,14 @@
         width: 100%;
         display: flex;
         flex-direction: row;
-        padding: 0 5px;        
+        padding: 2px 5px;        
         align-items: space-between;
         button {
             color: $color-white;
             cursor: pointer;
             width: 40px;
             height: 40px;
-            margin:5px 0px;
+            margin:2px 0px;
             margin-left: auto;
             border: none;            
             border-radius: 50%;
@@ -41,7 +44,8 @@
             transition: all 0.2s ease-in-out;
             &:hover {
                 @include box-shadow-effect-02;
-                background: rgba($button-green, 0.4);
+                background: rgba($light-blue-tint, 0.4);
+                border-bottom: 5px solid $light-blue-tint;
                 transform: translateY(-5px);
             }
         }

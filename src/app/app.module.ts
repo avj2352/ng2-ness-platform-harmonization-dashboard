@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ExtraOptions, RouterModule, Routes } from "@angular/router";
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -17,18 +18,25 @@ import { PopupInfoComponent } from './components/popup-info/popup-info.component
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
-
-//AG-Grid dependencies
+import { LoginService } from 'app/services/auth/login.service';
+import { LogoutService } from 'app/services/auth/logout.service';
+//AG-Grid dependencies and Smart Table
 import {AgGridModule} from 'ag-grid-angular/main';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AgGridConfigureService } from 'app/services/ag-grid-configure/ag-grid-configure.service';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
+
 
 const appRoutes: Routes = [  
   { path: 'login', component: LoginComponent },  
   { path: 'dashboard', component: DashboardComponent,
   children : [      
-    { path: '', redirectTo: 'adoption-entry', pathMatch: 'full' },
-    { path: 'adoption-entry', component: AdoptionEntryComponent },
-    { path: 'adoption-view', component: AdoptionViewComponent }
+    { path: '', redirectTo: 'reportEdit', pathMatch: 'full' },
+    { path: 'reportEdit', component: AdoptionEntryComponent },
+    { path: 'quarterlyStatus', component: AdoptionViewComponent},    
+    // { path: 'manage-organizations', component:ManageOrganizationComponent,}
     ]
   },  
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -48,23 +56,29 @@ const config: ExtraOptions = {
     AdoptionViewComponent,
     LoaderComponent,
     PopupInfoComponent,
-    ButtonDropdownComponent    
+    ButtonDropdownComponent,
+    SideBarComponent    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes,config),
     LocalStorageModule.withConfig({
       prefix:'phd-app',
       storageType:'localStorage'
     }),
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    Ng2SmartTableModule
   ],
   providers: [
     StaticDataService,
-    AgGridConfigureService
+    AgGridConfigureService,
+    LoginService,
+    LogoutService,
+    TokenInterceptor,        
   ],
   bootstrap: [AppComponent]
 })

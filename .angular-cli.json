@@ -10,7 +10,7 @@
       "assets": [
         "assets",
         "favicon.ico",
-        { "glob": "package.json", "input": "../", "output": "./assets/" },
+        { "glob": "package.json", "input": "../", "output": "./assets/" },        
         { "glob": "asset-adoption.json", "input": "./", "output": "./assets/" }
       ],
       "index": "index.html",

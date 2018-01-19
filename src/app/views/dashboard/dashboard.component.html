@@ -1,11 +1,11 @@
 <div class="dashboard-view">      
   <header>
-    <button class="btn">
+    <button class="btn" (click)="toggleSideBar()">
       <img src="/assets/svg/014-menu-button.svg" alt="menu-button"/>
     </button>
     <p class="header-title">Platform Adoption Roadmap</p>            
     <div class="right-navigation">
-      <p>BU User (BU Owner)</p>            
+      <p>{{userName | uppercase}} ({{userRole.name | uppercase}})</p>            
       <button class="btn btn--right">
         <img src="/assets/svg/006-notification.svg" alt="menu-button"/>
       </button>
@@ -22,7 +22,7 @@
     <button class="btn">Manage Hierarchy</button>
   </nav>
   <section>
-    <!-- <aside>SideBar</aside> -->
+    <phd-side-bar [visible]="isSideBarVisible" (hidden)="toggleSideBar()"></phd-side-bar>
     <div class="main-section">
       <!-- <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
                  [rowData]="rowData"

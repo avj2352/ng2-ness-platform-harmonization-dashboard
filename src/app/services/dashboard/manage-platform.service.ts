@@ -6,9 +6,10 @@ import * as envConfig from './../constants/env.endpoints';
 import { LoginService } from 'app/services/auth/login.service';
 
 @Injectable()
-export class ManageOrganizationService {  
+export class ManagePlatformService {  
   private options: RequestOptions; 
   private headers:Headers;
+
   constructor(
     private http:Http,
     private localStorage:LocalStorageService,
@@ -18,10 +19,11 @@ export class ManageOrganizationService {
     this.options = new RequestOptions({ headers: this.headers }); 
    }//end:constructor
 
-  getAllOrganizationTypeConfig(){
-    return this.http.get(envConfig.appURL.allOrganizationType,this.options)
+  getAllPlatformConfig(){
+    return this.http.get(envConfig.appURL.allPlatforms,this.options)
       .map(res => {
         // debugger;
+        // console.log('Get All Organization response', res);
         return res.json();
       })
       .catch((error)=>{
@@ -29,50 +31,40 @@ export class ManageOrganizationService {
       });
   }//end:getAllOrganizationTypeConfig
 
-  getAllOrganizationbyIdConfigById(OrganizationId){
-    return this.http.get(envConfig.appURL.allOrganizationTypesbyId+'='+OrganizationId,this.options)
+  creatPlatform(platformObj){
+    return this.http.post(envConfig.appURL.createPlatform,platformObj,this.options)
       .map(res => {
         // debugger;
-        return res.json();
-      })
-      .catch((error)=>{
-        return Observable.of(error._body);
-      });
-  }//end:getAllOrganizationConfigbyid
-
-  creatOrganization(organizationObj){
-    return this.http.post(envConfig.appURL.createOrganization,organizationObj,this.options)
-      .map(res => {
-        // debugger;
-        // console.log('Get All Organization response', res);
-        return res.json();
-      })
-      .catch((error)=>{
-        return Observable.of(error._body);
-      });
-  }//end:creatOrganization
-
-  updateOrganization(organizationObj){
-    return this.http.put(envConfig.appURL.updateOrganization,organizationObj,this.options)
-      .map(res => {
-        // debugger;
-        // console.log('Get All Organization response', res);
-        return res.json();
-      })
-      .catch((error)=>{
-        return Observable.of(error._body);
-      });
-  }//end:updateOrganization
-
-  deleteOrganization(intiatedReportId){
-    return this.http.delete(envConfig.appURL.deleteOrganization +'/'+ intiatedReportId ,this.options)
-      .map(res => {
-        // debugger;
-        // console.log('response', res);
+        // console.log('Get All Platform response', res);
         return res.json()
       })
       .catch((error)=>{
         return Observable.of(error._body);
       });
-  }//end:deleteOrganization
-}//end:class-ManageOrganizationService
+  }//end:creatPlatform
+
+  updatePlatform(platformObj){
+    return this.http.put(envConfig.appURL.updatePlatform,platformObj,this.options)
+      .map(res => {
+        // debugger;
+        // console.log('Get All Platform response', res);
+        return res.json()
+      })
+      .catch((error)=>{
+        return Observable.of(error._body);
+      });
+  }//end:updatePlatform
+
+  deletePlatform(intiatedReportId){
+    return this.http.delete(envConfig.appURL.deletePlatform +'/'+ intiatedReportId ,this.options)
+      .map(res => {
+        // debugger;
+        console.log('response', res);
+        return res.json()
+      })
+      .catch((error)=>{
+        return Observable.of(error._body);
+      });
+  }//end:deletePlatform
+
+}//end:class-ManagePlatformService

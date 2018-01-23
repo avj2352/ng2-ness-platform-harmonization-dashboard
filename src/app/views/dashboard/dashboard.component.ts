@@ -4,6 +4,8 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 import { Router } from '@angular/router';
 import { SideBarComponent } from './../../components/side-bar/side-bar.component';
 import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
+import { ManagePlatformService } from 'app/services/dashboard/manage-platform.service';
+import { ReportManagementService } from 'app/services/dashboard/report-management.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
 import { LoginService } from 'app/services/auth/login.service';
@@ -15,6 +17,8 @@ import { map as _map } from 'lodash';
   styleUrls: ['./dashboard.component.scss'],
   providers:[
     ManageOrganizationService,
+    ManagePlatformService,
+    ReportManagementService,
     {
       provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
@@ -33,7 +37,9 @@ export class DashboardComponent implements OnInit {
   private userName:string;
 
   constructor(
-    private manageOrg:ManageOrganizationService,
+    private manageOrganizationService:ManageOrganizationService,
+    private managePlatformService:ManagePlatformService,
+    private reportManagementService:ReportManagementService,
     private router: Router,
     private loginService:LoginService
   ) {    
@@ -71,6 +77,18 @@ export class DashboardComponent implements OnInit {
   showAdoptionView(){
     this.router.navigateByUrl('/dashboard/quarterlyStatus');
   }//end:showAdoptionView()
+
+  showManagePlatform(){
+    this.router.navigateByUrl('/dashboard/managePlatform');
+  }//end:showManagePlatform()
+
+  showManageOrganization(){
+    this.router.navigateByUrl('/dashboard/manageOrganization');
+  }//end:showManageOrganization()
+
+  showReportManagement(){
+    this.router.navigateByUrl('/dashboard/reportManagement');
+  }//end:showReportManagement()
 
   ngOnInit() { 
     this.isSideBarVisible = false;   

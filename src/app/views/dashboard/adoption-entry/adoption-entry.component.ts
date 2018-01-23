@@ -7,6 +7,7 @@ import { StaticDataService } from './../../../services/static-data/static-data.s
 })
 export class AdoptionEntryComponent implements OnInit {
   private columnDefs:any;
+  private isBreadCrumbVisible:boolean;
   private rowData:any;  
   private isVisible:boolean;
   constructor(
@@ -33,6 +34,7 @@ export class AdoptionEntryComponent implements OnInit {
   }//end:configAgGridStyle()
 
   ngOnInit() {
+    this.isBreadCrumbVisible = true;
     this.isVisible = true;
     this.staticDataService.getStaticDelay().subscribe((response) => {this.isVisible = false},(error)=>{this.isVisible = false});
   }//end:ngOnInit

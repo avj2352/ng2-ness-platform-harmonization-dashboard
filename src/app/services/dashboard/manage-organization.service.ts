@@ -24,11 +24,56 @@ export class ManageOrganizationService {
       .map(res => {
         // debugger;
         console.log('Get All Organization response', res);
-        return res;
+        return res.json();
       })
       .catch((error)=>{
         return Observable.of(error._body);
       });
   }//end:getAllOrganizationTypeConfig
+
+  getAllOrganizationbyIdConfigById(OrganizationId){
+    return this.http.get(envConfig.appURL.allOrganizationTypesbyId+'='+OrganizationId,this.options)
+      .map(res => {
+        // debugger;
+        return res.json();
+      })
+      .catch((error)=>{
+        return Observable.of(error._body);
+      });
+  }//end:getAllOrganizationConfigbyid
+
+  creatOrganization(organizationObj){
+    return this.http.post(envConfig.appURL.createOrganization,organizationObj,this.options)
+      .map(res => {
+        // debugger;        
+        return res.json();
+      })
+      .catch((error)=>{
+        return Observable.of(error._body);
+      });
+  }//end:creatOrganization
+
+  updateOrganization(organizationObj){
+    return this.http.put(envConfig.appURL.updateOrganization,organizationObj,this.options)
+      .map(res => {
+        // debugger;        
+        return res.json();
+      })
+      .catch((error)=>{
+        return Observable.of(error._body);
+      });
+  }//end:updateOrganization
+
+  deleteOrganization(intiatedReportId){
+    return this.http.delete(envConfig.appURL.deleteOrganization +'/'+ intiatedReportId ,this.options)
+      .map(res => {
+        // debugger;        
+        return res.json()
+      })
+      .catch((error)=>{
+        return Observable.of(error._body);
+      });
+  }//end:deleteOrganization
+
 
 }//end:class-ManageOrganizationService

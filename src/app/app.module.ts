@@ -12,10 +12,13 @@ import { LoginComponent } from './views/login/login.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AdoptionEntryComponent } from './views/dashboard/adoption-entry/adoption-entry.component';
 import { AdoptionViewComponent } from './views/dashboard/adoption-view/adoption-view.component';
+import { ManageOrganizationComponent } from './views/dashboard/manage-organization/manage-organization.component';
+import { ManageOrganizationListComponent } from 'app/views/dashboard/manage-organization/list/manage-org-list.component';
 //Custom Components
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 import { LoginService } from 'app/services/auth/login.service';
@@ -36,7 +39,12 @@ const appRoutes: Routes = [
     { path: '', redirectTo: 'reportEdit', pathMatch: 'full' },
     { path: 'reportEdit', component: AdoptionEntryComponent },
     { path: 'quarterlyStatus', component: AdoptionViewComponent},    
-    // { path: 'manage-organizations', component:ManageOrganizationComponent,}
+    { path: 'manage-organizations', component:ManageOrganizationComponent,
+      children:[
+        { path:'', redirectTo:'list', pathMatch:'full'},
+        {path:'list', component:ManageOrganizationListComponent}
+      ]
+    }
     ]
   },  
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -57,7 +65,10 @@ const config: ExtraOptions = {
     LoaderComponent,
     PopupInfoComponent,
     ButtonDropdownComponent,
-    SideBarComponent    
+    SideBarComponent,
+    ManageOrganizationComponent,
+    ManageOrganizationListComponent,
+    BreadCrumbComponent    
   ],
   imports: [
     BrowserModule,

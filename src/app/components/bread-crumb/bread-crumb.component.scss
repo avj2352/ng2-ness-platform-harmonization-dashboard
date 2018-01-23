@@ -1,0 +1,29 @@
+@import './../../../styles.scss';
+
+// Bread Crumb related CSS
+div.bread-crumb {    
+    display: none;    
+    background-color: none;
+    color:$dark-blue-start;
+
+    &-visible {
+        display: flex;
+        flex-direction: row;
+    }
+
+   /deep/div.panel-head {
+       width: 100%;       
+           /deep/ul {
+               border-bottom: 1px solid grey;
+               display: flex;
+               list-style: none;
+               /deep/li {
+                    
+                    
+                    padding: 5px;
+                   float: left;
+                   margin: 0 15px;
+                }
+            }        
+    }
+}//end:phd-bread-crumbb

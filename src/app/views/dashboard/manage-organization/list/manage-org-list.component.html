@@ -6,7 +6,7 @@
             </div>
             <div class="select-div">
             <select name="selectOrg" [(ngModel)]="selectOrg" (change)="selectOrganizationType(selectOrg)">
-                <option *ngFor="let item of organizationListData" [ngValue]="item">
+                <option *ngFor="let item of organizationTypeListData " [ngValue]="item">
                     {{item.name}}
                 </option>
             </select>
@@ -14,4 +14,9 @@
             </div>
         </div>    
     </form>
+    <div>
+        <ng2-smart-table [source]="organizationListData" [settings]="settings" (deleteConfirm)="onDeleteConfirm($event)"
+            (editConfirm)="onSaveConfirm($event)"
+            (createConfirm)="onCreateConfirm($event)" ></ng2-smart-table> 
+    </div>
 </div>

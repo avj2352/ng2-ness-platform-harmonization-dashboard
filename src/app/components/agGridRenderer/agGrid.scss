@@ -24,3 +24,16 @@
 .ag-theme-fresh .ag-cell{
     padding: 0px;
 }
+
+.s-hidden {
+    visibility:hidden;
+    padding-right:10px;
+}
+.select {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    font:normal 11px/22px Arial, Sans-Serif;
+    color:black;
+    border:1px solid #ccc;
+}

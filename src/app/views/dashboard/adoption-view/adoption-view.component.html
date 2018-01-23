@@ -6,21 +6,26 @@
       <div class="select-label">
         <p><strong>Select Quarter:</strong></p>
       </div>
-      <div class="select-div">
-        <select>
-          <option>Q2 Platform</option>
-          <option>Q1 2018 Report</option>
-        </select>
+      <div class="select-div" *ngIf="selectedReport"> 
+          <select  [(ngModel)]="selectedReport"   (ngModelChange)="selectedReportView()" name="Select report">
+              <option  *ngFor="let report of allReportArray" [ngValue]="report">
+                 {{report.name}}
+              </option>
+            </select>
         <i class="bar"></i>
       </div>
     </div>    
   </form>
-  <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
-  [rowData]="rowData"
-  [columnDefs]="columnDefs">
-  </ag-grid-angular>
+  <div *ngIf="agGridData">
+    <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
+      [rowData]="agGridData.rowData"
+      [columnDefs]="agGridData.columnDefs"
+      [groupHeaderHeight]="agGridData.groupHeaderHeight"
+      [frameworkComponents]="frameworkComponents"
+      [headerHeight] = "150">
+      </ag-grid-angular>
   <div class="button-section">
-    <button class="btn-material"><span>Download Report</span></button>     
+    <button class="btn-material" (click)="downloadReport()"><span>Download Report</span></button>     
   </div>
 </div>
 <phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  

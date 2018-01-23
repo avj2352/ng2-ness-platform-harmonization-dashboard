@@ -105,15 +105,15 @@
         display: flex;
         flex-direction: row;
         height: 93vh;
-        padding: 10px 2%;
+        padding: 10px 10px;
 
         .main-section {
             display: block;
             border-radius: 5px;
             padding: 0;
             background-color: $color-dull-white;            
-            width: 97%;
-            height: 85vh;
+            width: 100%;
+            height: 87vh;
             @include box-shadow-effect-02;            
         }//end:main-section
         

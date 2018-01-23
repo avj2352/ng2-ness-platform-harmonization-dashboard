@@ -17,6 +17,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
 import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
+import { AdoptionEditor } from 'app/components/agGridRenderer/ag-grid-editor.component';
 
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
@@ -60,7 +61,8 @@ const config: ExtraOptions = {
     PopupInfoComponent,
     ButtonDropdownComponent,
     SideBarComponent,
-    AssetRenderer   
+    AssetRenderer,
+    AdoptionEditor 
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,7 @@ const config: ExtraOptions = {
       prefix:'phd-app',
       storageType:'localStorage'
     }),
-    AgGridModule.withComponents([AssetRenderer]),
+    AgGridModule.withComponents([AssetRenderer,AdoptionEditor]),
     Ng2SmartTableModule
   ],
   providers: [

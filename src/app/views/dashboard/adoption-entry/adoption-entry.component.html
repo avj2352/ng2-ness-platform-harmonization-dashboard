@@ -1,18 +1,17 @@
-<div class="adoption-view">
+<div class="adoption-entry">
   <h1>Adoption Entry</h1>
   <hr>
   <div *ngIf="agGridData">
-  <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
-  [rowData]="agGridData.rowData"
-  [columnDefs]="agGridData.columnDefs"
-  [groupHeaderHeight]="agGridData.groupHeaderHeight"
-  [frameworkComponents]="frameworkComponents">
-                </ag-grid-angular>
+          <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
+          [rowData]="agGridData.rowData"
+          [columnDefs]="agGridData.columnDefs"
+          [groupHeaderHeight]="agGridData.groupHeaderHeight"
+          [frameworkComponents]="frameworkComponents"
+          [headerHeight] = "150">
+          </ag-grid-angular>
 
-              </div>
+  </div>
   <div class="button-section">
-
-
     <button class="btn-material">
       <span>Save Report</span>
     </button>

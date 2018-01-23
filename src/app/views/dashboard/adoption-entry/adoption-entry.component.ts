@@ -7,6 +7,10 @@ import 'rxjs/add/observable/from';
 
 //Comp
 import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
+import { AdoptionEditor } from 'app/components/agGridRenderer/ag-grid-editor.component';
+
+//Serveice 
+import { AdoptionService } from 'app/services/adoption-service/adoption.service';
 
 //Models 
 import {UnitType} from '../models/unitType';
@@ -32,7 +36,8 @@ export class AdoptionEntryComponent implements OnInit {
   
   constructor(
     private staticDataService:StaticDataService,
-    private agGridConfigureService:AgGridConfigureService
+    private agGridConfigureService:AgGridConfigureService,
+    private adoptionService: AdoptionService
   ) {
     this.columnDefs = [
       {headerName: "Make", field: "make"},
@@ -60,7 +65,7 @@ export class AdoptionEntryComponent implements OnInit {
     this.reportUnitTypeArray = new Map();
     this.unitTypeMap = new Map();
     this.staticDataService.threeSecondDelay().then((response) => {this.isVisible = false},(error)=>{this.isVisible = false});
-    this.staticDataService.geUnitType().subscribe(response => {
+    this.adoptionService.geUnitType().subscribe(response => {
       this.unitTypes = response;
       for(let singleUnit of this.unitTypes) { 
          // console.log(typeof(singleUnit.code));
@@ -79,19 +84,21 @@ export class AdoptionEntryComponent implements OnInit {
   }//end:ngOnInit
 
   getByUnitTypeReport() {
-    this.staticDataService.getAdoptionResult().subscribe(response => {
+    this.adoptionService.getAllUnitsReport().subscribe(response => {
       for(let singleUnit of response) { 
          let unitType =  this.unitTypeMap.get(singleUnit.unitTypeId);
-         this.assetAdoptionData.set(singleUnit.unitTypeId,singleUnit);
+         this.assetAdoptionData.set(singleUnit.unitTypeId,singleUnit); 
      }
      this.reportUnitTypeArray.set(this.unitTypes[0].id,this.agGridConfigureService.getReportArray(this.assetAdoptionData.get(this.unitTypes[0].id).productAssetAdoptionResponse,this.unitTypes,this.unitTypes[0],false));
-     this.frameworkComponents = { adoptionRenderer: AssetRenderer};   
+     this.frameworkComponents = { adoptionRenderer: AssetRenderer, adoptionEditor : AdoptionEditor};   
      this.agGridData = this.reportUnitTypeArray.get(1);
-    console.log(this.agGridData);
    //this.columnDefs = this.reportUnitTypeArray.get(1).columnDefs;
     
     });
 
+  }
+  ngOnDestroy() { 
+    console.log("on destory");
   }
 
 }

@@ -5,7 +5,7 @@ import {Component} from "@angular/core";
 import {ICellRendererAngularComp} from "ag-grid-angular";
 @Component({
     selector: 'asset-cell',
-    template: `<span [ngClass]="'greycell'" [innerHtml]="assetValue"></span>`,
+    template: `<span [innerHtml]="assetValue"></span>`,
     styleUrls: ['./agGrid.scss']
 })
 export class AssetRenderer implements ICellRendererAngularComp {
@@ -15,7 +15,7 @@ export class AssetRenderer implements ICellRendererAngularComp {
 
     agInit(params: any): void {
         this.params = params;
-        //console.log(params.eParentOfValue);
+        //console.log(params);
         this.setAsset(params);
     }
 
@@ -30,6 +30,3 @@ export class AssetRenderer implements ICellRendererAngularComp {
         this.assetValue = this.mood ;
     };
 }
-
-
-

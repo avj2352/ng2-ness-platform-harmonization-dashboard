@@ -4,7 +4,13 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import { Observable } from 'rxjs/Observable';
 import * as envConfig from './../constants/env.endpoints';
 
+//Models
+import { UserLoginCreditional } from '../../models/user-login';
 
+    // const inputObj = {
+    //   email:'bg@philips.com',
+    //   password:'Welcome@123'
+    // };
 @Injectable()
 export class LoginService {
   private headers: Headers;
@@ -19,13 +25,9 @@ export class LoginService {
     this.options = new RequestOptions({ headers: this.headers }); 
   }//end:constructor
 
-  loginUser(){
-    const inputObj = {
-      email:'bg@philips.com',
-      password:'Welcome@123'
-    };
+  loginUser(userInput:UserLoginCreditional){
     console.log('Login Endpoint is: ', envConfig.appURL.loginEndPoint);
-    return this.http.post(envConfig.appURL.loginEndPoint,inputObj,this.options)
+    return this.http.post(envConfig.appURL.loginEndPoint,userInput,this.options)
       .map(res => {
         // debugger;
         return res.json()
@@ -56,6 +58,19 @@ export class LoginService {
     return this.getToken().selectedRole;
   }//end:getUserRoles
 
+  getDownloadHeaderParams(): Headers{
+    const sessionID = this.getToken().sessionId;
+    console.log('Session ID: ', sessionID);
+    return new Headers({ 'Content-Type': 'application/json', 
+    'Accept': 'application/vnd.ms-excel',
+    'sessionId':sessionID,
+    'responseType': 'arraybuffer'
+    });  
+  }//getDownloadHeaderParams
+
+  getUserId() {
+    return this.getToken().id;
+  }
   getToken():any{
     let sessionObj = this.localStorage.get('session');
     console.log('Session object is: ', sessionObj);

@@ -18,7 +18,7 @@ export class AgGridConfigureService {
       'unit': {},
       'unitKeyList': {},
       groupHeaderHeight: 20,
-      headerHeight: 180,
+      headerHeight: 150,
       angularCompileRows: true,
       singleClickEdit: true
 
@@ -30,10 +30,12 @@ export class AgGridConfigureService {
     var row = 0, col = 0;
     var countPlatfrom = true;
     let platFormObj = [];
-    productObj.columnDefs.push({ headerName: 'Cluster', field: 'clusterCode', width: 60, pinned: 'left' });
-    productObj.columnDefs.push({ headerName: 'BG', field: 'bgCode', width: 80, pinned: 'left' });
-    productObj.columnDefs.push({ headerName: 'BU', field: 'buCode', width: 80, pinned: 'left' });
-    productObj.columnDefs.push({ headerName: 'Product', field: 'productName', width: 160, pinned: 'left' });
+    productObj.columnDefs.push({headerName:'Product Group',
+      children:[{ headerName: 'Cluster', field: 'clusterCode', width: 60, pinned: 'left' ,columnGroupShow: 'open' },
+                { headerName: 'BG', field: 'bgCode', width: 80, pinned: 'left' ,columnGroupShow: 'open' },
+                { headerName: 'BU', field: 'buCode', width: 80, pinned: 'left' ,columnGroupShow: 'open' },
+                { headerName: 'Product', field: 'productName', width: 160, pinned: 'left' }]
+  });
 
     //Create the platform and asset headers  
     var productEachArray = ReportEditListArray[0];
@@ -52,19 +54,56 @@ export class AgGridConfigureService {
             headerName: productEachArray.assetDetails[i].assetName,
             field: 'asset' + productEachArray.assetDetails[i].assetId,
             cellRenderer: 'adoptionRenderer',
+            cellClass:  function(params) { let colObj = params.colDef.cellEditorParams.values; 
+                                                if (params.value ===  colObj[0].code)
+                                                {
+                                                  console.log(colObj[0].colorCode);
+                                                  return colObj[0].colorCode;
+                                                }
+                                                else if (params.value === colObj[1].code){
+                                                  return colObj[1].colorCode
+                                                }
+                                                else if (params.value === colObj[2].code){
+                                                  return colObj[2].colorCode
+                                                }
+                                                else if (params.value === colObj[3].code){
+                                                  return colObj[3].colorCode
+                                                }
+                                                else if (params.value === colObj[4].code){
+                                                  return colObj[4].colorCode
+                                                }
+                                              },
+              
            // template: '<span style="font-weight: bold;" class="greycell" inline-cell-value data="data" ng-bind="data.asset2"></span>',
-            cellEditor: 'agSelectCellEditor',
+            cellEditor: 'adoptionEditor',
             cellEditorParams: {
-              //cellRenderer: 'CellRenderer',
-              values: assetOptions.unitKeyList
+              values: assetOptions.unitArray 
             },
             width: assetOptions.width,
             editable: editableVal
-          });
-        } else {
-          platFormObj[productEachArray.assetDetails[i].platformCode].children.push({
+            });
+          } else {
+            platFormObj[productEachArray.assetDetails[i].platformCode].children.push({
             headerName: productEachArray.assetDetails[i].assetName,
             field: 'asset' + productEachArray.assetDetails[i].assetId,
+            cellClass:  function(params) { let colObj = params.colDef.cellEditorParams.values; 
+              if (params.value ===  colObj[0].code)
+              {
+                return colObj[0].colorCode;
+              }
+              else if (params.value === colObj[1].code){
+                return colObj[1].colorCode
+              }
+              else if (params.value === colObj[2].code){
+                return colObj[2].colorCode
+              }
+              else if (params.value === colObj[3].code){
+                return colObj[3].colorCode
+              }
+              else if (params.value === colObj[4].code){
+                return colObj[4].colorCode
+              }
+            },
             width: assetOptions.width,
             editable: editableVal
           });
@@ -77,10 +116,27 @@ export class AgGridConfigureService {
             headerName: productEachArray.assetDetails[i].assetName,
             field: 'asset' + productEachArray.assetDetails[i].assetId,
             cellRenderer: 'adoptionRenderer',
-            //cellEditor: 'adoptionEditor',
+            cellEditor: 'adoptionEditor',            
+            cellClass:  function(params) { let colObj = params.colDef.cellEditorParams.values; 
+              if (params.value ===  colObj[0].code)
+              {
+                return colObj[0].colorCode;
+              }
+              else if (params.value === colObj[1].code){
+                return colObj[1].colorCode
+              }
+              else if (params.value === colObj[2].code){
+                return colObj[2].colorCode
+              }
+              else if (params.value === colObj[3].code){
+                return colObj[3].colorCode
+              }
+              else if (params.value === colObj[4].code){
+                return colObj[4].colorCode
+              }
+            },
             cellEditorParams: {
-              //cellRenderer: 'CellRenderer',
-              values: assetOptions.unitKeyList
+              values: assetOptions.unitArray
             },
             width: assetOptions.width,
             editable: editableVal
@@ -90,7 +146,25 @@ export class AgGridConfigureService {
             headerName: productEachArray.assetDetails[i].assetName,
             field: 'asset' + productEachArray.assetDetails[i].assetId,
             width: assetOptions.width,
-            editable: editableVal
+            editable: editableVal,
+            cellClass:  function(params) { let colObj = params.colDef.cellEditorParams.values; 
+              if (params.value ===  colObj[0].code)
+              {
+                return colObj[0].colorCode;
+              }
+              else if (params.value === colObj[1].code){
+                return colObj[1].colorCode
+              }
+              else if (params.value === colObj[2].code){
+                return colObj[2].colorCode
+              }
+              else if (params.value === colObj[3].code){
+                return colObj[3].colorCode
+              }
+              else if (params.value === colObj[4].code){
+                return colObj[4].colorCode
+              }
+            },
           });
         }
       };
@@ -130,12 +204,7 @@ export class AgGridConfigureService {
         }
       }
       productObj.rowData.push(prdObj);
-    }
-    console.log(productObj);
-
-
-
-    //console.log(productObj);				
+    }			
 
     return productObj;
 
@@ -167,7 +236,7 @@ export class AgGridConfigureService {
       var columnOptions = [];
       for (var i = 0; i < selectedUnitConfig.unitList.length; i++) {
         columnOptions.push(selectedUnitConfig.unitList[i].code);
-        selectedUnitObj.unitArray.push({ name: selectedUnitConfig.unitList[i].code, code: selectedUnitConfig.unitList[i].code });
+        selectedUnitObj.unitArray.push({ name: selectedUnitConfig.unitList[i].code, code: selectedUnitConfig.unitList[i].code ,colorCode :  selectedUnitConfig.unitList[i].colorCode });
         // selectedUnitObj.unitKeyList[selectedUnitConfig.unitList[i].code] = {
         // 	'name': selectedUnitConfig.unitList[i].name,
         // 	'id': selectedUnitConfig.unitList[i].id
@@ -177,13 +246,13 @@ export class AgGridConfigureService {
       }
       selectedUnitObj.column = columnOptions;
       selectedUnitObj.idselector = selectedUnitConfig.id;
-      selectedUnitObj.width = 50;
+      selectedUnitObj.width = 45;
       selectedUnitObj.unit.keyVal = 'unitCode';
       selectedUnitObj.unit.unitName = selectedUnitConfig.name;
     } else if (selectedUnitConfig.type == 'text') {
 
       selectedUnitObj.idselector = selectedUnitConfig.id;
-      selectedUnitObj.width = 50;
+      selectedUnitObj.width = 45;
       selectedUnitObj.column = [];
       //unitvalue
       selectedUnitObj.unit.keyVal = 'unitValue';

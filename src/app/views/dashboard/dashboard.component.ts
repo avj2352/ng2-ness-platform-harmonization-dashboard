@@ -4,6 +4,7 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 import { Router } from '@angular/router';
 import { SideBarComponent } from './../../components/side-bar/side-bar.component';
 import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
+import { AdoptionService } from 'app/services/adoption-service/adoption.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
 import { LoginService } from 'app/services/auth/login.service';
@@ -15,6 +16,7 @@ import { map as _map } from 'lodash';
   styleUrls: ['./dashboard.component.scss'],
   providers:[
     ManageOrganizationService,
+    AdoptionService,
     {
       provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,

@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-button-dropdown',
+  selector: '[phd-button-dropdown]',
   templateUrl: './button-dropdown.component.html',
-  styleUrls: ['./button-dropdown.component.sass']
+  styleUrls: ['./button-dropdown.component.scss']
 })
 export class ButtonDropdownComponent implements OnInit {
 
-  constructor() { }
+  @Input() private visible:boolean;
+
+  constructor() { 
+
+  }//end:constructor
 
   ngOnInit() {
-  }
+  }//end:ngOnInit
 
-}
+}//end:ButtonDropdownComponent

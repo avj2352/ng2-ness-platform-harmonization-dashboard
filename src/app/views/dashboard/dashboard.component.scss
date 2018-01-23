@@ -30,6 +30,8 @@
         .right-navigation {    
             p {
                 display: inline-block;
+                cursor: pointer;
+                outline: none;
             }        
             right: 0;
             margin-left: auto;            

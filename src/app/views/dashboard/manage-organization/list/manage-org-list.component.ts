@@ -9,13 +9,6 @@ interface ManageHierarchy {
     hierarchy:number;
 };
 
-interface ManageOrganization {
-    id:number;
-    name:string;
-    code:string;
-    hierarchy:number;
-};
-
 @Component({
     selector: 'phd-manage-org-list',
     templateUrl:'./manage-org-list.component.html',
@@ -24,7 +17,7 @@ interface ManageOrganization {
 export class ManageOrganizationListComponent implements OnInit {
     private isVisible:boolean;
     private organizationTypeListData :ManageHierarchy[];
-    private organizationListData :ManageOrganization[];
+    private organizationListData :ManageHierarchy[];
     private selectOrg:any;
     private settings:any;
 
@@ -32,7 +25,7 @@ export class ManageOrganizationListComponent implements OnInit {
         private manageOrgService:ManageOrganizationService
     ){        
     // ng-smart-table settings        
-    this.settings  =   {
+    this.settings  =  {
     delete:  {
         confirmDelete:  true,
     },
@@ -79,8 +72,7 @@ export class ManageOrganizationListComponent implements OnInit {
             },
             (error)=>{
                 this.isVisible = false;
-            }); 
-            
+            });             
         }//end:selectOrganizationType()
 
         

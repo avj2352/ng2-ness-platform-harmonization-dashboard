@@ -14,11 +14,14 @@ import { AdoptionEntryComponent } from './views/dashboard/adoption-entry/adoptio
 import { AdoptionViewComponent } from './views/dashboard/adoption-view/adoption-view.component';
 import { ManageOrganizationComponent } from './views/dashboard/manage-organization/manage-organization.component';
 import { ManageOrganizationListComponent } from 'app/views/dashboard/manage-organization/list/manage-org-list.component';
+import { CreateOrganizationComponent } from 'app/views/dashboard/manage-organization/create/create-org.component';
+import { EditOrganizationComponent } from 'app/views/dashboard/manage-organization/edit/edit-org.component';
 //Custom Components
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 import { LoginService } from 'app/services/auth/login.service';
@@ -42,7 +45,9 @@ const appRoutes: Routes = [
     { path: 'manage-organizations', component:ManageOrganizationComponent,
       children:[
         { path:'', redirectTo:'list', pathMatch:'full'},
-        {path:'list', component:ManageOrganizationListComponent}
+        {path:'list', component:ManageOrganizationListComponent},
+        {path:'create', component:CreateOrganizationComponent},
+        {path:'edit', component:EditOrganizationComponent}
       ]
     }
     ]
@@ -68,7 +73,10 @@ const config: ExtraOptions = {
     SideBarComponent,
     ManageOrganizationComponent,
     ManageOrganizationListComponent,
-    BreadCrumbComponent    
+    CreateOrganizationComponent,
+    EditOrganizationComponent,
+    BreadCrumbComponent,
+    ToggleSwitchComponent    
   ],
   imports: [
     BrowserModule,

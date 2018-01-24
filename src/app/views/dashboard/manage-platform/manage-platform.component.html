@@ -1,9 +1,0 @@
-<div>
-        <button id="buttonRight" type="button" class="btn btn-primary pull-right" (click)="showAddNewPlatform()">Add New Platform</button>
-        <ng2-smart-table [source]="platformListData" [settings]="settings" (deleteConfirm)="onDeleteConfirm($event)"
-        (editConfirm)="onSaveConfirm($event)"
-        (createConfirm)="onCreateConfirm($event)" ></ng2-smart-table>
-</div>
-
-   
-  <phd-loader content="Loading Manage Platform" [visible]="isVisible"></phd-loader>  

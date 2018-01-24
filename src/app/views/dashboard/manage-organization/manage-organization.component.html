@@ -1,9 +1,10 @@
-<div>
-        <button id="buttonRight" type="button" class="btn btn-primary pull-right" (click)="showAddNewOrganization()">Add New Organization</button>
-        <ng2-smart-table [source]="platformListData" [settings]="settings" (deleteConfirm)="onDeleteConfirm($event)"
-        (editConfirm)="onSaveConfirm($event)"
-        (createConfirm)="onCreateConfirm($event)" ></ng2-smart-table>
-</div>
-
-   
-  <phd-loader content="Loading Manage Platform" [visible]="isVisible"></phd-loader>  
+<div class="manage-org-view">
+  <phd-bread-crumb [visible]="isBreadCrumbVisible">
+    <ul>
+      <li (click)="showOrgazniationlist()">Organization List</li>      
+      <li (click)="showAddNewOrgazniation()">Add New Orgazniation</li>      
+    </ul>
+  </phd-bread-crumb>  
+  <router-outlet></router-outlet>
+</div>  
+<phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  

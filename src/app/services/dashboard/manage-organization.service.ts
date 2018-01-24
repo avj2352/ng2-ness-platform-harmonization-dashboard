@@ -9,6 +9,7 @@ import { LoginService } from 'app/services/auth/login.service';
 export class ManageOrganizationService {  
   private options: RequestOptions; 
   private headers:Headers;
+
   constructor(
     private http:Http,
     private localStorage:LocalStorageService,
@@ -22,6 +23,7 @@ export class ManageOrganizationService {
     return this.http.get(envConfig.appURL.allOrganizationType,this.options)
       .map(res => {
         // debugger;
+        console.log('Get All Organization response', res);
         return res.json();
       })
       .catch((error)=>{
@@ -29,7 +31,7 @@ export class ManageOrganizationService {
       });
   }//end:getAllOrganizationTypeConfig
 
-  getAllOrganizationbyIdConfigById(OrganizationId){
+  getAllOrganizationbyIdConfig(OrganizationId){
     return this.http.get(envConfig.appURL.allOrganizationTypesbyId+'='+OrganizationId,this.options)
       .map(res => {
         // debugger;
@@ -43,8 +45,7 @@ export class ManageOrganizationService {
   creatOrganization(organizationObj){
     return this.http.post(envConfig.appURL.createOrganization,organizationObj,this.options)
       .map(res => {
-        // debugger;
-        // console.log('Get All Organization response', res);
+        // debugger;        
         return res.json();
       })
       .catch((error)=>{
@@ -55,8 +56,7 @@ export class ManageOrganizationService {
   updateOrganization(organizationObj){
     return this.http.put(envConfig.appURL.updateOrganization,organizationObj,this.options)
       .map(res => {
-        // debugger;
-        // console.log('Get All Organization response', res);
+        // debugger;        
         return res.json();
       })
       .catch((error)=>{
@@ -67,12 +67,13 @@ export class ManageOrganizationService {
   deleteOrganization(intiatedReportId){
     return this.http.delete(envConfig.appURL.deleteOrganization +'/'+ intiatedReportId ,this.options)
       .map(res => {
-        // debugger;
-        // console.log('response', res);
+        // debugger;        
         return res.json()
       })
       .catch((error)=>{
         return Observable.of(error._body);
       });
   }//end:deleteOrganization
+
+
 }//end:class-ManageOrganizationService

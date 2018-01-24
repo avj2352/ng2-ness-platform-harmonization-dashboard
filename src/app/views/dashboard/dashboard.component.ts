@@ -4,7 +4,6 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 import { Router } from '@angular/router';
 import { SideBarComponent } from './../../components/side-bar/side-bar.component';
 import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
-import { ManagePlatformService } from 'app/services/dashboard/manage-platform.service';
 import { ReportManagementService } from 'app/services/dashboard/report-management.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
@@ -17,7 +16,6 @@ import { map as _map } from 'lodash';
   styleUrls: ['./dashboard.component.scss'],
   providers:[
     ManageOrganizationService,
-    ManagePlatformService,
     ReportManagementService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -28,7 +26,7 @@ import { map as _map } from 'lodash';
 })
 export class DashboardComponent implements OnInit {
   
-
+  private isUserProfileDropdown:boolean;
   private isVisible:boolean;
   private isPopupVisible:boolean;
   private isSideBarVisible:boolean;
@@ -37,9 +35,7 @@ export class DashboardComponent implements OnInit {
   private userName:string;
 
   constructor(
-    private manageOrganizationService:ManageOrganizationService,
-    private managePlatformService:ManagePlatformService,
-    private reportManagementService:ReportManagementService,
+    private manageOrg:ManageOrganizationService,
     private router: Router,
     private loginService:LoginService
   ) {    
@@ -78,24 +74,25 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/quarterlyStatus');
   }//end:showAdoptionView()
 
-  showManagePlatform(){
-    this.router.navigateByUrl('/dashboard/managePlatform');
-  }//end:showManagePlatform()
-
-  showManageOrganization(){
-    this.router.navigateByUrl('/dashboard/manageOrganization');
-  }//end:showManageOrganization()
+  showManageOrg(){
+    this.router.navigateByUrl('/dashboard/manage-organizations');
+  }//end:showManageOrg
 
   showReportManagement(){
-    this.router.navigateByUrl('/dashboard/reportManagement');
-  }//end:showReportManagement()
+    this.router.navigateByUrl('/dashboard/report-management');
+  }//end:showManageOrg
+
+  toggleUserProfileDropdown(){
+    this.isUserProfileDropdown = !this.isUserProfileDropdown;
+  }//end:toggleUserProfileDropdown()
 
   ngOnInit() { 
-    this.isSideBarVisible = false;   
+    this.isSideBarVisible = false;
+    this.isUserProfileDropdown = false;
     this.userName = this.loginService.getUserName();
-    this.userRole = this.loginService.getSelectedRole();        
+    this.userRole = this.loginService.getSelectedRole();
     console.log('Screens are: ', this.userRole);
     // this.manageOrg.getAllOrganizationTypeConfig().subscribe(res=>console.log('Get All Organization response:', res));
-  }//end:ngOnInit  
+  }//end:ngOnInit
 
 }//end:class-DashboardComponent

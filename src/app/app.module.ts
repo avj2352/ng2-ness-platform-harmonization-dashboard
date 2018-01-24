@@ -12,47 +12,58 @@ import { LoginComponent } from './views/login/login.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AdoptionEntryComponent } from './views/dashboard/adoption-entry/adoption-entry.component';
 import { AdoptionViewComponent } from './views/dashboard/adoption-view/adoption-view.component';
-import { ManagePlatformComponent } from './views/dashboard/manage-platform/manage-platform.component';
-import { CreatePlatformComponent } from './views/dashboard/manage-platform/create-platform/create-platform.component';
 import { ManageOrganizationComponent } from './views/dashboard/manage-organization/manage-organization.component';
-import { CreateOrganizationComponent } from './views/dashboard/manage-organization/create-organization/create-organization.component';
+import { ManageOrganizationListComponent } from './views/dashboard/manage-organization/list/manage-org-list.component';
+import { CreateOrganizationComponent } from './views/dashboard/manage-organization/create/create-org.component';
+import { EditOrganizationComponent } from './views/dashboard/manage-organization/edit/edit-org.component';
 import { ReportManagementComponent } from './views/dashboard/report-management/report-management.component';
-import { CreateReportComponent } from './views/dashboard/report-management/create-report/create-report.component';
+import { ReportManagementListComponent } from './views/dashboard/report-management/list/report-management-list.component';
+import { CreateReportComponent } from './views/dashboard/report-management/create/create-report.component';
 //Custom Components
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
-import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
-
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
-import { LoginService } from 'app/services/auth/login.service';
-import { LogoutService } from 'app/services/auth/logout.service';
+import { LoginService } from './services/auth/login.service';
+import { LogoutService } from './services/auth/logout.service';
 //AG-Grid dependencies and Smart Table
-import { AgGridModule } from 'ag-grid-angular/main';
+import {AgGridModule} from 'ag-grid-angular/main';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { AgGridConfigureService } from 'app/services/ag-grid-configure/ag-grid-configure.service';
+import { AgGridConfigureService } from './services/ag-grid-configure/ag-grid-configure.service';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
+import { TokenInterceptor } from './services/auth/token-interceptor.service';
 
 
-const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  {
-    path: 'dashboard', component: DashboardComponent,
-    children: [
-      { path: '', redirectTo: 'reportEdit', pathMatch: 'full' },
-      { path: 'reportEdit', component: AdoptionEntryComponent },
-      { path: 'quarterlyStatus', component: AdoptionViewComponent },
-      { path: 'managePlatform', component: ManagePlatformComponent },
-      { path: 'createPlatform', component: CreatePlatformComponent },
-      { path: 'manageOrganization', component: ManageOrganizationComponent },
-      { path: 'createOrganization', component: CreateOrganizationComponent },
-      { path: 'reportManagement', component: ReportManagementComponent },
-      { path: 'createReport', component: CreateReportComponent },
+
+const appRoutes: Routes = [  
+  { path: 'login', component: LoginComponent },  
+  { path: 'dashboard', component: DashboardComponent,
+  children : [      
+    { path: '', redirectTo: 'reportEdit', pathMatch: 'full' },
+    { path: 'reportEdit', component: AdoptionEntryComponent },
+    { path: 'quarterlyStatus', component: AdoptionViewComponent},    
+    { path: 'manage-organizations', component:ManageOrganizationComponent,
+      children:[
+        { path:'', redirectTo:'list', pathMatch:'full'},
+        {path:'list', component:ManageOrganizationListComponent},
+        {path:'create', component:CreateOrganizationComponent},
+        {path:'edit/:obj', component:EditOrganizationComponent}
+      ]
+    },
+    { path: 'report-management', component:ReportManagementComponent,
+    children:[
+      { path:'', redirectTo:'list', pathMatch:'full'},
+      {path:'list', component:ReportManagementListComponent},
+      {path:'create', component:CreateReportComponent},
+      {path:'edit', component:EditOrganizationComponent}
     ]
-  },
+  }
+    ]
+  },  
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
 ];
@@ -68,17 +79,19 @@ const config: ExtraOptions = {
     DashboardComponent,
     AdoptionEntryComponent,
     AdoptionViewComponent,
-    ManagePlatformComponent,
-    CreatePlatformComponent,
-    ManageOrganizationComponent,
-    CreateOrganizationComponent,
-    ReportManagementComponent,
-    CreateReportComponent,
     LoaderComponent,
     PopupInfoComponent,
     ButtonDropdownComponent,
     SideBarComponent,
-    AssetRenderer
+    ManageOrganizationComponent,
+    ReportManagementComponent,
+    ReportManagementListComponent,
+    ManageOrganizationListComponent,
+    CreateOrganizationComponent,
+    CreateReportComponent,
+    EditOrganizationComponent,
+    BreadCrumbComponent,
+    ToggleSwitchComponent    
   ],
   imports: [
     BrowserModule,
@@ -86,12 +99,12 @@ const config: ExtraOptions = {
     HttpModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes, config),
+    RouterModule.forRoot(appRoutes,config),
     LocalStorageModule.withConfig({
-      prefix: 'phd-app',
-      storageType: 'localStorage'
+      prefix:'phd-app',
+      storageType:'localStorage'
     }),
-    AgGridModule.withComponents([AssetRenderer]),
+    AgGridModule.withComponents([]),
     Ng2SmartTableModule
   ],
   providers: [
@@ -99,7 +112,7 @@ const config: ExtraOptions = {
     AgGridConfigureService,
     LoginService,
     LogoutService,
-    TokenInterceptor,
+    TokenInterceptor,        
   ],
   bootstrap: [AppComponent]
 })

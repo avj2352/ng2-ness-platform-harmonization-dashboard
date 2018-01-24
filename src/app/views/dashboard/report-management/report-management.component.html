@@ -1,9 +1,10 @@
-<div>
-        <button id="buttonRight" type="button" class="btn btn-primary pull-right" (click)="showAddNewReport()">Add New Report</button>
-        <ng2-smart-table [source]="platformListData" [settings]="settings" (deleteConfirm)="onDeleteConfirm($event)"
-        (editConfirm)="onSaveConfirm($event)"
-        (createConfirm)="onCreateConfirm($event)" ></ng2-smart-table>
-</div>
-
-   
-  <phd-loader content="Loading Manage Platform" [visible]="isVisible"></phd-loader>  
+<div class="manage-org-view">
+    <phd-bread-crumb [visible]="isBreadCrumbVisible">
+      <ul>
+        <li (click)="showReportlist()">Report List</li>      
+        <li (click)="showAddNewReport()">Add New Report</li>      
+      </ul>
+    </phd-bread-crumb>  
+    <router-outlet></router-outlet>
+  </div>  
+  <phd-loader content="Loading Report List View" [visible]="isVisible"></phd-loader>  

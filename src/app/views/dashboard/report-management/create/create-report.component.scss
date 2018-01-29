@@ -12,13 +12,15 @@
     background-color: $color-white;
     @include box-shadow-effect;
     padding: 5px;
-    text-align: left;    
+    text-align: left;
+    [hidden] {
+        display: none;
+     }
     .form-group { 
         margin: 0;       
         // border: 1px solid red;
         display: flex;
         flex-direction: row;        
-        flex-direction: column;        
         .select-label {
             // width: 15%;
             padding: 0px;

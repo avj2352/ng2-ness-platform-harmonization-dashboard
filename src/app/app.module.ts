@@ -13,6 +13,12 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AdoptionEntryComponent } from './views/dashboard/adoption-entry/adoption-entry.component';
 import { AdoptionViewComponent } from './views/dashboard/adoption-view/adoption-view.component';
 import { ManageOrganizationComponent } from './views/dashboard/manage-organization/manage-organization.component';
+import { ManageOrganizationListComponent } from './views/dashboard/manage-organization/list/manage-org-list.component';
+import { CreateOrganizationComponent } from './views/dashboard/manage-organization/create/create-org.component';
+import { EditOrganizationComponent } from './views/dashboard/manage-organization/edit/edit-org.component';
+import { ReportManagementComponent } from './views/dashboard/report-management/report-management.component';
+import { ReportManagementListComponent } from './views/dashboard/report-management/list/report-management-list.component';
+import { CreateReportComponent } from './views/dashboard/report-management/create/create-report.component';
 import { ManageOrganizationListComponent } from 'app/views/dashboard/manage-organization/list/manage-org-list.component';
 import { CreateOrganizationComponent } from 'app/views/dashboard/manage-organization/create/create-org.component';
 import { EditOrganizationComponent } from 'app/views/dashboard/manage-organization/edit/edit-org.component';
@@ -25,17 +31,15 @@ import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.
 import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
-import { LoginService } from 'app/services/auth/login.service';
-import { LogoutService } from 'app/services/auth/logout.service';
+import { LoginService } from './services/auth/login.service';
+import { LogoutService } from './services/auth/logout.service';
 //AG-Grid dependencies and Smart Table
 import {AgGridModule} from 'ag-grid-angular/main';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { AgGridConfigureService } from 'app/services/ag-grid-configure/ag-grid-configure.service';
+import { AgGridConfigureService } from './services/ag-grid-configure/ag-grid-configure.service';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
-
-
+import { TokenInterceptor } from './services/auth/token-interceptor.service';
 const appRoutes: Routes = [  
   { path: 'login', component: LoginComponent },  
   { path: 'dashboard', component: DashboardComponent,
@@ -48,6 +52,17 @@ const appRoutes: Routes = [
         { path:'', redirectTo:'list', pathMatch:'full'},
         {path:'list', component:ManageOrganizationListComponent},
         {path:'create', component:CreateOrganizationComponent},
+        {path:'edit/:obj', component:EditOrganizationComponent}
+      ]
+    },
+    { path: 'report-management', component:ReportManagementComponent,
+    children:[
+      { path:'', redirectTo:'list', pathMatch:'full'},
+      {path:'list', component:ReportManagementListComponent},
+      {path:'create', component:CreateReportComponent},
+      {path:'edit', component:EditOrganizationComponent}
+    ]
+  }
         {path:'edit', component:EditOrganizationComponent}
       ]
     }
@@ -73,6 +88,14 @@ const config: ExtraOptions = {
     ButtonDropdownComponent,
     SideBarComponent,
     ManageOrganizationComponent,
+    ReportManagementComponent,
+    ReportManagementListComponent,
+    ManageOrganizationListComponent,
+    CreateOrganizationComponent,
+    CreateReportComponent,
+    EditOrganizationComponent,
+    BreadCrumbComponent,
+    ToggleSwitchComponent    
     ManageOrganizationListComponent,
     CreateOrganizationComponent,
     EditOrganizationComponent,
@@ -91,7 +114,7 @@ const config: ExtraOptions = {
       prefix:'phd-app',
       storageType:'localStorage'
     }),
-    AgGridModule.withComponents([AssetRenderer]),
+    AgGridModule.withComponents([]),
     Ng2SmartTableModule
   ],
   providers: [

@@ -17,7 +17,10 @@ div.bread-crumb {
                border-bottom: 1px solid grey;
                display: flex;
                list-style: none;
-               /deep/li {
+               /deep/li {                                        
+                    padding: 5px;
+                   float: left;
+                   margin: 0 15px;
                    padding: 5px;
                    cursor: pointer;
                    float: left;

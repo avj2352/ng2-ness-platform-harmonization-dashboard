@@ -31,7 +31,7 @@ export class ManageOrganizationService {
       });
   }//end:getAllOrganizationTypeConfig
 
-  getAllOrganizationbyIdConfigById(OrganizationId){
+  getAllOrganizationbyIdConfig(OrganizationId){
     return this.http.get(envConfig.appURL.allOrganizationTypesbyId+'='+OrganizationId,this.options)
       .map(res => {
         // debugger;

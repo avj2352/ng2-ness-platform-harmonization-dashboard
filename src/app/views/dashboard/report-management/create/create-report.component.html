@@ -1,0 +1,36 @@
+<div class="create-org">
+    <h1>New Report</h1>
+    <hr/>
+    <div class="form-group">
+        <div class="select-label">
+            <p>
+                <strong>Quarter of the year:</strong>
+            </p>
+        </div>
+        <div class="select-div">
+            <select name="selectOrg" [(ngModel)]="selectOrg">
+                <option *ngFor="let item of listofQuarter" [ngValue]="item">
+                    {{item}}
+                </option>
+            </select>
+            <i class="bar"></i>
+        </div>
+    </div>
+    <form action="">
+        <div class="row">
+            <div class="col-1-of-2">
+                <label for="organizationName"> Name:</label>
+                <span style="color:red" *ngIf=" (organizationName.dirty || organizationName.touched) && organizationName.errors?.required">required</span>
+                <span style="color:red" *ngIf="(organizationName.dirty || organizationName.touched) && organizationName.errors?.maxlength">Max 32 chars.</span>
+                <input type="text" #organizationName="ngModel" class="form-control" [(ngModel)]="obj.name" placeholder="Enter organization Name"
+                    maxlength="32" name="organizationName" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1-of-2">
+                <button type="button" [disabled]="!(organizationName.valid && organizationCode.valid)"
+                class="btn btn-success" (click)="createReportAction(obj)">Create Organization</button>
+            </div>
+        </div>
+    </form>
+</div>

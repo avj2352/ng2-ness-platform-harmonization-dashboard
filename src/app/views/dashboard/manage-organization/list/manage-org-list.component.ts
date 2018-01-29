@@ -17,94 +17,129 @@ interface ManageHierarchy {
 
 @Component({
     selector: 'phd-manage-org-list',
-    templateUrl:'./manage-org-list.component.html',
-    styleUrls: ['./manage-org-list.component.scss']    
+    templateUrl: './manage-org-list.component.html',
+    styleUrls: ['./manage-org-list.component.scss']
 })
 export class ManageOrganizationListComponent implements OnInit {
-    private isVisible:boolean;
-    private organizationTypeListData :ManageHierarchy[];
-    private organizationListData :ManageHierarchy[];
-    private selectOrg:any;
-    private settings:any;
-    private grid:Grid;
+    private isVisible: boolean;
+    private organizationTypeListData : ManageHierarchy[];
+    private organizationListData : ManageHierarchy[];
+    private selectOrg: any;
+    private settings: any;
+    private headingLable: String;
+    private router:Router;
 
-    //
+    constructor(
+        private manageOrgService: ManageOrganizationService
+    ) {
+        // ng-smart-table settings        
 
-    constructor(private manageOrgService:ManageOrganizationService){        
-    // ng-smart-table settings        
-    this.settings  =  {
-    actions: {
-        columnTitle: 'Actions',
-        add: false,
-        edit: false,
-        delete: true,
-        custom: [],
-        position: 'right', // left|right
-    },
-    delete:  {
-        confirmDelete:  true,        
-    },
-    add:  {
-        confirmCreate:  true,
-    },
-    edit:  {
-        confirmSave:  true,
-    },
-    columns:  {
-        hierarchy:  {
-        title:   '#'
-        },
-        code:  {
-        title:   'Code'
-        },
-        name:  {
-        title:   'Name'
-        },
-        description:  {
-        title:   'Description'
-        },
-        active:  {
-        title:   'Status',
-        filter:  {
-            type:   'checkbox',
-            config:  {
-            true:   '1',
-            false:   '0',
-            resetText:   'clear',
-            },
-        },
-        }
-    }
-    };//end:settings
-    
     }//end:constructor
 
-    selectOrganizationType(item:ManageHierarchy){
+    selectOrganizationType(item: ManageHierarchy) {
         console.log('Item selected is: ', item.name);
-        this.manageOrgService.getAllOrganizationbyIdConfigById(item.id).subscribe((response) => {
+        this.manageOrgService.getAllOrganizationbyIdConfig(item.id).subscribe((response)  =>  {
             console.log('Response is: ', response);
-            this.organizationListData = response;             
-            },
-            (error)=>{
-                this.isVisible = false;
-            });             
-        }//end:selectOrganizationType()
+            var temp_data = response;
+            temp_data.forEach(element => {
+                if (element.active == 1) {
+                    element.active = 'Active'
+                } else {
+                    element.active = 'Inactive'
+                }
 
-        ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-            
+            });
+            this.organizationListData  = temp_data;
+            this.headingLable = item.name;
+            this.settings = {
+                actions: {
+                    edit: false,
+                    add: false,
+                    position: 'right',
+                    custom: [
+                        {
+                            name: 'edit',
+                            title: 'Edit ',
+                        },
+                    ],
+                },
+                delete: {
+                    confirmDelete: true,
+                },
+                // add:  {
+                //     confirmCreate:  true,
+                // },
+                // edit:  {
+                //     confirmSave:  true,
+                // },
+                columns: {
+                    hierarchy: {
+                        title: '#'
+                    },
+                    code: {
+                        title: this.headingLable + ' Code'
+                    },
+                    name: {
+                        title: this.headingLable + ' Name'
+                    },
+                    // parentOrganization.code: {
+                    //     title: this.headingLable + ' Code'
+                    // },
+                    // parentOrganization.name: {
+                    //     title: this.headingLable + ' Name'
+                    // },
+                    active: {
+                        title: 'Status',
+                        filter: {
+                            type: 'checkbox',
+                            config: {
+                                true: 'Active',
+                                false: 'Inactive',
+                                resetText: 'clear',
+                            },
+                        },
+                    }
+                }
+            };//end:settings
 
-          }//end:ngOnChanges
-        
-        ngOnInit(){
-            this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response) => {
-                console.log('Response from GetAllOrganziation is: ', response);
-                this.organizationTypeListData = response;  
-                this.selectOrg = response[0];
-                this.selectOrganizationType(this.selectOrg);
-            },
-            (error)=>{
-            this.isVisible = false;
-            });         
+        },
+            (error) => {
+                this.isVisible  =  false;
+            });
+    }//end:selectOrganizationType()
+
+    onSaveConfirm(event)
+    {
+        var a=2;
+        var b=4;
+        this.router.navigateByUrl('/dashboard/manage-organizations/edit');
+    }
+
+    onDeleteConfirm(event) {
+        if (window.confirm('Are you sure you want to delete?')) {
+            this.manageOrgService.deleteOrganization(event.data.id).subscribe((response) => {
+                console.log(response)   
+              },
+              (error)=>{
+                console.log(error)   
+                // this.isVisible = false;
+              });
+          event.confirm.resolve();
+        } else {
+          event.confirm.reject();
+        }
+      }
+
+    ngOnInit() {
+        this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response)  =>  {
+            console.log('Response from GetAllOrganziation is: ', response);
+            this.organizationTypeListData  =  response;
+            this.selectOrg = response[0];
+            this.selectOrganizationType(this.selectOrg);
+            this.headingLable = response[0].name;
+        },
+            (error) => {
+                this.isVisible  =  false;
+            });
     }//end:ngOnInit
-
 }//end:class-ManageOrganizationListComponent    

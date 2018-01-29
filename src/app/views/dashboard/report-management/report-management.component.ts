@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { StaticDataService } from './../../../services/static-data/static-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute ,Router } from '@angular/router';
 
 @Component({
-  selector: 'app-manage-organization',
-  templateUrl: './manage-organization.component.html',
-  styleUrls: ['./manage-organization.component.scss']
+  selector: 'app-report-management',
+  templateUrl: './report-management.component.html',
+  styleUrls: ['./report-management.component.scss']
 })
-export class ManageOrganizationComponent implements OnInit {
+export class ReportManagementComponent implements OnInit {
   private isVisible:boolean;
   private isBreadCrumbVisible:boolean;
   constructor(
@@ -17,14 +17,14 @@ export class ManageOrganizationComponent implements OnInit {
   ) { 
   }//end:constructor
 
-  showAddNewOrgazniation(){
-    this.router.navigateByUrl('/dashboard/manage-organizations/create');
+  showAddNewReport(){
+    this.router.navigateByUrl('/dashboard/report-management/create');
   }//end:showAddNewOrgazniation()
 
-  showOrgazniationlist(){
-    this.router.navigateByUrl('/dashboard/manage-organizations/list');
+  showReportlist(){
+    this.router.navigateByUrl('/dashboard/report-management/list');
   }//end:showAddNewOrgazniation()
-  
+
   ngOnInit() {
     this.isBreadCrumbVisible = true;
     this.route.params.subscribe(params=>{
@@ -39,4 +39,5 @@ export class ManageOrganizationComponent implements OnInit {
       this.isVisible = false;
     });
   }//end:ngOnInit
-}//end:ManageOrganizationComponent
+
+}//end:ReportManagementComponent

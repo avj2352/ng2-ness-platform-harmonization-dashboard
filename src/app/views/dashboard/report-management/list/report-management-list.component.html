@@ -1,5 +1,5 @@
 <div class="manage-org-list">
-    <form class="select-oraganization-type">
+    <!-- <form class="select-oraganization-type">
         <div class="form-group">
             <div class="select-label">
             <p><strong>Organization Type:</strong></p>
@@ -13,9 +13,10 @@
             <i class="bar"></i>
             </div>
         </div>    
-    </form>
+    </form> -->
     <div>
-        <ng2-smart-table [source]="organizationListData" [settings]="settings" (deleteConfirm)="onDeleteConfirm($event)"
-            (editConfirm)="onSaveConfirm($event)"></ng2-smart-table> 
-    </div>   
+        <ng2-smart-table [source]="reportListData" [settings]="settings" (deleteConfirm)="onDeleteConfirm($event)"
+            (editConfirm)="onSaveConfirm($event)"
+            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table> 
+    </div>
 </div>

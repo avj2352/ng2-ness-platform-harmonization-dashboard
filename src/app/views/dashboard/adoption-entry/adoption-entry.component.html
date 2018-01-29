@@ -2,12 +2,16 @@
   <!-- <hr> -->
   <phd-bread-crumb [visible]="isBreadCrumbVisible">
     <ul>
-      <li>Asset Mapping</li>
+      <li class="selected">Asset Mapping</li>
       <li>RoadMap Status</li>
       <li>RoadMap Timing</li>
       <li>Asset Quality</li>
     </ul>
   </phd-bread-crumb>
+<div class="adoption-view">
+  <h1>Adoption Entry</h1>
+  <hr>
+  <div *ngIf="agGridData">
   <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
   [rowData]="rowData"
                  [columnDefs]="columnDefs">

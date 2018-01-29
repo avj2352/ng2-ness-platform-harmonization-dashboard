@@ -1,17 +1,16 @@
+
 $color_checkbox_success:#4cd964;
 $color_checkbox_default:#8E8E93;
 $transition: .3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
 $width: 4em;
+@import './../../../styles.scss';
+
+$color_checkbox_success:$button-blue;
+$color_checkbox_default:#8E8E93;
+$transition: .3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$width: 3em;
 $height: $width/2;
 
-html{
-  font-size: 16px;
-  box-sizing:border-box;
-}
-body{
-  font-size: 1em;
-  font-family:arial, sans-serif;
-}
 .display{
   position: absolute;
   top: 50%;

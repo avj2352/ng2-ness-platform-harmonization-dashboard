@@ -1,13 +1,18 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChange} from '@angular/core';
 import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
 import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
+//Custom Modules from ng2-smart-table
+import { Grid } from 'ng2-smart-table/lib/grid';
+import { DataSource } from 'ng2-smart-table/lib/data-source/data-source';
+import { Row } from 'ng2-smart-table/lib/data-set/row';
+import { deepExtend } from 'ng2-smart-table/lib/helpers';
+import { LocalDataSource } from 'ng2-smart-table/lib/data-source/local/local.data-source';
 
 interface ManageHierarchy {
-    id: number;
-    name: string;
-    code: string;
-    hierarchy: number;
+    id:number;
+    name:string;
+    code:string;
+    hierarchy:number;
 };
 
 @Component({
@@ -137,5 +142,4 @@ export class ManageOrganizationListComponent implements OnInit {
                 this.isVisible  =  false;
             });
     }//end:ngOnInit
-
 }//end:class-ManageOrganizationListComponent    

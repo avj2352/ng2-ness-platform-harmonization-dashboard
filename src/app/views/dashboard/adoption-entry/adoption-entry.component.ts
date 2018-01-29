@@ -21,6 +21,7 @@ import {AgGrid} from 'app/views/dashboard/models/ag-grid';
 })
 export class AdoptionEntryComponent implements OnInit {
   private columnDefs:any;
+  private isBreadCrumbVisible:boolean;
   private rowData:any;  
   private isVisible:boolean;
   private unitTypes: Array<UnitType>;
@@ -55,6 +56,7 @@ export class AdoptionEntryComponent implements OnInit {
   }//end:configAgGridStyle()
 
   ngOnInit() {
+    this.isBreadCrumbVisible = true;
     this.isVisible = true;
     this.assetAdoptionData = new Map();
     this.reportUnitTypeArray = new Map();

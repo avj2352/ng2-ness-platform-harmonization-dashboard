@@ -10,7 +10,7 @@
     background-color: rgba($color-black,0.8);
 
     &-visible {
-        display: block;
+        display: block;        
     }
 
     &__content {
@@ -22,7 +22,10 @@
         flex-direction: column;
         text-align: center;
         background-color: $color-white;
-        box-shadow: 0 2rem 4rem rgba($color-black,0.8);        
+        box-shadow: 0 2rem 4rem rgba($color-black,0.8);   
+        &-visible {
+            animation: fadeIn 0.3s ease-in-out;
+        }     
     }//end:content
 
     &__header {

@@ -12,12 +12,17 @@ import { LoginComponent } from './views/login/login.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AdoptionEntryComponent } from './views/dashboard/adoption-entry/adoption-entry.component';
 import { AdoptionViewComponent } from './views/dashboard/adoption-view/adoption-view.component';
+import { ManageOrganizationComponent } from './views/dashboard/manage-organization/manage-organization.component';
+import { ManageOrganizationListComponent } from 'app/views/dashboard/manage-organization/list/manage-org-list.component';
+import { CreateOrganizationComponent } from 'app/views/dashboard/manage-organization/create/create-org.component';
+import { EditOrganizationComponent } from 'app/views/dashboard/manage-organization/edit/edit-org.component';
 //Custom Components
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
-
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 import { LoginService } from 'app/services/auth/login.service';
@@ -38,7 +43,14 @@ const appRoutes: Routes = [
     { path: '', redirectTo: 'reportEdit', pathMatch: 'full' },
     { path: 'reportEdit', component: AdoptionEntryComponent },
     { path: 'quarterlyStatus', component: AdoptionViewComponent},    
-    // { path: 'manage-organizations', component:ManageOrganizationComponent,}
+    { path: 'manage-organizations', component:ManageOrganizationComponent,
+      children:[
+        { path:'', redirectTo:'list', pathMatch:'full'},
+        {path:'list', component:ManageOrganizationListComponent},
+        {path:'create', component:CreateOrganizationComponent},
+        {path:'edit', component:EditOrganizationComponent}
+      ]
+    }
     ]
   },  
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -60,6 +72,12 @@ const config: ExtraOptions = {
     PopupInfoComponent,
     ButtonDropdownComponent,
     SideBarComponent,
+    ManageOrganizationComponent,
+    ManageOrganizationListComponent,
+    CreateOrganizationComponent,
+    EditOrganizationComponent,
+    BreadCrumbComponent,
+    ToggleSwitchComponent    
     AssetRenderer   
   ],
   imports: [

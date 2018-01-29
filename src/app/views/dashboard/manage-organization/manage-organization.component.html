@@ -1,0 +1,10 @@
+<div class="manage-org-view">
+  <phd-bread-crumb [visible]="isBreadCrumbVisible">
+    <ul>
+      <li (click)="showManageListScreen()">Organization List</li>      
+      <li (click)="showCreateNewOrganizationScreen()">Add New Orgazniation</li>      
+    </ul>
+  </phd-bread-crumb>  
+  <router-outlet></router-outlet>
+</div>  
+<phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  

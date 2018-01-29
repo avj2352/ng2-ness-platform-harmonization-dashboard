@@ -1,0 +1,43 @@
+@import './../../../styles.scss';
+
+// Bread Crumb related CSS
+div.bread-crumb {    
+    display: none;    
+    background-color: none;
+    color:$dark-blue-start;
+
+    &-visible {
+        display: flex;
+        flex-direction: row;
+    }
+
+   /deep/div.panel-head {
+       width: 100%;       
+           /deep/ul {
+               border-bottom: 1px solid grey;
+               display: flex;
+               list-style: none;
+               /deep/li {
+                   padding: 5px;
+                   cursor: pointer;
+                   float: left;
+                   margin: 0 0px;
+                   &:hover {
+                       border: 1px solid rgba(grey,0.5);
+                       border-radius: 5px;
+                       border-bottom-left-radius: 0px;
+                       border-bottom-right-radius: 0px;
+                       border-bottom: none;
+                   }
+                   &.selected {
+                    border: 1px solid grey;
+                    border-radius: 5px;
+                    border-bottom-left-radius: 0px;
+                    border-bottom-right-radius: 0px;
+                    border-bottom: none;
+                    background-color: $color-white;                                        
+                   }
+                }
+            }        
+    }
+}//end:phd-bread-crumbb

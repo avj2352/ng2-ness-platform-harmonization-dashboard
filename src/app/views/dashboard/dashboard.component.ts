@@ -24,7 +24,7 @@ import { map as _map } from 'lodash';
 })
 export class DashboardComponent implements OnInit {
   
-
+  private isUserProfileDropdown:boolean;
   private isVisible:boolean;
   private isPopupVisible:boolean;
   private isSideBarVisible:boolean;
@@ -72,12 +72,21 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/quarterlyStatus');
   }//end:showAdoptionView()
 
+  showManageOrg(){
+    this.router.navigateByUrl('/dashboard/manage-organizations');
+  }//end:showManageOrg
+
+  toggleUserProfileDropdown(){
+    this.isUserProfileDropdown = !this.isUserProfileDropdown;
+  }//end:toggleUserProfileDropdown()
+
   ngOnInit() { 
-    this.isSideBarVisible = false;   
+    this.isSideBarVisible = false;
+    this.isUserProfileDropdown = false;
     this.userName = this.loginService.getUserName();
-    this.userRole = this.loginService.getSelectedRole();        
+    this.userRole = this.loginService.getSelectedRole();
     console.log('Screens are: ', this.userRole);
     // this.manageOrg.getAllOrganizationTypeConfig().subscribe(res=>console.log('Get All Organization response:', res));
-  }//end:ngOnInit  
+  }//end:ngOnInit
 
 }//end:class-DashboardComponent

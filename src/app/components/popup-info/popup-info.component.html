@@ -1,5 +1,5 @@
 <div [ngClass]="{'popup':true,'popup-visible':visible}">
-  <div class="popup__content">
+  <div [ngClass]="{'popup__content':true,'popup__content-visible':visible}">
     <div class="popup__header">
       <p>{{title}}</p>
       <button title="close" (click)="cancel()">

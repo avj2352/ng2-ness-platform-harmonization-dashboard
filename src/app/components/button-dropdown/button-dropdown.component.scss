@@ -1,0 +1,86 @@
+@import './../../../styles.scss';
+
+@mixin up-arrow-style($color){
+    top: -7px;
+    left: 24px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;	
+    border-bottom: 8px solid $color;
+}
+
+.dropdown-container {
+    position: absolute;
+    top:0;
+    width: 200px;
+    font-family: "Centrale-Sans", sans-serif;    
+    //This will be the up arrow
+    .dropdown-menu:before {
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        @include up-arrow-style($color-white);        
+        z-index: 0;
+    }
+    
+    .dropdown-menu {
+        // border: 1px solid red;
+        position: relative;
+        visibility: hidden;    
+        z-index: 1000;    
+        padding: 0;
+        color: #0B202B;
+        width: 100%;
+        max-width: 200px;     
+        top:10px;   
+        border-radius: 12px;
+        @include box-shadow-effect-02;
+        position: relative;
+        margin-top: 36px;
+    }    
+    
+    .dropdown-menu li:first-child {
+    border-radius: 12px 12px 0 0;
+    z-index: 10;
+    }
+    
+    .dropdown-menu li {
+    list-style-type: none;
+    float: none;
+    display: block;
+    padding: 12px;
+    border-bottom: 1px solid #dedede;
+    box-shadow: 0 0 0 0;
+    background: #FFFFFF;
+    }
+    
+    .dropdown-menu li:hover {
+    background: #e5e5e5;
+    cursor: pointer;
+    //This will be the up arrow
+    .dropdown-menu:before {
+        content: "";
+        @include up-arrow-style(#e5e5e5);
+    }
+    .dropdown-menu:after {
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;        
+        @include up-arrow-style(#e5e5e5);
+        
+        z-index: 10;
+        }
+    }//end:li:hover 
+    
+    .dropdown-menu li:last-child {
+    border-bottom: 0;
+    border-radius: 0 0 12px 12px;
+    }
+    
+    .open {
+    visibility: visible;  
+    animation: moveInTop 0.3s ease-in-out;
+    }//end:open
+
+}//end:container

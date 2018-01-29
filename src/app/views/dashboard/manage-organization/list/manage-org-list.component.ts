@@ -7,6 +7,7 @@ import { DataSource } from 'ng2-smart-table/lib/data-source/data-source';
 import { Row } from 'ng2-smart-table/lib/data-set/row';
 import { deepExtend } from 'ng2-smart-table/lib/helpers';
 import { LocalDataSource } from 'ng2-smart-table/lib/data-source/local/local.data-source';
+import { Router } from '@angular/router';
 
 interface ManageHierarchy {
     id:number;

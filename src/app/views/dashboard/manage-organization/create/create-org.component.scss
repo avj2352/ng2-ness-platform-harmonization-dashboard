@@ -17,14 +17,14 @@
         margin: 0;       
         // border: 1px solid red;
         display: flex;
-        flex-direction: row;        
+        flex-direction: column;        
         .select-label {
             // width: 15%;
             padding: 0px;
         }
         .select-div {
             // border: 1px solid green;
-            width: 40%;
+            width: 20%;
             select {
                 font-family: "Centrale-Sans", sans-serif;        
                 color: $color-black;

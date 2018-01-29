@@ -18,11 +18,25 @@ div.bread-crumb {
                display: flex;
                list-style: none;
                /deep/li {
-                    
-                    
-                    padding: 5px;
+                   padding: 5px;
+                   cursor: pointer;
                    float: left;
-                   margin: 0 15px;
+                   margin: 0 0px;
+                   &:hover {
+                       border: 1px solid rgba(grey,0.5);
+                       border-radius: 5px;
+                       border-bottom-left-radius: 0px;
+                       border-bottom-right-radius: 0px;
+                       border-bottom: none;
+                   }
+                   &.selected {
+                    border: 1px solid grey;
+                    border-radius: 5px;
+                    border-bottom-left-radius: 0px;
+                    border-bottom-right-radius: 0px;
+                    border-bottom: none;
+                    background-color: $color-white;                                        
+                   }
                 }
             }        
     }

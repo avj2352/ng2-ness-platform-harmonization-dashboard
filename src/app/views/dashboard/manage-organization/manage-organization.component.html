@@ -1,8 +1,8 @@
 <div class="manage-org-view">
   <phd-bread-crumb [visible]="isBreadCrumbVisible">
     <ul>
-      <li>Organization List</li>      
-      <li>Add New Orgazniation</li>      
+      <li (click)="showManageListScreen()">Organization List</li>      
+      <li (click)="showCreateNewOrganizationScreen()">Add New Orgazniation</li>      
     </ul>
   </phd-bread-crumb>  
   <router-outlet></router-outlet>

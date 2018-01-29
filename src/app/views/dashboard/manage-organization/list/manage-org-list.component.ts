@@ -1,6 +1,12 @@
-import { Component, OnInit, OnChanges, Input} from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChange} from '@angular/core';
 import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
 import { Observable } from 'rxjs/Observable';
+//Custom Modules from ng2-smart-table
+import { Grid } from 'ng2-smart-table/lib/grid';
+import { DataSource } from 'ng2-smart-table/lib/data-source/data-source';
+import { Row } from 'ng2-smart-table/lib/data-set/row';
+import { deepExtend } from 'ng2-smart-table/lib/helpers';
+import { LocalDataSource } from 'ng2-smart-table/lib/data-source/local/local.data-source';
 
 interface ManageHierarchy {
     id:number;
@@ -20,14 +26,23 @@ export class ManageOrganizationListComponent implements OnInit {
     private organizationListData :ManageHierarchy[];
     private selectOrg:any;
     private settings:any;
+    private grid:Grid;
 
-    constructor(
-        private manageOrgService:ManageOrganizationService
-    ){        
+    //
+
+    constructor(private manageOrgService:ManageOrganizationService){        
     // ng-smart-table settings        
     this.settings  =  {
+    actions: {
+        columnTitle: 'Actions',
+        add: false,
+        edit: false,
+        delete: true,
+        custom: [],
+        position: 'right', // left|right
+    },
     delete:  {
-        confirmDelete:  true,
+        confirmDelete:  true,        
     },
     add:  {
         confirmCreate:  true,
@@ -75,7 +90,10 @@ export class ManageOrganizationListComponent implements OnInit {
             });             
         }//end:selectOrganizationType()
 
-        
+        ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
+            
+
+          }//end:ngOnChanges
         
         ngOnInit(){
             this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response) => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StaticDataService } from './../../../services/static-data/static-data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-organization',
@@ -12,7 +12,8 @@ export class ManageOrganizationComponent implements OnInit {
   private isBreadCrumbVisible:boolean;
   constructor(
     private staticDataService:StaticDataService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private router: Router,
   ) { 
   }//end:constructor
 
@@ -30,5 +31,17 @@ export class ManageOrganizationComponent implements OnInit {
       this.isVisible = false;
     });
   }//end:ngOnInit
+
+  showManageListScreen(){
+    this.router.navigateByUrl('/dashboard/manage-organizations/list');
+  }//end:showManageListScreen
+
+  showCreateNewOrganizationScreen(){
+    this.router.navigateByUrl('/dashboard/manage-organizations/create');
+  }//end:showCreateNewOrganization
+
+  showEditOrganizationScreen(){
+    this.router.navigateByUrl('/dashboard/manage-organizations/create');
+  }//end:showEditOrganization
 
 }//end:ManageOrganizationComponent

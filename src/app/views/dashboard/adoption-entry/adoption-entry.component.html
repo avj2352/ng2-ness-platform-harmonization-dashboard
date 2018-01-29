@@ -8,13 +8,27 @@
       <li>Asset Quality</li>
     </ul>
   </phd-bread-crumb>
+<div class="adoption-view">
+  <h1>Adoption Entry</h1>
+  <hr>
+  <div *ngIf="agGridData">
   <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
-  [rowData]="rowData"
-                 [columnDefs]="columnDefs">
+  [rowData]="agGridData.rowData"
+  [columnDefs]="agGridData.columnDefs"
+  [groupHeaderHeight]="agGridData.groupHeaderHeight"
+  [frameworkComponents]="frameworkComponents">
                 </ag-grid-angular>
-                <div class="button-section">
-                  <button class="btn-material"><span>Save Report</span></button> 
-    <button class="btn-material"><span>Submit &amp; Close Report</span></button>
+
+              </div>
+  <div class="button-section">
+
+
+    <button class="btn-material">
+      <span>Save Report</span>
+    </button>
+    <button class="btn-material">
+      <span>Submit &amp; Close Report</span>
+    </button>
   </div>
 </div>
-  <phd-loader content="Loading Adoption Entry" [visible]="isVisible"></phd-loader>  
+<phd-loader content="Loading Adoption Entry" [visible]="isVisible"></phd-loader>

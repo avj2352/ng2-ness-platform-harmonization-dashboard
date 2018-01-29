@@ -22,6 +22,7 @@ import { PopupInfoComponent } from './components/popup-info/popup-info.component
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
+import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 import { LoginService } from 'app/services/auth/login.service';
@@ -77,6 +78,7 @@ const config: ExtraOptions = {
     EditOrganizationComponent,
     BreadCrumbComponent,
     ToggleSwitchComponent    
+    AssetRenderer   
   ],
   imports: [
     BrowserModule,
@@ -89,7 +91,7 @@ const config: ExtraOptions = {
       prefix:'phd-app',
       storageType:'localStorage'
     }),
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([AssetRenderer]),
     Ng2SmartTableModule
   ],
   providers: [

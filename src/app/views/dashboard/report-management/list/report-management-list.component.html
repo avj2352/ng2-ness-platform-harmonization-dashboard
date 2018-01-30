@@ -1,22 +1,66 @@
-<div class="manage-org-list">
-    <!-- <form class="select-oraganization-type">
-        <div class="form-group">
-            <div class="select-label">
-            <p><strong>Organization Type:</strong></p>
-            </div>
-            <div class="select-div">
-            <select name="selectOrg" [(ngModel)]="selectOrg" (change)="selectOrganizationType(selectOrg)">
-                <option *ngFor="let item of organizationTypeListData " [ngValue]="item">
-                    {{item.name}}
-                </option>
-            </select>
-            <i class="bar"></i>
-            </div>
-        </div>    
-    </form> -->
-    <div>
-        <ng2-smart-table [source]="reportListData" [settings]="settings" (deleteConfirm)="onDeleteConfirm($event)"
-            (editConfirm)="onSaveConfirm($event)"
-            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table> 
+<div class="report-manage-list">
+        <phd-track-status [visible]="isPopupVisible" title="Track Status" [data]="trackStatusDetails" (closePopup)="onPopupInfoClose($event)"></phd-track-status> 
+    <div class="report-manage-list-table">
+        <!-- Report Manage list dynamic table -->
+        <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Report Name/Details</th>
+                    <th scope="col">Quarter of the Year</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let reportItem of reportListData; let i=index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{reportItem.name}}</td>
+                    <td>{{reportItem.quarterYear}}</td>
+                    <td>{{reportItem.status}}</td>
+                    <td>
+                        <!-- Buttons -->
+                        <form editable-form name="rowform" class="form-buttons form-inline">
+                                <!-- If status is Pending -->
+                                <button *ngIf='reportItem.status=="Not Started"' class="status-button btn btn-xs btn-success" (click)="initiate(reportItem)" >
+                                  <i class="ion-email"></i> Initiate
+                                </button>                    
+                                <!-- If status is Initiated -->    
+                                <!-- BUG FIX: [ngClass]="{'disabled':reportItem.status=='Closed'}" is causing to always come on top -->
+                                <button *ngIf='reportItem.status=="Closed"' class="status-button btn btn-xs btn-primary"  (click)="generate(reportItem)" >
+                                        <i class="ion-stats-bars"></i> Generate Report
+                                </button>                    
+                                 <!-- If status is closed      -->
+                                 <button *ngIf='reportItem.status=="Initiated"' (click)="edit(reportItem)" class="status-button btn btn-xs btn-info ">
+                                    <i class="ion-eye"></i> 
+                                    <span>Edit</span>
+                                </button>     
+                                <button *ngIf='reportItem.status=="Initiated"' (click)="close(reportItem)" class="status-button btn btn-xs btn-danger">
+                                        <i class="ion-eye"></i> 
+                                        <span>Close</span>
+                                </button>
+                                <button *ngIf='reportItem.status=="Closed"' (click)="reinitiate(reportItem)" class="status-button btn btn-xs btn-primary">
+                                        <i class="ion-eye"></i> 
+                                        <span>Reinitiate</span>
+                                </button>
+                                <button *ngIf='reportItem.status=="Not Started"' (click)="delete(reportItem)" class="status-button btn btn-xs btn-warning">
+                                    <i class="ion-eye"></i> 
+                                    <span>Delete</span>                                
+                                </button>
+                                <!-- Track Status Button -->
+                                <button *ngIf='reportItem.status=="Not Started"' (click)="viewReportItemStatus(reportItem)" class="status-button btn btn-xs btn-primary">
+                                    <i class="ion-eye"></i> 
+                                    <span>Track Status</span>                                
+                                </button>
+
+                    
+                            </form>
+        
+                        <!-- Buttons -->
+                    </td>
+                  </tr>                  
+                </tbody>
+              </table>
+        <!-- end:Report Manage list dynamic table -->
     </div>
 </div>

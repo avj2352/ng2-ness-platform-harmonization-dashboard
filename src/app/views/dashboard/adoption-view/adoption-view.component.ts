@@ -36,6 +36,7 @@ export class AdoptionViewComponent implements OnInit {
   private frameworkComponents;
   private allReportArray: any;
   private selectedReport: any;
+  private displayData: boolean;
 
   constructor(
     private staticDataService: StaticDataService,
@@ -43,16 +44,6 @@ export class AdoptionViewComponent implements OnInit {
     private route: ActivatedRoute,
     private agGridConfigureService:AgGridConfigureService ) 
     {
-    this.columnDefs = [
-      { headerName: "Make", field: "make" },
-      { headerName: "Model", field: "model" },
-      { headerName: "Price", field: "price" }
-    ];
-    this.rowData = [
-      { make: "Toyota", model: "Celica", price: 35000 },
-      { make: "Ford", model: "Mondeo", price: 32000 },
-      { make: "Porsche", model: "Boxter", price: 72000 }
-    ];
     this.adoptionService.getAllReportsAndUnitConfig().subscribe(response => {
       this.allReportArray = response;
       this.selectedReport = response[0];
@@ -91,7 +82,8 @@ export class AdoptionViewComponent implements OnInit {
 
   selectedReportView() {
     this.unitTypes = this.selectedReport.unitTypeList;
-    
+    this.agGridData = new AgGrid();
+    this.displayData = false;
     for (let singleUnit of this.unitTypes) {
       // console.log(typeof(singleUnit.code));
       this.unitTypeMap.set(singleUnit.id, singleUnit);
@@ -133,6 +125,7 @@ export class AdoptionViewComponent implements OnInit {
      this.reportUnitTypeArray.set(this.unitTypes[0].id,this.agGridConfigureService.getReportArray(this.assetAdoptionData.get(this.unitTypes[0].id).productAssetAdoptionResponse,this.unitTypes,this.unitTypes[0],true));
      this.frameworkComponents = { adoptionRenderer: AssetRenderer, adoptionEditor : AdoptionEditor};   
      this.agGridData = this.reportUnitTypeArray.get(1);
+     this.displayData = true;
    //this.columnDefs = this.reportUnitTypeArray.get(1).columnDefs;
     
     });

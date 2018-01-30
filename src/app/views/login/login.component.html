@@ -7,6 +7,7 @@
     <p>version {{version}}</p>
     <h4 *ngIf="isValidError">INVALID USERNAME / PASSWORD</h4>
     <form>
+      <div [hidden]="disabled">
       <div class="form-group">
         <input type="text" required="required" [(ngModel)]="inputObj.email" name="email"/>
         <label class="control-label" for="input">Username</label><i class="bar"></i>
@@ -14,13 +15,14 @@
       <div class="form-group">
         <input type="password" name="password" required="required"  [(ngModel)]="inputObj.password"/>
         <label class="control-label" for="password">Password</label><i class="bar"></i>
-      </div>                    
+      </div> 
+    </div>                   
       <div class="button-container">
-        <button class="button" type="button" (click)="onSubmit()"><span>Submit</span></button>
+        <button class="button" type="button" (click)="onSubmit()"><span>Click to Proceed</span></button>
       </div>
     </form>
-    <div class="forgot-password-section">
+    <!-- <div class="forgot-password-section">
       <a href="#"><small>Forgot password</small></a>
-    </div>
+    </div> -->
   </div><!-- end:Username Password Section -->
 </div>

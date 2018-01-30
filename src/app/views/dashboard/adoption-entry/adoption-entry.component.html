@@ -1,29 +1,31 @@
 <div class="adoption-entry" *ngIf="!errorBoolean">
-  <h1>Adoption Entry</h1>
-  <hr>
   <phd-bread-crumb [visible]="isBreadCrumbVisible">
       <ul>
-        <li  *ngFor="let unit of unitTypes" (click)="setDisplayAdoptionByUnit(unit)">{{unit.name}}</li>      
+        <li  *ngFor="let unit of unitTypesDisplay" (click)="setDisplayAdoptionByUnit(unit)">{{unit.name}}</li>      
       </ul>
-    </phd-bread-crumb>
-  <!-- <div *ngFor="let unit of unitTypes">
- <span>{{selectedUnitTypeID}}</span>
-  </div> -->
-  <div *ngIf="agGridData">
-          <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
-          [rowData]="agGridData.rowData"
-          [columnDefs]="agGridData.columnDefs"
-          [groupHeaderHeight]="agGridData.groupHeaderHeight"
-          [frameworkComponents]="frameworkComponents"
-          [headerHeight] = "150"
-          [enableFilter] ="true"
-          [rowSelection] ="single"
-          [domLayout]="domLayout"
-          [singleClickEdit]="true"
-          (cellValueChanged)="adoptionChangeHandler($event)"
-          >
-          </ag-grid-angular>
+  </phd-bread-crumb>
+  <div *ngFor="let unit of unitTypesDisplay">
+    <div *ngIf="unit.display">
+          <li>Unit {{unit.id}}</li>
+          <div *ngIf="selectedUnitTypeID === unit.id && displayData">
+              <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
+              [rowData]="agGridData.rowData"
+              [columnDefs]="agGridData.columnDefs"
+              [groupHeaderHeight]="agGridData.groupHeaderHeight"
+              [frameworkComponents]="frameworkComponents"
+              [headerHeight] = "200"
+              [enableFilter] ="true"
+              [rowSelection] ="single"
+              [domLayout]="domLayout"
+              [singleClickEdit]="true"
+              (cellValueChanged)="adoptionChangeHandler($event)"
+              >
+              </ag-grid-angular>
+      </div>
+
     </div>
+  </div>
+
         
   <div class="button-section">
     <button class="btn-material" (click)="onSaveReport()">

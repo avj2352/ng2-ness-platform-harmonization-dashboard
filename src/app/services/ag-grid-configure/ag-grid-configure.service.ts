@@ -24,8 +24,6 @@ export class AgGridConfigureService {
     var productArray = [];
     var selectedUnitObj = {};
     //colWidths: [ 200 , 150, 150, 100 ,150,100]
-    var ignoredCol = 2;
-    var row = 0, col = 0;
     var countPlatfrom = true;
     let platFormObj = [];
     productObj.columnDefs.push({headerName:'Product Group', marryChildren: true,    
@@ -43,6 +41,7 @@ export class AgGridConfigureService {
         platFormObj[productEachArray.assetDetails[i].platformCode] = {
           headerName: productEachArray.assetDetails[i].platformCode,
           //groupId: productEachArray.assetDetails[i].platformCode,
+          enableTooltip : true,
           openByDefault: true,
           marryChildren: true, 
           children: []

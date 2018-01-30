@@ -1,3 +1,11 @@
+.btn {
+	border-radius: 4px;
+	margin: 0px 5px;
+	&[disabled] {
+		cursor: not-allowed;
+	}
+}
+
 .btn-material {
 	position: relative;
 	background: currentColor;

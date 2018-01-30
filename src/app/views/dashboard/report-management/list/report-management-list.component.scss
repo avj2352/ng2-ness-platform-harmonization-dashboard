@@ -1,37 +1,33 @@
 @import './../../../../../styles.scss';
 
-.manage-org-list {
+.report-manage-list {
     // border:1px solid red;
-    background-color: $color-white;
-    height: 78vh;
-    @include box-shadow-effect;
+    // background-color: $color-white;
+    height: 80vh;
+    // @include box-shadow-effect;
 
-    .select-oraganization-type {
-        width: 70%;
-        .form-group {
-            // border: 1px solid orange;
-            display: flex;
-            margin: 5px;
-            .select-label {
-                // border: 1px solid red;
-                // width: 15%;
-                padding: 0px 10px;
+    &-table {
+        // border: 1px solid red;
+        height: inherit;
+        overflow-y: scroll;
+        padding: 5px;
+
+        .table th, .table td {
+            padding: 0.4rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        table.table{
+            thead {
+                th {
+                    border-top: none;
+                }
+            tbody {                                    
+                }
             }
-            .select-div {
-                // border: 1px solid green;
-                width: 40%;
-                select {
-                    font-family: "Centrale-Sans", sans-serif;        
-                    color: $color-black;
-                }    
-            }//end:select-div
-            
-            label {
-                float: left;
-                color: $color-black;
-            }
-        }//end:form-group
-    }//end:select-oraganization-type
+        }//end:table
+    }//end:report-manage-list-table
 
 }//end:manage-org-list
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { ReportManagementService } from 'app/services/dashboard/report-management.service';
 import { Observable } from 'rxjs/Observable';
+import { debug } from 'util';
 
 interface ManageHierarchy {
     id: number;
@@ -18,12 +19,14 @@ export class ReportManagementListComponent implements OnInit {
     private isVisible: boolean;
     private reportListData: ManageHierarchy[];
     private settings: any;
+    private isPopupVisible:boolean;
+    private trackStatusDetails:any;
 
     constructor(
         private reportManagementService: ReportManagementService
     ) {
         // ng-smart-table settings        
-
+        this.trackStatusDetails = null;
     }//end:constructor
 
     onDeleteConfirm(event) {
@@ -39,9 +42,20 @@ export class ReportManagementListComponent implements OnInit {
         } else {
           event.confirm.reject();
         }
-      }
+      }//end:onDeleteConfirm
+
+      onPopupInfoClose(event){
+        console.log('Track Status Window closed');
+        this.isPopupVisible = false;
+      }//end:onPopupInfoClose
+
+      viewReportItemStatus(item){
+        this.isPopupVisible = true;
+        this.trackStatusDetails = item;
+      }//end:viewReportItemStatus
 
     ngOnInit() {
+        this.isPopupVisible = false;
         this.reportManagementService.getAllReportsAndUnitConfig().subscribe((response)  =>  {
             var temp_data = response;
             var index=1;
@@ -55,37 +69,8 @@ export class ReportManagementListComponent implements OnInit {
                     item.index=index;
                     index+=1;
             });
-            this.reportListData  = temp_data;
-            this.settings = {
-                actions: {
-                    edit: false,
-                    add: false,
-                    position: 'right',
-                    custom: [
-                        {
-                            name: 'edit',
-                            title: 'Edit ',
-                        },
-                    ],
-                },
-                delete: {
-                    confirmDelete: true,
-                },
-                columns: {
-                    index: {
-                        title: '#'
-                    },
-                    name: {
-                        title: ' Name'
-                    },
-                    quarterYear: {
-                        title: 'Quarter of the year'
-                    },
-                    status: {
-                        title: 'Status'
-                    },
-                }
-            };//end:settings
+            debugger;
+            this.reportListData  = temp_data;            
         },
             (error) => {
                 this.isVisible  =  false;

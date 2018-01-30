@@ -4,7 +4,7 @@ import { LoaderComponent } from '../../components/loader/loader.component';
 import { Router } from '@angular/router';
 import { SideBarComponent } from './../../components/side-bar/side-bar.component';
 import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
-import { AdoptionService } from 'app/services/adoption-service/adoption.service';
+import { ReportManagementService } from 'app/services/dashboard/report-management.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
 import { LoginService } from 'app/services/auth/login.service';
@@ -16,7 +16,7 @@ import { map as _map } from 'lodash';
   styleUrls: ['./dashboard.component.scss'],
   providers:[
     ManageOrganizationService,
-    AdoptionService,
+    ReportManagementService,
     {
       provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
@@ -26,7 +26,7 @@ import { map as _map } from 'lodash';
 })
 export class DashboardComponent implements OnInit {
   
-
+  private isUserProfileDropdown:boolean;
   private isVisible:boolean;
   private isPopupVisible:boolean;
   private isSideBarVisible:boolean;
@@ -82,12 +82,26 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/report-management');
   }//end:showManageOrg
 
+  showManageOrg(){
+    this.router.navigateByUrl('/dashboard/manage-organizations');
+  }//end:showManageOrg
+
+
+  showReportManagement(){
+    this.router.navigateByUrl('/dashboard/report-management');
+  }//end:showReportManagement
+
+  toggleUserProfileDropdown(){
+    this.isUserProfileDropdown = !this.isUserProfileDropdown;
+  }//end:toggleUserProfileDropdown()
+
   ngOnInit() { 
-    this.isSideBarVisible = false;   
+    this.isSideBarVisible = false;
+    this.isUserProfileDropdown = false;
     this.userName = this.loginService.getUserName();
-    this.userRole = this.loginService.getSelectedRole();        
+    this.userRole = this.loginService.getSelectedRole();
     console.log('Screens are: ', this.userRole);
     // this.manageOrg.getAllOrganizationTypeConfig().subscribe(res=>console.log('Get All Organization response:', res));
-  }//end:ngOnInit  
+  }//end:ngOnInit
 
 }//end:class-DashboardComponent

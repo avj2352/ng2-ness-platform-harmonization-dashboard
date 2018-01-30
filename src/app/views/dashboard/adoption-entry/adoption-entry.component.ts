@@ -116,6 +116,7 @@ export class AdoptionEntryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isBreadCrumbVisible = true;
     this.isVisible = true;
     this.assetAdoptionData = new Map();
     this.reportUnitTypeArray = new Map();

@@ -6,11 +6,10 @@ import { Route, ActivatedRoute } from '@angular/router';
     styleUrls:['./edit-org.component.scss']
 })
 export class EditOrganizationComponent implements OnInit {
-
     constructor(private route: ActivatedRoute) {
         this.route.params.subscribe( params => console.log(params) );
     }
-
+  
     ngOnInit(){
 
     }//end:ngOnInit

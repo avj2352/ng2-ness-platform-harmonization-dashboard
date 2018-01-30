@@ -15,6 +15,7 @@ export class CreateReportComponent implements OnInit {
     private organizationListData:ManageHierarchy[];
     private listofQuarter:any;
     private checkboxSelectedItems:any;
+    private checkboxList: any;
     private obj:any;
     constructor (
         private reportManagementService:ReportManagementService
@@ -81,6 +82,10 @@ export class CreateReportComponent implements OnInit {
         this.reportManagementService.getallUnitTypes().subscribe((response) => {
            // console.log('Response from GetAllOrganziation is: ', response);
            // this.organizationTypeListData= response; 
+<<<<<<< HEAD
+=======
+           this.checkboxList=response;
+>>>>>>> master
            var allArrayList = response;
            var listArrayTemp=[];
            allArrayList.forEach(sectorArray);

@@ -1,36 +1,62 @@
 <div class="create-org">
-    <h1>New Report</h1>
-    <hr/>
-    <div class="form-group">
-        <div class="select-label">
-            <p>
-                <strong>Quarter of the year:</strong>
-            </p>
-        </div>
-        <div class="select-div">
-            <select name="selectOrg" [(ngModel)]="selectOrg">
-                <option *ngFor="let item of listofQuarter" [ngValue]="item">
-                    {{item}}
-                </option>
-            </select>
-            <i class="bar"></i>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>New Report</h1>
+            <hr/>
+            <form>
+                    <div class="col-md-12">
+                            <div class="col-md-5">
+                                    <label for="organizationName"> Name:</label>
+                                    <span style="color:red" *ngIf=" (organizationName.dirty || organizationName.touched) && organizationName.errors?.required">required</span>
+                                    <span style="color:red" *ngIf="(organizationName.dirty || organizationName.touched) && organizationName.errors?.maxlength">Max 32 chars.</span>
+                                    <input type="text" #organizationName="ngModel" class="form-control" [(ngModel)]="obj.name" placeholder="Enter organization Name"
+                                        maxlength="32" name="organizationName" required>
+                                </div>
+                        <div class="col-md-5">
+                            <!-- <div class="select-label">
+                                <p>
+                                    <strong>Quarter of the year:</strong>
+                                </p>
+                            </div> -->
+                            <label for="organizationName"> Quarter of the year:</label>
+                            <div class="select-div">
+                                <select class="btn-group bootstrap-select form-control" name="selectOrg" [(ngModel)]="selectOrg">
+                                    <option *ngFor="let item of listofQuarter" [ngValue]="item">
+                                        {{item}}
+                                    </option>
+                                </select>
+                                <i class="bar"></i>
+                            </div>
+                        </div>
+                    </div>
+<!-- 
+                    <div style="margin:10px !important">
+                            <div >
+                                <span ng-repeat="row in checkboxList" class="quaterly-span">
+                                    <label class="checkbox-inline  nowrap">
+                                        <input ng-click="selectedList(row.id,selected)" ng-checked="true" type="checkbox" ng-model="selected" />{{row.name}}</label>
+                                </span>
+                            </div>
+                        </div>
+                 -->
+
+                <!-- Empty Row -->
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <p></p>
+
+                    </div>
+                </div>
+                <!-- end: Empty Row -->
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <button type="button" [disabled]="!(organizationName.valid && organizationCode.valid)" class="btn btn-success" (click)="createReportAction(obj)">Create Organization</button>
+                        <button type="button" class="btn btn-danger pull-right" (click)="onCancel()">Cancel</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <form action="">
-        <div class="row">
-            <div class="col-1-of-2">
-                <label for="organizationName"> Name:</label>
-                <span style="color:red" *ngIf=" (organizationName.dirty || organizationName.touched) && organizationName.errors?.required">required</span>
-                <span style="color:red" *ngIf="(organizationName.dirty || organizationName.touched) && organizationName.errors?.maxlength">Max 32 chars.</span>
-                <input type="text" #organizationName="ngModel" class="form-control" [(ngModel)]="obj.name" placeholder="Enter organization Name"
-                    maxlength="32" name="organizationName" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-1-of-2">
-                <button type="button" [disabled]="!(organizationName.valid && organizationCode.valid)"
-                class="btn btn-success" (click)="createReportAction(obj)">Create Organization</button>
-            </div>
-        </div>
-    </form>
+
 </div>

@@ -14,7 +14,6 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
-
 @Injectable()
 export class StaticDataService {
   myBehavior$;
@@ -83,7 +82,8 @@ export class StaticDataService {
       return Observable.throw(new Error('Error occured'));
    });
   }//end:getPackageDetails
-  getAdoptionResult(){
+
+  getStaticDelay(){
     return this.http
     .get('http://localhost:4200/assets/data/asset-adoption.json')
     .delay(3000)
@@ -92,23 +92,14 @@ export class StaticDataService {
       let details = err.json();
       return Observable.throw(new Error('Error occured'));
    });
-  }//end:getAdoptionResult
+  }//end:getStaticDelay
+
   threeSecondDelay(){
     return new Promise(function(resolve,reject){
       setTimeout(function(){
         resolve();
       },3000);
     });
-  }//end
-
-  geUnitType(){
-    return this.http
-    .get('http://localhost:4200/assets/data/unitType.json')
-    .map(response => response.json())
-    .catch((err:Response) => {
-      let details = err.json();
-      return Observable.throw(new Error('Error occured'));
-   });
-  }//end:geUnitType
+  }//end:threeSecondDelay
 
 }//end:StaticDataService

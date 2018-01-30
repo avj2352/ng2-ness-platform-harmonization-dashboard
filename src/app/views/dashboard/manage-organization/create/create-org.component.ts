@@ -85,8 +85,5 @@ export class CreateOrganizationComponent implements OnInit {
                     this.isVisible  =  false;
                 });
         }
-    }//end:selectOrganizationType()
-
-
-
+    }//end:selectOrganizationType()    
 }//end:CreateOrganizationComponent

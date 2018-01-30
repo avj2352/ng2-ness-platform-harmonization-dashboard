@@ -25,20 +25,21 @@ import { PopupInfoComponent } from './components/popup-info/popup-info.component
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
 import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
 import { AdoptionEditor } from 'app/components/agGridRenderer/ag-grid-editor.component';
+import { TrackStatusComponent } from 'app/components/track-status/track-status.component';
+import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 import { LoginService } from './services/auth/login.service';
 import { LogoutService } from './services/auth/logout.service';
+import { AdoptionService } from 'app/services/adoption-service/adoption.service';
+import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //AG-Grid dependencies and Smart Table
 import {AgGridModule} from 'ag-grid-angular/main';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AgGridConfigureService } from './services/ag-grid-configure/ag-grid-configure.service';
-import { SideBarComponent } from './components/side-bar/side-bar.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
-import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
-import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
-import { AdoptionService } from 'app/services/adoption-service/adoption.service';
 
 
 const appRoutes: Routes = [  
@@ -82,6 +83,7 @@ const config: ExtraOptions = {
     AdoptionViewComponent,
     LoaderComponent,
     PopupInfoComponent,
+    TrackStatusComponent,
     ButtonDropdownComponent,
     SideBarComponent,
     AssetRenderer,

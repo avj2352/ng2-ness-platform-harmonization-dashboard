@@ -60,7 +60,8 @@ export class ManageOrganizationListComponent implements OnInit {
                     custom: [
                         {
                             name: 'edit',
-                            title: 'Edit ',
+                            title: 'edit ',
+                            // editConfirm:  true,
                         },
                     ],
                 },
@@ -83,6 +84,17 @@ export class ManageOrganizationListComponent implements OnInit {
                     name: {
                         title: this.headingLable + ' Name'
                     },
+                    parentOrganization: {
+                        title: 'Parent Organization',
+                        valuePrepareFunction: (value) => { return (value.name+" "+value.code) }
+                    },
+                    // parentOrganization: {
+                    //     title: 'Parent Organization',
+                    //     valuePrepareFunction: (value) => { return value.code }
+                    // },
+                    // name: {
+                    //     title: this.headingLable + ' Name'
+                    // },
                     // parentOrganization.code: {
                     //     title: this.headingLable + ' Code'
                     // },
@@ -109,11 +121,10 @@ export class ManageOrganizationListComponent implements OnInit {
             });
     }//end:selectOrganizationType()
 
-    onSaveConfirm(event)
+    onEdit(event)
     {
-        var a=2;
-        var b=4;
-        this.router.navigateByUrl('/dashboard/manage-organizations/edit');
+        //event.data
+        this.router.navigateByUrl('/dashboard/manage-organizations/edit/'+event.data);
     }
 
     onDeleteConfirm(event) {
@@ -135,9 +146,9 @@ export class ManageOrganizationListComponent implements OnInit {
         this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response)  =>  {
             console.log('Response from GetAllOrganziation is: ', response);
             this.organizationTypeListData  =  response;
-            this.selectOrg = response[0];
+            this.selectOrg = response[1];
             this.selectOrganizationType(this.selectOrg);
-            this.headingLable = response[0].name;
+            this.headingLable = response[1].name;
         },
             (error) => {
                 this.isVisible  =  false;

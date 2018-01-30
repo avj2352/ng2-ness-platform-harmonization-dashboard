@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StaticDataService } from './../../../services/static-data/static-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute ,Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-organization',

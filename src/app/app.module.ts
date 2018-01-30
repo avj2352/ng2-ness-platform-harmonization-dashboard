@@ -23,8 +23,8 @@ import { CreateReportComponent } from './views/dashboard/report-management/creat
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
-import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
-import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
+import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
+import { AdoptionEditor } from 'app/components/agGridRenderer/ag-grid-editor.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 import { LoginService } from './services/auth/login.service';
@@ -35,7 +35,12 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AgGridConfigureService } from './services/ag-grid-configure/ag-grid-configure.service';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './services/auth/token-interceptor.service';
+import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
+import { AdoptionService } from 'app/services/adoption-service/adoption.service';
+
+
 const appRoutes: Routes = [  
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -79,6 +84,8 @@ const config: ExtraOptions = {
     PopupInfoComponent,
     ButtonDropdownComponent,
     SideBarComponent,
+    AssetRenderer,
+    AdoptionEditor,
     ManageOrganizationComponent,
     ReportManagementComponent,
     ReportManagementListComponent,
@@ -87,7 +94,7 @@ const config: ExtraOptions = {
     CreateReportComponent,
     EditOrganizationComponent,
     BreadCrumbComponent,
-    ToggleSwitchComponent    
+    ToggleSwitchComponent 
   ],
   imports: [
     BrowserModule,
@@ -100,10 +107,11 @@ const config: ExtraOptions = {
       prefix:'phd-app',
       storageType:'localStorage'
     }),
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([AssetRenderer,AdoptionEditor]),
     Ng2SmartTableModule
   ],
   providers: [
+    AdoptionService,
     StaticDataService,
     AgGridConfigureService,
     LoginService,

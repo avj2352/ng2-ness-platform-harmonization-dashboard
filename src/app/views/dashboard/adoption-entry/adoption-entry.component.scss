@@ -1,6 +1,6 @@
 @import './../../../../styles.scss';
 
-.adoption-view {
+.adoption-entry {
     margin: 0;    
 
     h1 {
@@ -23,4 +23,8 @@
             }
         }
     }
-}//end:adoption-view
+}//end:adoption-entry
+h3.errorBlock {
+    margin: 0 15px; 
+    color: red;
+}

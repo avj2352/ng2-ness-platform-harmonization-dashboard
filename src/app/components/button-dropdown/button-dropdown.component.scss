@@ -73,12 +73,12 @@
         }
     }//end:li:hover 
     
-    .dropdown-menu li:last-child {
+    >.dropdown-menu li:last-child {
     border-bottom: 0;
     border-radius: 0 0 12px 12px;
     }
     
-    .open {
+    >.open {
     visibility: visible;  
     animation: moveInTop 0.3s ease-in-out;
     }//end:open

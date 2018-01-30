@@ -1,0 +1,43 @@
+.greycell {
+    background: #96938C;
+    color     : black;
+    padding:4px;
+    width: 50px;
+}
+.orangecell {
+    background: #f09a60;
+    color     : black;
+}
+.pinkcell{
+    background: #e5c1bf;
+    color     : black;  
+}
+.lightgreencell{
+    background: #b5d69a;
+    color     : black;  
+}
+.greencell{
+    background: #458B00;
+    color     :black
+}
+.ag-theme-fresh .ag-cell{
+    padding: 0px;
+}
+
+.s-hidden {
+    visibility:hidden;
+    padding-right:10px;
+}
+.select {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    font:normal 11px/22px Arial, Sans-Serif;
+    color:black;
+    border:1px solid #ccc;
+}
+.boldSpan{
+    font-weight: 900; 
+    font-size: 16px;
+    text-decoration: underline
+}

@@ -1,0 +1,17 @@
+<!-- <select >
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="mercedes">Mercedes</option>
+    <option value="audi">Audi</option>
+  </select> -->
+  <select  [(ngModel)]="selectedUnit"  (keydown)="onKeyDown($event)" (ngModelChange)="toUnitCode(selectedUnit)" [hidden]="!params.values">
+    <option class="unit.colorCode" *ngFor="let unit of params.values" [ngValue]="unit.code">
+       {{unit.code}}
+    </option>
+  </select>
+  <span [hidden]="params.values">
+    <input type="text" ng-model="selectedValue"/>
+  </span>
+   <!-- <select>
+    <option *ngFor="let unit of {params.values" [ngValue]="unit.code" class="unit.colorCode">{{unit.code}}</option>
+     </select>  -->

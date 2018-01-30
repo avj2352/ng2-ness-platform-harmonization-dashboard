@@ -42,6 +42,10 @@ export const appURL = {
      'allOrganizationType':base+'organizationtype',
      'deleteOrganization':base+'organization',
      'updateOrganization':base+'organization',
+     //locking
+     'initiateLockReport': base + 'assetadoption/initiatedReport/lock',
+     'releaseLockReport':  base + 'assetadoption/releaseLock',
+     
     // 'initiatedReportUnitTypes':'app/data/unitType.json',
     // 'assetAdoption': 'app/data/unitTypeReturn.json',
     // 'allReports': 'app/data/allReports.json',

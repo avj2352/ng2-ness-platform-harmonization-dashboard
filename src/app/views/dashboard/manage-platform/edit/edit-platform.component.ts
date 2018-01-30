@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import { Route, ActivatedRoute } from '@angular/router';
 
 @Component({
-    templateUrl:'./edit-org.component.html',
-    styleUrls:['./edit-org.component.scss']
+    templateUrl:'./edit-platform.component.html',
+    styleUrls:['./edit-platform.component.scss']
 })
-export class EditOrganizationComponent implements OnInit {
+export class EditPlatformComponent implements OnInit {
     public id: string;
     public name: string;
     constructor(private route: ActivatedRoute) {

@@ -3,11 +3,12 @@ import { Component, OnInit, AfterContentInit, Inject } from '@angular/core';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { Router } from '@angular/router';
 import { SideBarComponent } from './../../components/side-bar/side-bar.component';
-import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
-import { ReportManagementService } from 'app/services/dashboard/report-management.service';
+import { ManageOrganizationService } from '../../services/dashboard/manage-organization.service';
+import { ReportManagementService } from '../../services/dashboard/report-management.service';
+import { ManagePlatformService } from '../../services/dashboard/manage-platform.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
-import { LoginService } from 'app/services/auth/login.service';
+import { TokenInterceptor } from '../../services/auth/token-interceptor.service';
+import { LoginService } from '../../services/auth/login.service';
 import { map as _map } from 'lodash';
 import { LogoutService } from 'app/services/auth/logout.service';
 
@@ -18,6 +19,7 @@ import { LogoutService } from 'app/services/auth/logout.service';
   providers:[
     ManageOrganizationService,
     ReportManagementService,
+    ManagePlatformService,
     {
       provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
@@ -81,6 +83,10 @@ export class DashboardComponent implements OnInit {
   
   showManageOrg(){
     this.router.navigateByUrl('/dashboard/manage-organizations');
+  }//end:showManageOrg
+
+  showManagePlatform(){
+    this.router.navigateByUrl('/dashboard/manage-platform');
   }//end:showManageOrg
 
   showReportManagement(){

@@ -29,6 +29,10 @@ import { TrackStatusComponent } from 'app/components/track-status/track-status.c
 import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { ManagePlatformComponent } from './views/dashboard/manage-platform/manage-platform.component';
+import { ManagePlatformListComponent } from './views/dashboard/manage-platform/list/manage-platform-list.component';
+import { CreatePlatformComponent } from './views/dashboard/manage-platform/create/create-platform.component';
+import { EditPlatformComponent } from './views/dashboard/manage-platform/edit/edit-platform.component';
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 import { LoginService } from './services/auth/login.service';
@@ -40,6 +44,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {AgGridModule} from 'ag-grid-angular/main';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AgGridConfigureService } from './services/ag-grid-configure/ag-grid-configure.service';
+
 
 
 const appRoutes: Routes = [  
@@ -55,7 +60,7 @@ const appRoutes: Routes = [
         { path:'', redirectTo:'list', pathMatch:'full'},
         {path:'list', component:ManageOrganizationListComponent},
         {path:'create', component:CreateOrganizationComponent},
-        {path:'edit/:obj', component:EditOrganizationComponent}
+        {path:'edit/:obj/:name', component:EditOrganizationComponent}
       ]
     },
     { path: 'report-management', component:ReportManagementComponent,
@@ -65,7 +70,15 @@ const appRoutes: Routes = [
         {path:'create', component:CreateReportComponent},
         {path:'edit', component:EditOrganizationComponent}
       ]
-    }  
+    } , 
+    { path: 'manage-platform', component:ManagePlatformComponent,
+    children:[
+      { path:'', redirectTo:'list', pathMatch:'full'},
+      {path:'list', component:ManagePlatformListComponent},
+      {path:'create', component:CreatePlatformComponent},
+      {path:'edit/:obj/:name', component:EditPlatformComponent}
+    ]
+  },
     ]
   }
 ]
@@ -89,7 +102,11 @@ const config: ExtraOptions = {
     AssetRenderer,
     AdoptionEditor,
     ManageOrganizationComponent,
+    ManagePlatformComponent,
+    EditPlatformComponent,
+    CreatePlatformComponent,
     ReportManagementComponent,
+    ManagePlatformListComponent,
     ReportManagementListComponent,
     ManageOrganizationListComponent,
     CreateOrganizationComponent,

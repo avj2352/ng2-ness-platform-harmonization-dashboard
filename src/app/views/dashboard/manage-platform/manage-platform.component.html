@@ -1,0 +1,10 @@
+<div class="manage-platform-view">
+  <phd-bread-crumb [visible]="isBreadCrumbVisible">
+    <ul>
+      <li (click)="showPlatformlist()">Platform List</li>      
+      <li (click)="showAddNewPlatform()">Add New Platform</li>      
+    </ul>
+  </phd-bread-crumb>  
+  <router-outlet></router-outlet>
+</div>  
+<phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  

@@ -63,8 +63,7 @@ export class LoginService {
     console.log('Session ID: ', sessionID);
     return new Headers({ 'Content-Type': 'application/json', 
     'Accept': 'application/vnd.ms-excel',
-    'sessionId':sessionID,
-    'responseType': 'arraybuffer'
+    'sessionId':sessionID
     });  
   }//getDownloadHeaderParams
 

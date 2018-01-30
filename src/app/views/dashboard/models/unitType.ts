@@ -7,4 +7,5 @@ export class UnitType {
     active: string;
     unitTypeLst: Array<UnitMetric>;
     defaultUnit: UnitMetric;
+    display: boolean;
 }

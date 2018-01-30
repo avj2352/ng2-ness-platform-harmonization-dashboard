@@ -91,6 +91,7 @@ export class AdoptionViewComponent implements OnInit {
 
   selectedReportView() {
     this.unitTypes = this.selectedReport.unitTypeList;
+    
     for (let singleUnit of this.unitTypes) {
       // console.log(typeof(singleUnit.code));
       this.unitTypeMap.set(singleUnit.id, singleUnit);
@@ -101,7 +102,23 @@ export class AdoptionViewComponent implements OnInit {
   }
 
   downloadReport() {
+    let fileName = 'Platform_Adoption_Report.xlsx';
+    let  a = document.createElement( 'a' );
+    document.body.appendChild( a );
     this.adoptionService.downloadReport(this.selectedReport.id).subscribe(response => {
+      console.log('Download response:', response);
+      var blob = new Blob([response._body], {type: "application/vnd.ms-excel"});
+      var objectUrl = URL.createObjectURL(blob);
+      if ( navigator.appVersion.toString()
+        .indexOf( '.NET' ) > 0 ) {
+        window.navigator.msSaveBlob( blob, fileName );
+      } else {
+        var fileURL = URL.createObjectURL( blob );
+        a.href = fileURL;
+        a.download = fileName;
+        a.click();
+        document.body.removeChild(a);
+      }
       console.log(response);
     });
   }

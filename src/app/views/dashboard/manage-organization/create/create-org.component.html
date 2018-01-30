@@ -1,0 +1,79 @@
+<div class="create-org">
+    <h1>New Organization</h1>
+    <hr/>
+    <div class="form-group">
+        <div class="select-label">
+            <p>
+                <strong>Organization Type:</strong>
+            </p>
+        </div>
+        <div class="select-div">
+            <select name="selectOrg" [(ngModel)]="selectOrg" (change)="selectOrganizationType(selectOrg)">
+                <option *ngFor="let item of organizationTypeListData " [ngValue]="item">
+                    {{item.name}}
+                </option>
+            </select>
+            <i class="bar"></i>
+        </div>
+    </div>
+
+    <div *ngIf="isVisibleParentSelectBox" class="form-group">
+        <div class="select-label">
+            <p>
+                <strong>{{parentName}} : </strong>
+            </p>
+        </div>
+        <div class="select-div">
+            <select name="selectParent" [(ngModel)]="selectParent" (change)="selectParentType(selectParent)">
+                <option *ngFor="let item of parentTypeListData " [ngValue]="item">
+                    {{item.name}}
+                </option>
+            </select>
+            <i class="bar"></i>
+        </div>
+    </div>
+
+    <form action="">
+        <div class="row">
+            <div class="col-1-of-2">
+                <label for="organizationCode">Code:</label>
+                <span style="color:red" *ngIf=" (organizationCode.dirty || organizationCode.touched) && organizationCode.errors?.required">required</span>
+                <span style="color:red" *ngIf="(organizationCode.dirty || organizationCode.touched) && organizationCode.errors?.maxlength">Max 16 chars.</span>
+                <input type="text" #organizationCode="ngModel" class="form-control" [(ngModel)]="orgObj.code" placeholder="Enter organization code"
+                    maxlength="16" name="organizationCode" required>
+            </div>
+            <div class="col-1-of-2">
+                <label for="organizationName"> Name:</label>
+                <span style="color:red" *ngIf=" (organizationName.dirty || organizationName.touched) && organizationName.errors?.required">required</span>
+                <span style="color:red" *ngIf="(organizationName.dirty || organizationName.touched) && organizationName.errors?.maxlength">Max 32 chars.</span>
+                <input type="text" #organizationName="ngModel" class="form-control" [(ngModel)]="orgObj.name" placeholder="Enter organization Name"
+                    maxlength="32" name="organizationName" required>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-1-of-2">
+                <label for="organizationHierarchy">Order:</label>
+                <span style="color:red" *ngIf=" (organizationHierarchy.dirty || organizationHierarchy.touched) && organizationHierarchy.errors?.required">required</span>
+                <!-- <span style="color:red" *ngIf="(organizationHierarchy.dirty || organizationHierarchy.touched) && organizationHierarchy.errors?.pattern">>Only two digits and only five decimal point required</span> -->
+                <input type="number" class="form-control" #organizationHierarchy="ngModel" [(ngModel)]="orgObj.hierarchy" placeholder="Enter Platform Order"
+                    step="0.1" name="organizationHierarchy" required>
+            </div>
+            <div class="col-1-of-2">
+                <label for="organizationDescription">Description:</label>
+                <span style="color:red" *ngIf="(organizationDescription.dirty || organizationDescription.touched) && organizationDescription.errors?.maxlength">Max 256 chars.</span>
+                <input type="text" class="form-control" #organizationDescription="ngModel" [(ngModel)]="orgObj.description" placeholder="Enter a Description"
+                    maxlength="256" name="organizationDescription">
+            </div>
+
+        </div>
+
+        <div class="row">
+            <button type="button" [disabled]="!(organizationName.valid && organizationCode.valid && organizationDescription.valid && organizationHierarchy.valid )"
+                class="btn btn-success" (click)="createOrgAction(orgObj)">Create Organization</button>
+        </div>
+
+    </form>
+    <!-- <phd-toggle-switch></phd-toggle-switch> -->
+</div>

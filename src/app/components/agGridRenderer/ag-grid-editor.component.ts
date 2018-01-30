@@ -21,7 +21,8 @@ import {ICellEditorAngularComp} from "ag-grid-angular";
 })
 export class AdoptionEditor implements ICellEditorAngularComp, AfterViewInit {
     private params: any;
-
+    private value:any;
+    private selectedValue: string;
     @ViewChild('container', {read: ViewContainerRef}) public container;
     public unitCode: string;
 
@@ -34,13 +35,20 @@ export class AdoptionEditor implements ICellEditorAngularComp, AfterViewInit {
 
     agInit(params: any): void {
         this.params = params;
-        //console.log(params.values);
-        this.unitCode = params.value;
-        this.setUnitCode(params.value);
+        
+        if(params.value.unitType === 'select'){
+            this.unitCode = params.value.unitCode;
+            this.setUnitCode(this.unitCode);            
+        }
+        else {
+            this.unitCode = params.value.unitValue;
+             this.setUnitCode(this.unitCode); 
+        }
+        //console.log(params.value);  
     }
 
     getValue(): any {
-        return this.unitCode;
+        return   this.params.value;
     }
 
     isPopup(): boolean {
@@ -48,7 +56,13 @@ export class AdoptionEditor implements ICellEditorAngularComp, AfterViewInit {
     }
 
     setUnitCode(unitCode: string): void {
-        this.unitCode = unitCode;
+        if(this.params.value.unitType === 'select'){
+            this.params.value.unitCode = unitCode;
+        }
+        else {
+            this.params.value.unitValue = unitCode;
+        }
+       //console.log(this.params.value);
     }
 
     // toggleMood(): void {
@@ -56,6 +70,7 @@ export class AdoptionEditor implements ICellEditorAngularComp, AfterViewInit {
     // }
 
     toUnitCode(unitCode: string) {
+        console.log(unitCode);
         this.setUnitCode(unitCode);
         this.params.api.stopEditing();
     }

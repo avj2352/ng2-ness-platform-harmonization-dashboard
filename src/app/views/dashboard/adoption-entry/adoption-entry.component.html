@@ -1,23 +1,40 @@
-<div class="adoption-entry">
+<div class="adoption-entry" *ngIf="!errorBoolean">
   <h1>Adoption Entry</h1>
   <hr>
+  <phd-bread-crumb [visible]="isBreadCrumbVisible">
+      <ul>
+        <li  *ngFor="let unit of unitTypes" (click)="setDisplayAdoptionByUnit(unit)">{{unit.name}}</li>      
+      </ul>
+    </phd-bread-crumb>
+  <!-- <div *ngFor="let unit of unitTypes">
+ <span>{{selectedUnitTypeID}}</span>
+  </div> -->
   <div *ngIf="agGridData">
           <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
           [rowData]="agGridData.rowData"
           [columnDefs]="agGridData.columnDefs"
           [groupHeaderHeight]="agGridData.groupHeaderHeight"
           [frameworkComponents]="frameworkComponents"
-          [headerHeight] = "150">
+          [headerHeight] = "150"
+          [enableFilter] ="true"
+          [rowSelection] ="single"
+          [domLayout]="domLayout"
+          [singleClickEdit]="true"
+          (cellValueChanged)="adoptionChangeHandler($event)"
+          >
           </ag-grid-angular>
-
-  </div>
+    </div>
+        
   <div class="button-section">
-    <button class="btn-material">
+    <button class="btn-material" (click)="onSaveReport()">
       <span>Save Report</span>
     </button>
-    <button class="btn-material">
+    <button class="btn-material" (click)="onSubitReport()">
       <span>Submit &amp; Close Report</span>
     </button>
   </div>
+</div>
+<div  *ngIf="errorBoolean">
+  <h3 [innerHTML]="errorMsg" class="errorBlock"></h3>
 </div>
 <phd-loader content="Loading Adoption Entry" [visible]="isVisible"></phd-loader>

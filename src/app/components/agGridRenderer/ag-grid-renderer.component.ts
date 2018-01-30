@@ -5,12 +5,12 @@ import {Component} from "@angular/core";
 import {ICellRendererAngularComp} from "ag-grid-angular";
 @Component({
     selector: 'asset-cell',
-    template: `<span [innerHtml]="assetValue"></span>`,
+    template: `<span [innerHtml]="assetValue"  [ngClass]="{'boldSpan':params.value.isModified === 1}"></span>`,
     styleUrls: ['./agGrid.scss']
 })
 export class AssetRenderer implements ICellRendererAngularComp {
     private params: any;
-    private mood: string;
+    private displayValue: string;
     public assetValue: string;
 
     agInit(params: any): void {
@@ -26,7 +26,14 @@ export class AssetRenderer implements ICellRendererAngularComp {
     }
 
     private setAsset(params) {
-        this.mood = params.value;
-        this.assetValue = this.mood ;
+       // console.log(params.value.isModified);
+        if(params.value.unitType === 'select'){
+            this.displayValue = params.value.unitCode;
+        }
+        else {
+            this.displayValue = params.value.unitValue;
+        }
+       // console.log(this.params);   
+        this.assetValue = this.displayValue ;
     };
 }

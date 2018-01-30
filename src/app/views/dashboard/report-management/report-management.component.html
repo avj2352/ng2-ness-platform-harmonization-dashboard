@@ -1,0 +1,10 @@
+<div class="manage-org-view">
+    <phd-bread-crumb [visible]="isBreadCrumbVisible">
+      <ul>
+        <li (click)="showReportlist()">Report List</li>      
+        <li (click)="showAddNewReport()">Add New Report</li>      
+      </ul>
+    </phd-bread-crumb>  
+    <router-outlet></router-outlet>
+  </div>  
+  <phd-loader content="Loading Report List View" [visible]="isVisible"></phd-loader>  

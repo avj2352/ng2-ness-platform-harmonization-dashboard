@@ -12,6 +12,14 @@ import { LoginComponent } from './views/login/login.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AdoptionEntryComponent } from './views/dashboard/adoption-entry/adoption-entry.component';
 import { AdoptionViewComponent } from './views/dashboard/adoption-view/adoption-view.component';
+
+import { ManageOrganizationComponent } from './views/dashboard/manage-organization/manage-organization.component';
+import { ManageOrganizationListComponent } from './views/dashboard/manage-organization/list/manage-org-list.component';
+import { CreateOrganizationComponent } from './views/dashboard/manage-organization/create/create-org.component';
+import { EditOrganizationComponent } from './views/dashboard/manage-organization/edit/edit-org.component';
+import { ReportManagementComponent } from './views/dashboard/report-management/report-management.component';
+import { ReportManagementListComponent } from './views/dashboard/report-management/list/report-management-list.component';
+import { CreateReportComponent } from './views/dashboard/report-management/create/create-report.component';
 //Custom Components
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
@@ -31,6 +39,9 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
 
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
+
 
 const appRoutes: Routes = [  
   { path: 'login', component: LoginComponent },  
@@ -40,6 +51,14 @@ const appRoutes: Routes = [
     { path: 'reportEdit', component: AdoptionEntryComponent },
     { path: 'quarterlyStatus', component: AdoptionViewComponent},    
     // { path: 'manage-organizations', component:ManageOrganizationComponent,}
+    { path: 'report-management', component:ReportManagementComponent,
+    children:[
+      { path:'', redirectTo:'list', pathMatch:'full'},
+      {path:'list', component:ReportManagementListComponent},
+      {path:'create', component:CreateReportComponent},
+      {path:'edit', component:EditOrganizationComponent}
+    ]
+  }
     ]
   },  
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -62,7 +81,16 @@ const config: ExtraOptions = {
     ButtonDropdownComponent,
     SideBarComponent,
     AssetRenderer,
-    AdoptionEditor 
+    AdoptionEditor,
+    ManageOrganizationComponent,
+    ReportManagementComponent,
+    ReportManagementListComponent,
+    ManageOrganizationListComponent,
+    CreateOrganizationComponent,
+    CreateReportComponent,
+    EditOrganizationComponent,
+    BreadCrumbComponent,
+    ToggleSwitchComponent 
   ],
   imports: [
     BrowserModule,

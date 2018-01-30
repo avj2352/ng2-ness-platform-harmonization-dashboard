@@ -73,6 +73,14 @@ export class DashboardComponent implements OnInit {
   showAdoptionView(){
     this.router.navigateByUrl('/dashboard/quarterlyStatus');
   }//end:showAdoptionView()
+  
+  showManageOrg(){
+    this.router.navigateByUrl('/dashboard/manage-organizations');
+  }//end:showManageOrg
+
+  showReportManagement(){
+    this.router.navigateByUrl('/dashboard/report-management');
+  }//end:showManageOrg
 
   ngOnInit() { 
     this.isSideBarVisible = false;   

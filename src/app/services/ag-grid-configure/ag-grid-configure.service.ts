@@ -30,7 +30,7 @@ export class AgGridConfigureService {
     var row = 0, col = 0;
     var countPlatfrom = true;
     let platFormObj = [];
-    productObj.columnDefs.push({headerName:'Product Group',
+    productObj.columnDefs.push({headerName:'Product Group', marryChildren: true,    
       children:[{ headerName: 'Cluster', field: 'clusterCode', width: 60, pinned: 'left' ,columnGroupShow: 'open' },
                 { headerName: 'BG', field: 'bgCode', width: 80, pinned: 'left' ,columnGroupShow: 'open' },
                 { headerName: 'BU', field: 'buCode', width: 80, pinned: 'left' ,columnGroupShow: 'open' },
@@ -44,7 +44,9 @@ export class AgGridConfigureService {
         var assets = [];
         platFormObj[productEachArray.assetDetails[i].platformCode] = {
           headerName: productEachArray.assetDetails[i].platformCode,
-          groupId: productEachArray.assetDetails[i].platformCode,
+          //groupId: productEachArray.assetDetails[i].platformCode,
+          openByDefault: true,
+          marryChildren: true, 
           children: []
         };
         var assetOptions = this.getColoumnOptions(productEachArray.assetDetails[i].unitTypeId, unitTypeArray);
@@ -54,56 +56,21 @@ export class AgGridConfigureService {
             headerName: productEachArray.assetDetails[i].assetName,
             field: 'asset' + productEachArray.assetDetails[i].assetId,
             cellRenderer: 'adoptionRenderer',
-            cellClass:  function(params) { let colObj = params.colDef.cellEditorParams.values; 
-                                                if (params.value ===  colObj[0].code)
-                                                {
-                                                  console.log(colObj[0].colorCode);
-                                                  return colObj[0].colorCode;
-                                                }
-                                                else if (params.value === colObj[1].code){
-                                                  return colObj[1].colorCode
-                                                }
-                                                else if (params.value === colObj[2].code){
-                                                  return colObj[2].colorCode
-                                                }
-                                                else if (params.value === colObj[3].code){
-                                                  return colObj[3].colorCode
-                                                }
-                                                else if (params.value === colObj[4].code){
-                                                  return colObj[4].colorCode
-                                                }
-                                              },
-              
-           // template: '<span style="font-weight: bold;" class="greycell" inline-cell-value data="data" ng-bind="data.asset2"></span>',
+            cellStyle: this.paramsStyling(),
+            columnGroupShow: 'open',
             cellEditor: 'adoptionEditor',
             cellEditorParams: {
               values: assetOptions.unitArray 
             },
             width: assetOptions.width,
-            editable: editableVal
+            editable: editableVal,
             });
           } else {
             platFormObj[productEachArray.assetDetails[i].platformCode].children.push({
             headerName: productEachArray.assetDetails[i].assetName,
             field: 'asset' + productEachArray.assetDetails[i].assetId,
-            cellClass:  function(params) { let colObj = params.colDef.cellEditorParams.values; 
-              if (params.value ===  colObj[0].code)
-              {
-                return colObj[0].colorCode;
-              }
-              else if (params.value === colObj[1].code){
-                return colObj[1].colorCode
-              }
-              else if (params.value === colObj[2].code){
-                return colObj[2].colorCode
-              }
-              else if (params.value === colObj[3].code){
-                return colObj[3].colorCode
-              }
-              else if (params.value === colObj[4].code){
-                return colObj[4].colorCode
-              }
-            },
+            columnGroupShow: 'open',                      
+            cellStyle:  this.paramsStyling(),
             width: assetOptions.width,
             editable: editableVal
           });
@@ -116,55 +83,25 @@ export class AgGridConfigureService {
             headerName: productEachArray.assetDetails[i].assetName,
             field: 'asset' + productEachArray.assetDetails[i].assetId,
             cellRenderer: 'adoptionRenderer',
-            cellEditor: 'adoptionEditor',            
-            cellClass:  function(params) { let colObj = params.colDef.cellEditorParams.values; 
-              if (params.value ===  colObj[0].code)
-              {
-                return colObj[0].colorCode;
-              }
-              else if (params.value === colObj[1].code){
-                return colObj[1].colorCode
-              }
-              else if (params.value === colObj[2].code){
-                return colObj[2].colorCode
-              }
-              else if (params.value === colObj[3].code){
-                return colObj[3].colorCode
-              }
-              else if (params.value === colObj[4].code){
-                return colObj[4].colorCode
-              }
-            },
+            cellEditor: 'adoptionEditor', 
+            columnGroupShow: 'open',                                  
+            cellStyle: this.paramsStyling(),
             cellEditorParams: {
               values: assetOptions.unitArray
             },
             width: assetOptions.width,
             editable: editableVal
+            
           });
         } else {
           platFormObj[productEachArray.assetDetails[i].platformCode].children.push({
             headerName: productEachArray.assetDetails[i].assetName,
             field: 'asset' + productEachArray.assetDetails[i].assetId,
+            columnGroupShow: 'open',            
             width: assetOptions.width,
             editable: editableVal,
-            cellClass:  function(params) { let colObj = params.colDef.cellEditorParams.values; 
-              if (params.value ===  colObj[0].code)
-              {
-                return colObj[0].colorCode;
-              }
-              else if (params.value === colObj[1].code){
-                return colObj[1].colorCode
-              }
-              else if (params.value === colObj[2].code){
-                return colObj[2].colorCode
-              }
-              else if (params.value === colObj[3].code){
-                return colObj[3].colorCode
-              }
-              else if (params.value === colObj[4].code){
-                return colObj[4].colorCode
-              }
-            },
+            cellStyle:  this.paramsStyling()
+            
           });
         }
       };
@@ -195,12 +132,12 @@ export class AgGridConfigureService {
         var keyAsset = 'asset' + productArray.assetDetails[asset_j].assetId;
         if (productArray.assetDetails[asset_j].unitType == 'select') {
           var keyAsset = 'asset' + productArray.assetDetails[asset_j].assetId
-          prdObj[keyAsset] = productArray.assetDetails[asset_j].unitCode;
+          prdObj[keyAsset] = productArray.assetDetails[asset_j];
 
         }
         else if (productArray.assetDetails[asset_j].unitType == 'text') {
           var keyAsset = 'asset' + productArray.assetDetails[asset_j].assetId
-          prdObj[keyAsset] = productArray.assetDetails[asset_j].unitValue;
+          prdObj[keyAsset] = productArray.assetDetails[asset_j];
         }
       }
       productObj.rowData.push(prdObj);
@@ -209,6 +146,35 @@ export class AgGridConfigureService {
     return productObj;
 
   }//end:getReportproductObj.columnDefs
+
+  paramsStyling = function(params) { 
+    return function(params){
+      let color ;
+      let colObj = params.colDef.cellEditorParams.values; 
+      if (params.value.unitCode ===  colObj[0].code)
+      {
+      //console.log(colObj[0].colorCode + "===" + params.value.unitCode);
+        color =  '#96938C';
+      }
+      else if (params.value.unitCode === colObj[1].code){
+       // console.log(colObj[1].colorCode + "===" + params.value.unitCode);   
+        color =  '#e5c1bf';
+      }
+      else if (params.value.unitCode === colObj[2].code){
+        // console.log(colObj[2].colorCode + "===" + params.value.unitCode);    
+        color =  '#f09a60';
+      }
+      else if (params.value.unitCode=== colObj[3].code){
+        // console.log(colObj[3].colorCode + "===" + params.value.unitCode);           
+        color =  '#b5d69a';
+      }
+      else if (params.value.unitCode === colObj[4].code){
+       // console.log(colObj[4].colorCode + "===" + params.value.unitCode);  
+        color =  '#458B00';
+      }
+      return { "background-color": color };
+    }
+  }
 
   getColoumnOptions(selectedUnitType, unitTypeArray) {
     let selectedUnitObj = {

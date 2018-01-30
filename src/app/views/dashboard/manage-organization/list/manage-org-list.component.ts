@@ -28,10 +28,10 @@ export class ManageOrganizationListComponent implements OnInit {
     private selectOrg: any;
     private settings: any;
     private headingLable: String;
-    private router:Router;
-
+  
     constructor(
-        private manageOrgService: ManageOrganizationService
+        private manageOrgService: ManageOrganizationService,
+        private router:Router
     ) {
         // ng-smart-table settings        
 
@@ -60,7 +60,7 @@ export class ManageOrganizationListComponent implements OnInit {
                     custom: [
                         {
                             name: 'edit',
-                            title: 'edit ',
+                            title: 'Edit ',
                             // editConfirm:  true,
                         },
                     ],
@@ -84,10 +84,10 @@ export class ManageOrganizationListComponent implements OnInit {
                     name: {
                         title: this.headingLable + ' Name'
                     },
-                    parentOrganization: {
-                        title: 'Parent Organization',
-                        valuePrepareFunction: (value) => { return (value.name+" "+value.code) }
-                    },
+                    // parentOrganization: {
+                    //     title: 'Parent Organization',
+                    //     valuePrepareFunction: (value) => { return (value.name+" "+value.code) }
+                    // },
                     // parentOrganization: {
                     //     title: 'Parent Organization',
                     //     valuePrepareFunction: (value) => { return value.code }
@@ -124,7 +124,7 @@ export class ManageOrganizationListComponent implements OnInit {
     onEdit(event)
     {
         //event.data
-        this.router.navigateByUrl('/dashboard/manage-organizations/edit/'+event.data);
+        this.router.navigate(['/dashboard/manage-organizations/edit',event.data.id,event.data.name]);
     }
 
     onDeleteConfirm(event) {

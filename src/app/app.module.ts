@@ -39,6 +39,10 @@ import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 import { AdoptionService } from 'app/services/adoption-service/adoption.service';
+import { ManagePlatformComponent } from './views/dashboard/manage-platform/manage-platform.component';
+import { ManagePlatformListComponent } from './views/dashboard/manage-platform/list/manage-platform-list.component';
+import { CreatePlatformComponent } from './views/dashboard/manage-platform/create/create-platform.component';
+import { EditPlatformComponent } from './views/dashboard/manage-platform/edit/edit-platform.component';
 
 
 const appRoutes: Routes = [  
@@ -54,7 +58,7 @@ const appRoutes: Routes = [
         { path:'', redirectTo:'list', pathMatch:'full'},
         {path:'list', component:ManageOrganizationListComponent},
         {path:'create', component:CreateOrganizationComponent},
-        {path:'edit/:obj', component:EditOrganizationComponent}
+        {path:'edit/:obj/:name', component:EditOrganizationComponent}
       ]
     },
     { path: 'report-management', component:ReportManagementComponent,
@@ -64,7 +68,15 @@ const appRoutes: Routes = [
         {path:'create', component:CreateReportComponent},
         {path:'edit', component:EditOrganizationComponent}
       ]
-    }  
+    } , 
+    { path: 'manage-platform', component:ManagePlatformComponent,
+    children:[
+      { path:'', redirectTo:'list', pathMatch:'full'},
+      {path:'list', component:ManagePlatformListComponent},
+      {path:'create', component:CreatePlatformComponent},
+      {path:'edit/:obj/:name', component:EditPlatformComponent}
+    ]
+  },
     ]
   }
 ]
@@ -87,7 +99,11 @@ const config: ExtraOptions = {
     AssetRenderer,
     AdoptionEditor,
     ManageOrganizationComponent,
+    ManagePlatformComponent,
+    EditPlatformComponent,
+    CreatePlatformComponent,
     ReportManagementComponent,
+    ManagePlatformListComponent,
     ReportManagementListComponent,
     ManageOrganizationListComponent,
     CreateOrganizationComponent,

@@ -248,5 +248,3 @@ export class AgGridConfigureService {
 
 
 } //end:ag-gird
-
-}

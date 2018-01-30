@@ -38,7 +38,11 @@ export class LoginComponent implements OnInit {
       if(res.type=='error'){
         this.isValidError = true;
         console.error('Login Error: ', res);
-      }else{
+      }else if(res.hasOwnProperty('errorCode')){
+        this.isValidError = true;
+        console.error('Login Error: ', res);
+      }
+      else{
         console.log('Success Response contains: ', res);
         this.loginService.storeCredentials(res);
         this.router.navigateByUrl('/dashboard');

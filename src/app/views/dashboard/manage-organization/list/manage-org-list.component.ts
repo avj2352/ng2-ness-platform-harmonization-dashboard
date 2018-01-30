@@ -143,8 +143,4 @@ export class ManageOrganizationListComponent implements OnInit {
                 this.isVisible  =  false;
             });
     }//end:ngOnInit
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 }//end:class-ManageOrganizationListComponent    

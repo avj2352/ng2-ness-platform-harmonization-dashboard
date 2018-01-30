@@ -38,6 +38,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
+import { AdoptionService } from 'app/services/adoption-service/adoption.service';
 
 
 const appRoutes: Routes = [  
@@ -110,6 +111,7 @@ const config: ExtraOptions = {
     Ng2SmartTableModule
   ],
   providers: [
+    AdoptionService,
     StaticDataService,
     AgGridConfigureService,
     LoginService,

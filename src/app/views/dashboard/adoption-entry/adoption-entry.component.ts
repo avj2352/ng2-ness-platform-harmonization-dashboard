@@ -13,12 +13,12 @@ import { AdoptionEditor } from 'app/components/agGridRenderer/ag-grid-editor.com
 import { AdoptionService } from 'app/services/adoption-service/adoption.service';
 
 //Models 
-import { UnitType } from '../models/unitType';
 import { single } from 'rxjs/operators/single';
 import { UnitTypeModel } from 'app/views/dashboard/models/unitTypeModel';
 import { AgGrid } from 'app/views/dashboard/models/ag-grid';
 import { AdoptionResult } from '../../../models/adoptionResult';
 import { platform } from 'os';
+import { UnitType } from 'app/views/dashboard/models/unitType';
 
 @Component({
   selector: 'app-adoption-entry',

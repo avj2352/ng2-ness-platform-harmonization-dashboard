@@ -80,15 +80,6 @@ export class DashboardComponent implements OnInit {
 
   showReportManagement(){
     this.router.navigateByUrl('/dashboard/report-management');
-  }//end:showManageOrg
-
-  showManageOrg(){
-    this.router.navigateByUrl('/dashboard/manage-organizations');
-  }//end:showManageOrg
-
-
-  showReportManagement(){
-    this.router.navigateByUrl('/dashboard/report-management');
   }//end:showReportManagement
 
   toggleUserProfileDropdown(){

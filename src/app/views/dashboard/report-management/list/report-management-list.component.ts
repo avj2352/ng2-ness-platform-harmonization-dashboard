@@ -26,6 +26,21 @@ export class ReportManagementListComponent implements OnInit {
 
     }//end:constructor
 
+    onDeleteConfirm(event) {
+        if (window.confirm('Are you sure you want to delete?')) {
+            this.reportManagementService.deleteReport(event.data.id).subscribe((response) => {
+                console.log(response)   
+              },
+              (error)=>{
+                console.log(error)   
+                // this.isVisible = false;
+              });
+          event.confirm.resolve();
+        } else {
+          event.confirm.reject();
+        }
+      }
+
     ngOnInit() {
         this.reportManagementService.getAllReportsAndUnitConfig().subscribe((response)  =>  {
             var temp_data = response;

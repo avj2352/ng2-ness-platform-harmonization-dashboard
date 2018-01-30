@@ -7,7 +7,7 @@ import { Route, ActivatedRoute } from '@angular/router';
 })
 export class EditOrganizationComponent implements OnInit {
     constructor(private route: ActivatedRoute) {
-        this.route.params.subscribe( params => console.log(params) );
+        this.route.params.subscribe( params => console.log("all params are "+params) );
     }
   
     ngOnInit(){

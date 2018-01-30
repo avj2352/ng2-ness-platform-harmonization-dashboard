@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
 import { LoginService } from 'app/services/auth/login.service';
 import { map as _map } from 'lodash';
+import { LogoutService } from 'app/services/auth/logout.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,7 +38,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private manageOrg:ManageOrganizationService,
     private router: Router,
-    private loginService:LoginService
+    private loginService:LoginService,
+    private logOutService: LogoutService
   ) {    
     this.isVisible = false;
     this.isPopupVisible = false;
@@ -59,6 +61,9 @@ export class DashboardComponent implements OnInit {
 
   logout(){
     this.isPopupVisible = true;
+    // this.logOutService.logOut().subscribe( response => {
+    //   this.router.navigateByUrl('/login');
+    // })
   }//end:logout
 
   toggleSideBar(){

@@ -27,14 +27,22 @@ export class LoginService {
 
   loginUser(userInput:UserLoginCreditional){
     console.log('Login Endpoint is: ', envConfig.appURL.loginEndPoint);
-    return this.http.post(envConfig.appURL.loginEndPoint,userInput,this.options)
-      .map(res => {
-        // debugger;
-        return res.json()
-      })
-      .catch((error)=>{
-        return Observable.of(JSON.parse(error._body));
-      });
+    return this.http.get(envConfig.appURL.loginLDAP,this.options)
+    .map(res => {
+      // debugger;
+      return res.json()
+    })
+    .catch((error)=>{
+      return Observable.of(error._body);
+    });
+    // return this.http.post(envConfig.appURL.loginEndPoint,userInput,this.options)
+    //   .map(res => {
+    //     // debugger;
+    //     return res.json()
+    //   })
+    //   .catch((error)=>{
+    //     return Observable.of(error._body);
+    //   });
   }//end:loginUser
 
   storeCredentials(inputObj){
@@ -63,8 +71,7 @@ export class LoginService {
     console.log('Session ID: ', sessionID);
     return new Headers({ 'Content-Type': 'application/json', 
     'Accept': 'application/vnd.ms-excel',
-    'sessionId':sessionID
-    });  
+    'sessionId':sessionID    });  
   }//getDownloadHeaderParams
 
   getUserId() {

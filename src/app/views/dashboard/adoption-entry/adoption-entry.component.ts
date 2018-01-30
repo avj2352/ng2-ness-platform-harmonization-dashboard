@@ -13,12 +13,12 @@ import { AdoptionEditor } from 'app/components/agGridRenderer/ag-grid-editor.com
 import { AdoptionService } from 'app/services/adoption-service/adoption.service';
 
 //Models 
+import { UnitType } from '../models/unitType';
 import { single } from 'rxjs/operators/single';
 import { UnitTypeModel } from 'app/views/dashboard/models/unitTypeModel';
 import { AgGrid } from 'app/views/dashboard/models/ag-grid';
 import { AdoptionResult } from '../../../models/adoptionResult';
 import { platform } from 'os';
-import { UnitType } from 'app/views/dashboard/models/unitType';
 
 @Component({
   selector: 'app-adoption-entry',
@@ -29,6 +29,7 @@ export class AdoptionEntryComponent implements OnInit {
 
   private isVisible: boolean;
   private unitTypes: Array<UnitType>;
+  private unitTypesDisplay: Array<UnitType> = [];
   private agGridData: AgGrid;
   private unitTypeMap;
   private assetAdoptionData;
@@ -43,6 +44,9 @@ export class AdoptionEntryComponent implements OnInit {
   private errorMsg: string;
   private errorBoolean: boolean;
   private isBreadCrumbVisible: boolean;
+  private displayData = false;
+  private displayMap;
+  
   
 
   constructor(
@@ -116,7 +120,6 @@ export class AdoptionEntryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isBreadCrumbVisible = true;
     this.isVisible = true;
     this.assetAdoptionData = new Map();
     this.reportUnitTypeArray = new Map();
@@ -124,6 +127,7 @@ export class AdoptionEntryComponent implements OnInit {
     this.resultsMap = new Map();
     this.productMap = new Map();
     this.adoptionResultMap = new Map();
+    this.displayMap = new Map();
     this.errorBoolean = false;
     this.staticDataService.threeSecondDelay().then((response) => { this.isVisible = false }, (error) => { this.isVisible = false });
     this.adoptionService.geUnitType().subscribe(response => {
@@ -133,7 +137,16 @@ export class AdoptionEntryComponent implements OnInit {
         this.unitTypeMap.set(singleUnit.id, singleUnit);
         this.assetAdoptionData.set(singleUnit.id, []);
         this.reportUnitTypeArray.set(singleUnit.id, []);
+        this.displayMap.set(singleUnit.id, false);
       }
+      for (let singleUnit of this.unitTypes) {
+        // console.log(typeof(singleUnit.code));
+        let  singleDisplay = new UnitType();
+        singleDisplay = singleUnit;
+        singleDisplay.display = false;
+        this.unitTypesDisplay.push(singleDisplay); 
+      }
+      console.log(this.unitTypesDisplay);
       this.getByUnitTypeReport();
       this.isBreadCrumbVisible = true;
 
@@ -168,7 +181,12 @@ export class AdoptionEntryComponent implements OnInit {
         console.log(this.selectedReportId);
         this.reportUnitTypeArray.set(this.selectedUnitTypeID, this.agGridConfigureService.getReportArray(this.assetAdoptionData.get(this.selectedUnitTypeID).productAssetAdoptionResponse, this.unitTypes, this.unitTypes[0], false));
         this.frameworkComponents = { adoptionRenderer: AssetRenderer, adoptionEditor: AdoptionEditor };
-        this.agGridData = this.reportUnitTypeArray.get(1);
+        this.agGridData = this.reportUnitTypeArray.get(this.selectedUnitTypeID);
+        this.displayMap.set(this.selectedUnitTypeID,true);
+        let unitIndex = this.getUnitKey(this.selectedUnitTypeID); 
+        this.unitTypesDisplay[unitIndex].display = true;
+        this.displayData = true;
+
         console.log(this.unitTypes);
         //this.unitTypes[this.unitTypeMap.get(this.selectedUnitTypeID)].display = true;
         console.log(this.agGridData);
@@ -191,10 +209,37 @@ export class AdoptionEntryComponent implements OnInit {
     }
   }
 
+//getKey 
+ getUnitKey (value) {
+			var ret = -1;
+      //console.log("valye"+ value);
+      for( let i = 0 ; i < this.unitTypesDisplay.length ; i++ ) {
+         let singleUnit = this.unitTypesDisplay[i];
+         if(singleUnit.id == value) {
+            ret = i;
+         }
+      }
+      return ret;
+			
+  }
+  //
+  checkUnit(unitId) {
+      if(this.selectedUnitTypeID === unitId && this.displayMap.get(unitId) ) {
+        console.log("this is how" + this.selectedUnitTypeID + "====" + unitId);
+        return true;
+      }
+     return false;
+  }
+
   // On change the unit type 
   setDisplayAdoptionByUnit(unit:UnitType) {
     console.log(unit);
+    this.displayData = false;
+    this.agGridData  = new AgGrid();
     this.selectedUnitTypeID = unit.id;
+    this.displayMap.forEach((value: boolean, key: string) => {
+      
+  });
     this.reportUnitTypeArray.set(this.selectedUnitTypeID, 
           this.agGridConfigureService.getReportArray(
                                                     this.assetAdoptionData.get(this.selectedUnitTypeID).productAssetAdoptionResponse, 
@@ -202,6 +247,8 @@ export class AdoptionEntryComponent implements OnInit {
                                                    unit.id, 
                                                     false));
       console.log(this.reportUnitTypeArray.get(unit.id));
+      this.agGridData = this.reportUnitTypeArray.get(this.selectedUnitTypeID);
+      this.displayData = true;
     // this.selectedUnitTypeID to be changed. 
   }
   ngOnDestroy() {

@@ -16,7 +16,7 @@
       </div>
     </div>    
   </form>
-  <div *ngIf="agGridData">
+  <div *ngIf="displayData">
     <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
       [rowData]="agGridData.rowData"
       [columnDefs]="agGridData.columnDefs"

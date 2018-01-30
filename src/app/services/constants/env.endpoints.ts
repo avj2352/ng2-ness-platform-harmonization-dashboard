@@ -16,7 +16,7 @@ export const appURL = {
     'allReports': base+'report',
     'allPlatforms':base+'platform',
     'allAsset':base+'asset',
-    
+    'loginLDAP': base + 'ldaplogin',
     'allAssetType':base+'assettype', 
     'loginEndPoint':base+'login',
     'logoutEndPoint': base+ 'logout',           

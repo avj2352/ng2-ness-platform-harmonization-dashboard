@@ -13,12 +13,14 @@ export class LoginComponent implements OnInit {
   private version:String;
   private isVisible:boolean;
   private isValidError:boolean;
+  private disabled: boolean;
   public inputObj:UserLoginCreditional;
   constructor(
     private router:Router,
     private staticService:StaticDataService,
     private loginService:LoginService
   ) { 
+    this.disabled = true;
     this.inputObj = new UserLoginCreditional();
   }//end:construtor
 

@@ -3,11 +3,54 @@
     <div class="popup__header">
       <p>{{title}}</p>
       <button title="close" (click)="close()">
-        <img src="/assets/svg/004-clear-button.svg" alt="close-icon"/>
+        <img src="/assets/svg/004-clear-button.svg" alt="close-icon" />
       </button>
     </div>
     <div class="popup__body">
-      <p>{{reportName}}</p>      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <label>Report Name : {{reportName}}</label>
+          </div>
+          <div class="col-md-3">
+            <label>Total Count : {{totalCount}}</label>
+          </div>
+          <div class="col-md-3">
+            <label>Submitted Count : {{submittedCount}}</label>
+          </div>
+          <div class="col-md-3">
+            <label>Pending Count: {{pendingCount}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-12 popup-table">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let reportItem of tracklistData">
+                <th>{{reportItem.hierarchy}}</th>
+                <td>{{reportItem.code}}</td>
+                <td>{{reportItem.name}}</td>
+                <td>{{reportItem.status}}</td>
+                <td>
+                  <div *ngIf="reportItem.active">Active</div>
+                  <div *ngIf="!reportItem.active">Inactive</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <!-- <p>{{reportName}}</p>       -->
     </div>
   </div>
 </div>

@@ -1,10 +1,17 @@
 <div class="manage-org-view">
-  <phd-bread-crumb [visible]="isBreadCrumbVisible">
-    <ul>
-      <li (click)="showOrgazniationlist()">Organization List</li>      
-      <li (click)="showAddNewOrgazniation()">Add New Orgazniation</li>      
+    <!-- div panel -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+          <!-- class="nav-link active" -->
+        <a [ngClass]="{'nav-link':true,'active':activeTab==0}" (click)="showOrganizationlist()" data-toggle="list">Organization List</a>
+      </li>
+      <li class="nav-item">
+        <a [ngClass]="{'nav-link':true,'active':activeTab==1}" (click)="showAddNewOrganization()" data-toggle="create">Create Organization</a>
+      </li>            
     </ul>
-  </phd-bread-crumb>  
-  <router-outlet></router-outlet>
-</div>  
-<phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  
+    <div id="myTabContent" class="tab-content">
+      <router-outlet></router-outlet>      
+    </div>
+    <!-- end:div panel -->    
+  </div>  
+  <phd-loader content="Loading Report List View" [visible]="isVisible"></phd-loader>  

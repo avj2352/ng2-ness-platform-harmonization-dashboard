@@ -27,11 +27,11 @@
                                 </button>                    
                                 <!-- If status is Initiated -->    
                                 <!-- BUG FIX: [ngClass]="{'disabled':reportItem.status=='Closed'}" is causing to always come on top -->
-                                <button *ngIf='reportItem.status=="Closed"' class="status-button btn btn-xs btn-primary"  (click)="generate(reportItem)" >
+                                <button  *ngIf='reportItem.status=="Closed"' class="status-button btn btn-xs btn-primary"  (click)="generate(reportItem)" >
                                         <i class="ion-stats-bars"></i> Generate Report
                                 </button>                    
                                  <!-- If status is closed      -->
-                                 <button *ngIf='reportItem.status=="Initiated"' (click)="edit(reportItem)" class="status-button btn btn-xs btn-info ">
+                                 <button  *ngIf='reportItem.status=="Initiated"' (click)="edit(reportItem)" class="status-button btn btn-xs btn-info ">
                                     <i class="ion-eye"></i> 
                                     <span>Edit</span>
                                 </button>     
@@ -48,7 +48,7 @@
                                     <span>Delete</span>                                
                                 </button>
                                 <!-- Track Status Button -->
-                                <button *ngIf='reportItem.status=="Not Started"' (click)="viewReportItemStatus(reportItem)" class="status-button btn btn-xs btn-primary">
+                                <button *ngIf='reportItem.status=="Initiated"' (click)="viewReportItemStatus(reportItem)" class="status-button btn btn-xs btn-primary">
                                     <i class="ion-eye"></i> 
                                     <span>Track Status</span>                                
                                 </button>

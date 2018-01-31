@@ -4,12 +4,12 @@
     max-width:$grid-width; //Standard for mordern browsers - 
     // background-color: $color-dull-white; 
     padding: 0 15px;
-    margin: 0 auto;
+    margin: 0 0;
     //Without the not(), this would select the last child, but with not we can continue our original styling
     //not(:last-child) - Everything, except the last child element
-    &:not(:last-child){
-        margin-bottom: $gutter-vertical;
-    }//end::not
+    // &:not(:last-child){
+    //     margin-bottom: $gutter-vertical;
+    // }//end::not
     // in CSS there is a powerful function called calc()
     @include clearfix;
     // with CSS calc() we can mix in units, this is not possible using SASS functions
@@ -22,9 +22,9 @@
     [class^="col-"] {
         // background-color: orangered;
         float: left;
-        &:not(:last-child){
-            margin-right: $gutter-horizontal;
-        }
+        // &:not(:last-child){
+        //     margin-right: $gutter-horizontal;
+        // }
     }//end:[class]
 
     .col-1-of-2 {

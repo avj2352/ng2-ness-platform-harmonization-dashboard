@@ -9,6 +9,7 @@ import { ActivatedRoute ,Router } from '@angular/router';
 export class ManagePlatformComponent implements OnInit {
   private isVisible:boolean;
   private isBreadCrumbVisible:boolean;
+  private activeTab:number
   constructor(
     private route:ActivatedRoute,
     private router:Router
@@ -16,14 +17,18 @@ export class ManagePlatformComponent implements OnInit {
   }//end:constructor
 
   showAddNewPlatform(){
+    this.activeTab = 1;
     this.router.navigateByUrl('/dashboard/manage-platform/create');
   }//end:showAddNewOrgazniation()
 
   showPlatformlist(){
+    this.activeTab = 0;
     this.router.navigateByUrl('/dashboard/manage-platform/list');
   }//end:showAddNewOrgazniation()
   
   ngOnInit() {
+    this.activeTab = 0;
+    this.router.navigateByUrl('/dashboard/manage-platform/list');
     this.isBreadCrumbVisible = true;
     this.isVisible = false;
   }//end:ngOnInit

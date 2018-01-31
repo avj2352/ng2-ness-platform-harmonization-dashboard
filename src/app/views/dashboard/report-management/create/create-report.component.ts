@@ -89,11 +89,13 @@ export class CreateReportComponent implements OnInit {
         reportObj.unitTypeList = checkboxSelectedItemsList;
         this.reportManagementService.creatReport(reportObj).subscribe((response)  =>  {
             console.log('Response post method: ', response);
+            this.router.navigateByUrl('/dashboard/report-management/list');
         },
             (error) => {
                 console.log('Response post method: ', error);
+                this.router.navigateByUrl('/dashboard/report-management/list');
             });
-            this.router.navigateByUrl('/dashboard/report-management/list');
+            // this.router.navigateByUrl('/dashboard/report-management/list');
     }
 
     selectedList (selectedValue, selected) {

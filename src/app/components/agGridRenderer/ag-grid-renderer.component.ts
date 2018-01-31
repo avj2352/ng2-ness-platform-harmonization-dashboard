@@ -24,7 +24,7 @@ export class AssetRenderer implements ICellRendererAngularComp {
     }
 
     private setAsset(params) {
-       // console.log(params.value.isModified);
+        // console.log(params.value);
         if(params.value.unitType === 'select'){
             this.displayValue = params.value.unitCode;
         }

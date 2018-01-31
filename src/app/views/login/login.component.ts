@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(this.inputObj).subscribe(res=>{
       this.isVisible = false;
       console.log('Login Response',res);
-      if(res.type=='error'){
+      if(res.type=='error' ){
         this.isValidError = true;
         console.error('Login Error: ', res);
       }else if(res.hasOwnProperty('errorCode')){

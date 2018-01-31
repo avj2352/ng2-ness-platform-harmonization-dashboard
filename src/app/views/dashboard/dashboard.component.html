@@ -19,10 +19,10 @@
   <nav>
     <button class="btn" (click)="showAdoptionEntry()">Adoption Entry</button>
     <button class="btn" (click)="showAdoptionView()">Adoption View</button>
+    <button class="btn" (click)="showReportManagement()">Report Management</button>    
     <button class="btn" (click)="showManageOrg()">Manage Organizations</button>
-    <button class="btn" (click)="showReportManagement()">Report Management</button>
     <button class="btn"(click)="showManagePlatform()" >Manage Platforms</button>
-    <button class="btn">Manage Hierarchy</button>
+    <!-- <button class="btn">Manage Hierarchy</button> -->
   </nav>
   <section>
     <phd-side-bar [visible]="isSideBarVisible" (hidden)="toggleSideBar()"></phd-side-bar>

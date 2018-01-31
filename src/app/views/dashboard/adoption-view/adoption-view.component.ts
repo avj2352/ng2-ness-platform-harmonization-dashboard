@@ -29,14 +29,17 @@ export class AdoptionViewComponent implements OnInit {
   private rowData: any;
   private isVisible: boolean;
   private unitTypes: Array<UnitType>;
+  private unitTypesDisplay: Array<UnitType> = [];  
   private agGridData: AgGrid;
   private unitTypeMap;
   private assetAdoptionData;
   private reportUnitTypeArray;
   private frameworkComponents;
-  private allReportArray: any;
+  private allReportArray: any = [];
   private selectedReport: any;
+  private selectedUnitTypeID: number;  
   private displayData: boolean;
+  private unitIndex;
 
   constructor(
     private staticDataService: StaticDataService,
@@ -45,8 +48,14 @@ export class AdoptionViewComponent implements OnInit {
     private agGridConfigureService:AgGridConfigureService ) 
     {
     this.adoptionService.getAllReportsAndUnitConfig().subscribe(response => {
-      this.allReportArray = response;
-      this.selectedReport = response[0];
+      console.log(response);
+      for(let i = 0; i< response.length ; i++){
+          if(response[i].status !== 'Not Started' ) {
+            this.allReportArray.push(response[i])
+        }
+      }
+      console.log(this.allReportArray);
+      this.selectedReport = this.allReportArray[0];
     },
       (error) => { this.isVisible = false });
   }//end:constructor
@@ -54,7 +63,7 @@ export class AdoptionViewComponent implements OnInit {
   configAgGridStyle() {
     let styles = {
       'width': '100%',
-      'height': '68vh'
+      'height': '65vh'
     };
     return styles;
   }//end:configAgGridStyle()
@@ -81,14 +90,22 @@ export class AdoptionViewComponent implements OnInit {
   }//end:ngOnInit
 
   selectedReportView() {
+    this.unitTypesDisplay = [];
     this.unitTypes = this.selectedReport.unitTypeList;
     this.agGridData = new AgGrid();
     this.displayData = false;
+    this.isVisible = true;
     for (let singleUnit of this.unitTypes) {
       // console.log(typeof(singleUnit.code));
       this.unitTypeMap.set(singleUnit.id, singleUnit);
       this.assetAdoptionData.set(singleUnit.id, []);
       this.reportUnitTypeArray.set(singleUnit.id, []);
+    }
+    for (let singleUnit of this.unitTypes) {
+      let  singleDisplay = new UnitType();
+      singleDisplay = singleUnit;
+      singleDisplay.display = false;
+      this.unitTypesDisplay.push(singleDisplay); 
     }
     this.getAllUnitsReportById()
   }
@@ -122,13 +139,55 @@ export class AdoptionViewComponent implements OnInit {
          let unitType =  this.unitTypeMap.get(singleUnit.unitTypeId);
          this.assetAdoptionData.set(singleUnit.unitTypeId,singleUnit); 
      }
+    // By default 1st unit
+     this.selectedUnitTypeID = this.unitTypes[0].id;
+     this.unitIndex = this.getUnitKey(this.selectedUnitTypeID); 
+     
+     this.unitTypesDisplay[this.unitIndex].display = true;
+     
      this.reportUnitTypeArray.set(this.unitTypes[0].id,this.agGridConfigureService.getReportArray(this.assetAdoptionData.get(this.unitTypes[0].id).productAssetAdoptionResponse,this.unitTypes,this.unitTypes[0],true));
      this.frameworkComponents = { adoptionRenderer: AssetRenderer, adoptionEditor : AdoptionEditor};   
      this.agGridData = this.reportUnitTypeArray.get(1);
      this.displayData = true;
+     this.isVisible = false;
    //this.columnDefs = this.reportUnitTypeArray.get(1).columnDefs;
     
     });
+  }
+
+  //getKey 
+ getUnitKey (value) {
+  var ret = -1;
+  //console.log("valye"+ value);
+  for( let i = 0 ; i < this.unitTypesDisplay.length ; i++ ) {
+     let singleUnit = this.unitTypesDisplay[i];
+     if(singleUnit.id == value) {
+        ret = i;
+     }
+  }
+  return ret;
+  
+} //end: getUnitKey
+
+  // On change the unit type 
+  setDisplayAdoptionByUnit(unit:UnitType) {
+    console.log(unit);
+    this.displayData = false;
+    this.agGridData  = new AgGrid();
+    this.unitTypesDisplay[this.unitIndex].display = false;
+    this.selectedUnitTypeID = unit.id;
+    this.unitIndex = this.getUnitKey(unit.id);
+    this.reportUnitTypeArray.set(this.selectedUnitTypeID, 
+          this.agGridConfigureService.getReportArray(
+                                                    this.assetAdoptionData.get(this.selectedUnitTypeID).productAssetAdoptionResponse, 
+                                                    this.unitTypes, 
+                                                   unit.id, 
+                                                    true));
+      console.log(this.reportUnitTypeArray.get(unit.id));
+      this.unitTypesDisplay[this.unitIndex].display = true;
+      this.agGridData = this.reportUnitTypeArray.get(this.selectedUnitTypeID);
+      this.displayData = true;
+    // this.selectedUnitTypeID to be changed. 
   }
 
 }//end:class-AdoptionViewComponent

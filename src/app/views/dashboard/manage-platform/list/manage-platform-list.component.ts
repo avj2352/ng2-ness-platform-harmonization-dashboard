@@ -25,15 +25,15 @@ export class ManagePlatformListComponent implements OnInit {
   ) {
     this.settings = {
       actions: {
-        edit: false,
+        edit: true,
         add: false,
         position: 'right',
-        custom: [
-          {
-            name: 'edit',
-            title: 'Edit ',
-          },
-        ],
+        // custom: [
+        //   {
+        //     name: 'edit',
+        //     title: 'Edit ',
+        //   },
+        // ],
       },
       delete: {
         confirmDelete: true,

@@ -33,7 +33,7 @@ export class LoginService {
       return res.json()
     })
     .catch((error)=>{
-      return Observable.of(error._body);
+      return Observable.of(JSON.parse(error._body));
     });
     // return this.http.post(envConfig.appURL.loginEndPoint,userInput,this.options)
     //   .map(res => {

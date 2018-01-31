@@ -1,42 +1,39 @@
 <div class="adoption-entry" *ngIf="!errorBoolean">
-  <phd-bread-crumb [visible]="isBreadCrumbVisible">
+  <ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let unit of unitTypesDisplay">
+      <a class="nav-link" [class.active]="unit.id === selectedUnitTypeID" (click)="setDisplayAdoptionByUnit(unit)" data-toggle="list">{{unit.name}}</a>
+    </li>
+  </ul>
+  <!-- <phd-bread-crumb [visible]="isBreadCrumbVisible">
       <ul>
         <li  *ngFor="let unit of unitTypesDisplay" (click)="setDisplayAdoptionByUnit(unit)">{{unit.name}}</li>      
       </ul>
-  </phd-bread-crumb>
-  <div *ngFor="let unit of unitTypesDisplay">
-    <div *ngIf="unit.display">
-          <li>Unit {{unit.id}}</li>
-          <div *ngIf="selectedUnitTypeID === unit.id && displayData">
-              <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
-              [rowData]="agGridData.rowData"
-              [columnDefs]="agGridData.columnDefs"
-              [groupHeaderHeight]="agGridData.groupHeaderHeight"
-              [frameworkComponents]="frameworkComponents"
-              [headerHeight] = "200"
-              [enableFilter] ="true"
-              [rowSelection] ="single"
-              [domLayout]="domLayout"
-              [singleClickEdit]="true"
-              (cellValueChanged)="adoptionChangeHandler($event)"
-              >
-              </ag-grid-angular>
+  </phd-bread-crumb> -->
+  <div class="tab-content">
+    <div *ngFor="let unit of unitTypesDisplay" [hidden]="!unit.display">
+      <div *ngIf="unit.display">
+        <div *ngIf="selectedUnitTypeID === unit.id && displayData">
+          <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh" [rowData]="agGridData.rowData" [columnDefs]="agGridData.columnDefs"
+            [groupHeaderHeight]="agGridData.groupHeaderHeight" [frameworkComponents]="frameworkComponents" [headerHeight]="200"
+            [enableFilter]="true" [rowSelection]="single" [domLayout]="domLayout" [singleClickEdit]="true" (cellValueChanged)="adoptionChangeHandler($event)">
+          </ag-grid-angular>
+        </div>
       </div>
-
     </div>
-  </div>
 
-        
-  <div class="button-section">
-    <button class="btn-material" (click)="onSaveReport()">
-      <span>Save Report</span>
-    </button>
-    <button class="btn-material" (click)="onSubitReport()">
-      <span>Submit &amp; Close Report</span>
-    </button>
+    <div class="button-section">
+      <button class="btn-material" (click)="onSaveReport()">
+        <span>Save Report</span>
+      </button>
+      <button class="btn-material" (click)="onSubitReport()">
+        <span>Submit &amp; Close Report</span>
+      </button>
+    </div>
+
   </div>
+  
 </div>
-<div  *ngIf="errorBoolean">
+<div *ngIf="errorBoolean">
   <h3 [innerHTML]="errorMsg" class="errorBlock"></h3>
 </div>
 <phd-loader content="Loading Adoption Entry" [visible]="isVisible"></phd-loader>

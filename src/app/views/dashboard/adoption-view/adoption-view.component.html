@@ -1,6 +1,4 @@
 <div class="adoption-view">
-  <h1>Adoption View</h1>
-  <hr>
   <form class="select-quarter-form">
     <div class="form-group">
       <div class="select-label">
@@ -17,6 +15,12 @@
     </div>    
   </form>
   <div *ngIf="displayData">
+      <ul class="nav nav-tabs">
+          <li class="nav-item"  *ngFor="let unit of unitTypesDisplay" >
+            <a class="nav-link" [class.active]="unit.id === selectedUnitTypeID" (click)="setDisplayAdoptionByUnit(unit)" data-toggle="list">{{unit.name}}</a>
+          </li>
+      </ul>
+    <div class="tab-content">
     <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
       [rowData]="agGridData.rowData"
       [columnDefs]="agGridData.columnDefs"
@@ -28,5 +32,6 @@
   <div class="button-section">
     <button class="btn-material" (click)="downloadReport()"><span>Download Report</span></button>     
   </div>
+</div>
 </div>
 <phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  

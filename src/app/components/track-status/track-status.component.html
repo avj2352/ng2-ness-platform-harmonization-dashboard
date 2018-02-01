@@ -28,10 +28,10 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Code</th>
-                <th scope="col">Name</th>
+                <th scope="col">Platform Code</th>
+                <th scope="col">Platform Name</th>
                 <th scope="col">Status</th>
-                <th scope="col">Status</th>
+                <!-- <th scope="col">Status</th> -->
               </tr>
             </thead>
             <tbody>
@@ -40,10 +40,10 @@
                 <td>{{reportItem.code}}</td>
                 <td>{{reportItem.name}}</td>
                 <td>{{reportItem.status}}</td>
-                <td>
+                <!-- <td>
                   <div *ngIf="reportItem.active">Active</div>
                   <div *ngIf="!reportItem.active">Inactive</div>
-                </td>
+                </td> -->
               </tr>
             </tbody>
           </table>

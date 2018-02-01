@@ -27,7 +27,7 @@
                                 </button>                    
                                 <!-- If status is Initiated -->    
                                 <!-- BUG FIX: [ngClass]="{'disabled':reportItem.status=='Closed'}" is causing to always come on top -->
-                                <button  *ngIf='reportItem.status=="Closed"' class="status-button btn btn-xs btn-primary"  (click)="generate(reportItem)" >
+                                <button  *ngIf='reportItem.status=="Closed"' class="status-button btn btn-xs btn-primary"  (click)="downloadReport(reportItem)" >
                                         <i class="ion-stats-bars"></i> Generate Report
                                 </button>                    
                                  <!-- If status is closed      -->

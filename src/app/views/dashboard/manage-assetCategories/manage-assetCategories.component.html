@@ -1,0 +1,17 @@
+<div class="manage-org-view">
+    <!-- div panel -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+          <!-- class="nav-link active" -->
+        <a [ngClass]="{'nav-link':true,'active':activeTab==0}" (click)="showAssetCategorieslist()" data-toggle="list">AssetCategories List</a>
+      </li>
+      <li class="nav-item">
+        <a [ngClass]="{'nav-link':true,'active':activeTab==1}" (click)="showAddNewAssetCategories()" data-toggle="create">Create AssetCategory</a>
+      </li>            
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <router-outlet></router-outlet>      
+    </div>
+    <!-- end:div panel -->    
+  </div>  
+  <phd-loader content="Loading Report List View" [visible]="isVisible"></phd-loader>  

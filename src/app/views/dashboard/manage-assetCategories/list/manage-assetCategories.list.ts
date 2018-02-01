@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ManagePlatformService } from '../../../../services/dashboard/manage-platform.service';
+import { ManageAssetCategoriesService } from '../../../../services/dashboard/manage-assetcategories.service';
 import { Router } from '@angular/router';
 
 interface ManageHierarchy {
@@ -10,17 +10,17 @@ interface ManageHierarchy {
 };
 
 @Component({
-  selector: 'phd-manage-platform-list',
-  templateUrl: './manage-platform-list.component.html',
-  styleUrls: ['./manage-platform-list.component.scss']
+  selector: 'phd-manage-assetCategories-list',
+  templateUrl: './manage-assetCategories.list.html',
+  styleUrls: ['./manage-assetCategories.list.scss']
 })
-export class ManagePlatformListComponent implements OnInit {
+export class ManageAssetCategoriesListComponent implements OnInit {
   private isVisible: boolean;
-  private platformListData: any;
+  private assetCategoriesListData: any;
   private settings: any;
 
   constructor(
-    private managePlatformService: ManagePlatformService,
+    private manageAssetCategoriesService: ManageAssetCategoriesService,
     private router: Router
   ) {
     this.settings = {
@@ -42,12 +42,13 @@ export class ManagePlatformListComponent implements OnInit {
         hierarchy: {
           title: '#'
         },
-        code: {
-          title: 'Code'
-        },
         name: {
           title: 'Name'
         },
+        platform: {
+              title: 'Platform Code',
+              valuePrepareFunction: (value) => { return (value.code) }
+          },
         active: {
           title: 'Status',
           filter: {
@@ -65,7 +66,7 @@ export class ManagePlatformListComponent implements OnInit {
 
   onDeleteConfirm(event) {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.managePlatformService.deletePlatform(event.data.id).subscribe((response) => {
+      this.manageAssetCategoriesService.deleteAsset(event.data.id).subscribe((response) => {
         console.log(response)
       },
         (error) => {
@@ -78,10 +79,11 @@ export class ManagePlatformListComponent implements OnInit {
     }
   }
 
+
   ngOnInit() {
     // this.isVisible = true;
     //Service related    
-    this.managePlatformService.getAllPlatformConfig().subscribe((response) => {
+    this.manageAssetCategoriesService.getAssetCategoryList().subscribe((response) => {
       var temp_data = response;
       temp_data.forEach(element => {
         if (element.active == 1) {
@@ -91,7 +93,7 @@ export class ManagePlatformListComponent implements OnInit {
         }
 
       });
-      this.platformListData = temp_data;
+      this.assetCategoriesListData = temp_data;
     },
       (error) => {
         this.isVisible = false;

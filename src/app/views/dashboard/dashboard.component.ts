@@ -6,11 +6,13 @@ import { SideBarComponent } from './../../components/side-bar/side-bar.component
 import { ManageOrganizationService } from '../../services/dashboard/manage-organization.service';
 import { ReportManagementService } from '../../services/dashboard/report-management.service';
 import { ManagePlatformService } from '../../services/dashboard/manage-platform.service';
+
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../../services/auth/token-interceptor.service';
 import { LoginService } from '../../services/auth/login.service';
 import { map as _map } from 'lodash';
 import { LogoutService } from 'app/services/auth/logout.service';
+import { ManageAssetCategoriesService } from '../../services/dashboard/manage-assetcategories.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +22,7 @@ import { LogoutService } from 'app/services/auth/logout.service';
     ManageOrganizationService,
     ReportManagementService,
     ManagePlatformService,
+    ManageAssetCategoriesService,
     {
       provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
@@ -38,7 +41,6 @@ export class DashboardComponent implements OnInit {
   private userName:string;
 
   constructor(
-    private manageOrg:ManageOrganizationService,
     private router: Router,
     private loginService:LoginService,
     private logOutService: LogoutService
@@ -87,11 +89,15 @@ export class DashboardComponent implements OnInit {
 
   showManagePlatform(){
     this.router.navigateByUrl('/dashboard/manage-platform');
-  }//end:showManageOrg
+  }//end:showManagePlatform
 
   showReportManagement(){
     this.router.navigateByUrl('/dashboard/report-management');
   }//end:showReportManagement
+  
+  showManageAssetCategories(){
+    this.router.navigateByUrl('/dashboard/manage-assetCategories');
+  }//end:showManageAssetCategories
 
   toggleUserProfileDropdown(){
     this.isUserProfileDropdown = !this.isUserProfileDropdown;

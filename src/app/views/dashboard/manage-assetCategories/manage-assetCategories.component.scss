@@ -1,0 +1,76 @@
+@import './../../../../styles.scss';
+
+.manage-org-view {
+    margin: 0;   
+    .nav-tabs {
+        .nav-item{
+            cursor: pointer;
+            .active {
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                color: $button-blue;
+                font-weight: bold;
+            }
+            a.nav-link{
+                &:hover {                    
+                    &:not(.active){
+                        border-top-right-radius: 10px;
+                        border-top-left-radius: 10px;
+                        background-color: rgba($color-white,0.5);
+                    }                    
+                }
+            }
+        }
+    }
+    .tab-content {
+        background-color: $color-white;
+        height: 80vh;
+    }
+    h1 {
+        margin: 0 15px;
+        color: $dark-blue-start;
+    }
+    ag-grid-angular {        
+        margin: 10px 0;
+        font-family: "Centrale-Sans", sans-serif;        
+    }
+    .button-section {
+        display: flex;        
+        button {
+            margin: 0 5px;
+            font-family: "Centrale-Sans", sans-serif;        
+            padding: 10px 25px;
+            font-size: 0.9rem;
+            &:first-child {
+                color: $color-green-dark;
+            }
+        }
+    }//end:button-section
+    
+    .select-quarter-form {
+        width: 70%;
+        .form-group {
+            // border: 1px solid orange;
+            display: flex;
+            margin: 5px;
+            .select-label {
+                // border: 1px solid red;
+                // width: 15%;
+                padding: 0px 10px;
+            }
+            .select-div {
+                // border: 1px solid green;
+                width: 40%;
+                select {
+                    font-family: "Centrale-Sans", sans-serif;        
+                    color: $color-black;
+                }    
+            }//end:select-div
+            
+            label {
+                float: left;
+                color: $color-black;
+            }
+        }//end:form-group
+    }//end:select-quarter-form
+}//end:adoption-view

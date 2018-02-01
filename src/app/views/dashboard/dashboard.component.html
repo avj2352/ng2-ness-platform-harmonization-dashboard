@@ -6,7 +6,12 @@
     <p class="header-title">Platform Adoption Roadmap</p>            
     <div class="right-navigation">
       <p (click)="toggleUserProfileDropdown()">{{userName | uppercase}} ({{userRole.name | uppercase}})
-        <span phd-button-dropdown [visible]="isUserProfileDropdown"></span>
+        <phd-button-dropdown [visible]="isUserProfileDropdown">
+          <li>CAO Admin</li>
+          <li>BU User</li>
+          <li>Pramod</li>
+          <li>Vijaykumar</li>
+        </phd-button-dropdown>
       </p>    
       <button class="btn btn--right">
         <img src="/assets/svg/006-notification.svg" alt="menu-button"/>

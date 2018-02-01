@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: '[phd-button-dropdown]',
+  selector: 'phd-button-dropdown',
   templateUrl: './button-dropdown.component.html',
   styleUrls: ['./button-dropdown.component.scss']
 })

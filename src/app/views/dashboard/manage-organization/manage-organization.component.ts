@@ -10,6 +10,7 @@ import { ActivatedRoute ,Router } from '@angular/router';
 export class ManageOrganizationComponent implements OnInit {
   private isVisible:boolean;
   private isBreadCrumbVisible:boolean;
+  private activeTab:number
   constructor(
     private staticDataService:StaticDataService,
     private route:ActivatedRoute,
@@ -17,26 +18,21 @@ export class ManageOrganizationComponent implements OnInit {
   ) { 
   }//end:constructor
 
-  showAddNewOrgazniation(){
+  showAddNewOrganization(){
+    this.activeTab = 1;
     this.router.navigateByUrl('/dashboard/manage-organizations/create');
   }//end:showAddNewOrgazniation()
 
-  showOrgazniationlist(){
+  showOrganizationlist(){
+    this.activeTab = 0;
     this.router.navigateByUrl('/dashboard/manage-organizations/list');
   }//end:showAddNewOrgazniation()
   
   ngOnInit() {
+    this.activeTab = 0;
+    this.router.navigateByUrl('/dashboard/manage-organizations/list');
     this.isBreadCrumbVisible = true;
-    this.route.params.subscribe(params=>{
-      console.log('Param are',params);
-    });
-    this.isVisible = true;
-    //Service related
-    this.staticDataService.threeSecondDelay().then((response) => {
-      this.isVisible = false;      
-    },
-    (error)=>{
-      this.isVisible = false;
-    });
+    this.isVisible = false;
+
   }//end:ngOnInit
 }//end:ManageOrganizationComponent

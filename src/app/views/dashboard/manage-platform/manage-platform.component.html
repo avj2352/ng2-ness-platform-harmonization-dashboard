@@ -1,10 +1,17 @@
-<div class="manage-platform-view">
-  <phd-bread-crumb [visible]="isBreadCrumbVisible">
-    <ul>
-      <li (click)="showPlatformlist()">Platform List</li>      
-      <li (click)="showAddNewPlatform()">Add New Platform</li>      
+<div class="manage-org-view">
+    <!-- div panel -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+          <!-- class="nav-link active" -->
+        <a [ngClass]="{'nav-link':true,'active':activeTab==0}" (click)="showPlatformlist()" data-toggle="list">Platform List</a>
+      </li>
+      <li class="nav-item">
+        <a [ngClass]="{'nav-link':true,'active':activeTab==1}" (click)="showAddNewPlatform()" data-toggle="create">Create Platform</a>
+      </li>            
     </ul>
-  </phd-bread-crumb>  
-  <router-outlet></router-outlet>
-</div>  
-<phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  
+    <div id="myTabContent" class="tab-content">
+      <router-outlet></router-outlet>      
+    </div>
+    <!-- end:div panel -->    
+  </div>  
+  <phd-loader content="Loading Report List View" [visible]="isVisible"></phd-loader>  

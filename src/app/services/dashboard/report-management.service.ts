@@ -85,8 +85,8 @@ export class ReportManagementService {
       });
   }//end:setCloseReport
 
-  reInitiateReport(intiatedReportId){
-    return this.http.put(envConfig.appURL.reinitiate + '/'+ intiatedReportId,this.options)
+  reInitiateReport(data,intiatedReportId){
+    return this.http.put(envConfig.appURL.reinitiate + '/'+ intiatedReportId,data,this.options)
       .map(res => {
         // debugger;
         return res.json()

@@ -15,6 +15,10 @@ export class TrackStatusComponent implements OnChanges {
   @Output() cancelPopup:EventEmitter<boolean>;
   //Component variables
   private reportName:String;
+  private totalCount:Number;
+  private submittedCount:Number;
+  private pendingCount:Number;
+  private tracklistData:any;
 
   constructor() {
     this.visible = false; 
@@ -34,6 +38,10 @@ export class TrackStatusComponent implements OnChanges {
     if(this.data){
       if(this.data.hasOwnProperty('name')){
         this.reportName = this.data.name;
+        this.totalCount = this.data.organizationStatus.totalCount;
+        this.submittedCount = this.data.organizationStatus.submittedCount;
+        this.pendingCount = this.data.organizationStatus.pendingCount;
+        this.tracklistData = this.data.organizationStatus.organizationList;
       }
     }
   }//end:ngOnChanges

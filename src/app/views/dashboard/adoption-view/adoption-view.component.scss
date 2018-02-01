@@ -1,8 +1,32 @@
 @import './../../../../styles.scss';
 
 .adoption-view {
-    margin: 0;    
-
+    margin: 0;
+    .tab-content{
+        background-color: $color-white; 
+        height: 75vh;
+        padding-top:5px;
+    }  
+    .nav-tabs {
+        .nav-item{
+            cursor: pointer;
+            .active {
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+                color: $button-blue;
+                font-weight: bold;
+            }
+            a.nav-link{
+                &:hover {                    
+                    &:not(.active){
+                        border-top-right-radius: 10px;
+                        border-top-left-radius: 10px;
+                        background-color: rgba($color-white,0.5);
+                    }                    
+                }
+            }
+        }
+    }
     h1 {
         margin: 0 15px;
         color: $dark-blue-start;

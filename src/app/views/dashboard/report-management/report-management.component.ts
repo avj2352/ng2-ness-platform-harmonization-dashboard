@@ -33,17 +33,8 @@ export class ReportManagementComponent implements OnInit {
     this.activeTab = 0;
     this.router.navigateByUrl('/dashboard/report-management/list');
     this.isBreadCrumbVisible = true;
-    this.route.params.subscribe(params=>{
-      console.log('Param are',params);
-    });
-    this.isVisible = true;
-    //Service related
-    this.staticDataService.threeSecondDelay().then((response) => {
-      this.isVisible = false;      
-    },
-    (error)=>{
-      this.isVisible = false;
-    });
+    this.isVisible = false;
+
   }//end:ngOnInit
 
 }//end:ReportManagementComponent

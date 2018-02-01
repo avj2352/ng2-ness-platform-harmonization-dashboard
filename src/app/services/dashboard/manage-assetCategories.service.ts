@@ -6,7 +6,7 @@ import * as envConfig from './../constants/env.endpoints';
 import { LoginService } from '../../services/auth/login.service';
 
 @Injectable()
-export class ManageAssetCategories {  
+export class ManageAssetCategoriesService {  
   private options: RequestOptions; 
   private headers:Headers;
 
@@ -64,7 +64,7 @@ export class ManageAssetCategories {
   }//end:updateAsset
 
   deleteAsset(intiatedReportId){
-    return this.http.delete(envConfig.appURL.deletePlatform +'/'+ intiatedReportId ,this.options)
+    return this.http.delete(envConfig.appURL.deleteAsset +'/'+ intiatedReportId ,this.options)
       .map(res => {
         // debugger;
         console.log('response', res);
@@ -75,4 +75,4 @@ export class ManageAssetCategories {
       });
   }//end:deleteAsset
 
-}//end:class-ManageAssetCategories
+}//end:class-ManageAssetCategoriesService

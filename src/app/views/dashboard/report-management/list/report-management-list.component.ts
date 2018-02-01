@@ -23,7 +23,8 @@ export class ReportManagementListComponent implements OnInit {
     private trackStatusDetails: any;
 
     constructor(
-        private reportManagementService: ReportManagementService
+        private reportManagementService: ReportManagementService,
+        // private adoptionService: AdoptionService
     ) {
         // ng-smart-table settings        
         this.trackStatusDetails = null;
@@ -98,6 +99,29 @@ export class ReportManagementListComponent implements OnInit {
                 // this.isVisible = false;
             });
     }
+
+    downloadReport(selectedReport) {
+        let fileName = 'Platform_Adoption_Report.xlsx';
+        let  a = document.createElement( 'a' );
+        document.body.appendChild( a );
+        this.reportManagementService.downloadReport(selectedReport.id).subscribe(response => {
+          console.log('Download response:', response);
+          var blob = new Blob([response._body], {type: "application/vnd.ms-excel"});
+          var objectUrl = URL.createObjectURL(blob);
+          if ( navigator.appVersion.toString()
+            .indexOf( '.NET' ) > 0 ) {
+            window.navigator.msSaveBlob( blob, fileName );
+          } else {
+            var fileURL = URL.createObjectURL( blob );
+            a.href = fileURL;
+            a.download = fileName;
+            a.click();
+            document.body.removeChild(a);
+          }
+          console.log(response);
+        });
+      } //end: downloadReport
+    
 
 
 

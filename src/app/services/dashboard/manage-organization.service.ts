@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import { LocalStorageService } from 'angular-2-local-storage';
 import { Observable } from 'rxjs/Observable';
 import * as envConfig from './../constants/env.endpoints';
-import { LoginService } from 'app/services/auth/login.service';
+import { LoginService } from '../../services/auth/login.service';
 
 @Injectable()
 export class ManageOrganizationService {  

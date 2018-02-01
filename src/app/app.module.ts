@@ -19,6 +19,15 @@ import { EditOrganizationComponent } from './views/dashboard/manage-organization
 import { ReportManagementComponent } from './views/dashboard/report-management/report-management.component';
 import { ReportManagementListComponent } from './views/dashboard/report-management/list/report-management-list.component';
 import { CreateReportComponent } from './views/dashboard/report-management/create/create-report.component';
+import { ManagePlatformComponent } from './views/dashboard/manage-platform/manage-platform.component';
+import { ManagePlatformListComponent } from './views/dashboard/manage-platform/list/manage-platform-list.component';
+import { CreatePlatformComponent } from './views/dashboard/manage-platform/create/create-platform.component';
+import { EditPlatformComponent } from './views/dashboard/manage-platform/edit/edit-platform.component';
+import { ManageAssetCategoriesComponent } from './views/dashboard/manage-assetCategories/manage-assetCategories.component';
+import { ManageAssetCategoriesListComponent } from './views/dashboard/manage-assetCategories/list/manage-assetCategories.list';
+// import { ManageAssetCategoriesListComponent } from './views/dashboard/manage-assetCategories/list/manage-assetCategories-list.';
+import { CreateAssetCategoriesComponent } from './views/dashboard/manage-assetCategories/create/create-assetCategories';
+import { EditAssetCategoriesComponent } from './views/dashboard/manage-assetCategories/edit/edit-assetCategories';
 //Custom Components
 import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
@@ -29,10 +38,7 @@ import { TrackStatusComponent } from 'app/components/track-status/track-status.c
 import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
-import { ManagePlatformComponent } from './views/dashboard/manage-platform/manage-platform.component';
-import { ManagePlatformListComponent } from './views/dashboard/manage-platform/list/manage-platform-list.component';
-import { CreatePlatformComponent } from './views/dashboard/manage-platform/create/create-platform.component';
-import { EditPlatformComponent } from './views/dashboard/manage-platform/edit/edit-platform.component';
+
 //Custom Services
 import { StaticDataService } from './services/static-data/static-data.service';
 import { LoginService } from './services/auth/login.service';
@@ -41,44 +47,57 @@ import { AdoptionService } from 'app/services/adoption-service/adoption.service'
 import { TokenInterceptor } from 'app/services/auth/token-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //AG-Grid dependencies and Smart Table
-import {AgGridModule} from 'ag-grid-angular/main';
+import { AgGridModule } from 'ag-grid-angular/main';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AgGridConfigureService } from './services/ag-grid-configure/ag-grid-configure.service';
 
 
 
-const appRoutes: Routes = [  
+const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent,
-  children : [      
-    { path: '', redirectTo: 'reportEdit', pathMatch: 'full' },
-    { path: 'reportEdit', component: AdoptionEntryComponent },
-    { path: 'quarterlyStatus', component: AdoptionViewComponent},    
-    { path: 'manage-organizations', component:ManageOrganizationComponent,
-      children:[
-        { path:'', redirectTo:'list', pathMatch:'full'},
-        {path:'list', component:ManageOrganizationListComponent},
-        {path:'create', component:CreateOrganizationComponent},
-        {path:'edit/:obj/:name', component:EditOrganizationComponent}
-      ]
-    },
-    { path: 'report-management', component:ReportManagementComponent,
-      children:[
-        { path:'', redirectTo:'list', pathMatch:'full'},
-        {path:'list', component:ReportManagementListComponent},
-        {path:'create', component:CreateReportComponent},
-        {path:'edit', component:EditOrganizationComponent}
-      ]
-    } , 
-    { path: 'manage-platform', component:ManagePlatformComponent,
-    children:[
-      { path:'', redirectTo:'list', pathMatch:'full'},
-      {path:'list', component:ManagePlatformListComponent},
-      {path:'create', component:CreatePlatformComponent},
-      {path:'edit/:obj/:name', component:EditPlatformComponent}
-    ]
-  },
+  {
+    path: 'dashboard', component: DashboardComponent,
+    children: [
+      { path: '', redirectTo: 'reportEdit', pathMatch: 'full' },
+      { path: 'reportEdit', component: AdoptionEntryComponent },
+      { path: 'quarterlyStatus', component: AdoptionViewComponent },
+      {
+        path: 'manage-organizations', component: ManageOrganizationComponent,
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: ManageOrganizationListComponent },
+          { path: 'create', component: CreateOrganizationComponent },
+          { path: 'edit/:obj/:name', component: EditOrganizationComponent }
+        ]
+      },
+      {
+        path: 'report-management', component: ReportManagementComponent,
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: ReportManagementListComponent },
+          { path: 'create', component: CreateReportComponent },
+          { path: 'edit', component: EditOrganizationComponent }
+        ]
+      },
+      {
+        path: 'manage-platform', component: ManagePlatformComponent,
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: ManagePlatformListComponent },
+          { path: 'create', component: CreatePlatformComponent },
+          { path: 'edit/:obj/:name', component: EditPlatformComponent }
+        ]
+      },
+      {
+        path: 'manage-assetCategories', component: ManageAssetCategoriesComponent,
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list', component: ManageAssetCategoriesListComponent },
+          { path: 'create', component: CreateAssetCategoriesComponent },
+          { path: 'edit/:obj/:name', component: EditAssetCategoriesComponent }
+        ]
+      },
     ]
   }
 ]
@@ -113,7 +132,11 @@ const config: ExtraOptions = {
     CreateReportComponent,
     EditOrganizationComponent,
     BreadCrumbComponent,
-    ToggleSwitchComponent 
+    ToggleSwitchComponent,
+    ManageAssetCategoriesComponent,
+    EditAssetCategoriesComponent,
+    CreateAssetCategoriesComponent,
+    ManageAssetCategoriesListComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,12 +144,12 @@ const config: ExtraOptions = {
     HttpModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes,config),
+    RouterModule.forRoot(appRoutes, config),
     LocalStorageModule.withConfig({
-      prefix:'phd-app',
-      storageType:'localStorage'
+      prefix: 'phd-app',
+      storageType: 'localStorage'
     }),
-    AgGridModule.withComponents([AssetRenderer,AdoptionEditor]),
+    AgGridModule.withComponents([AssetRenderer, AdoptionEditor]),
     Ng2SmartTableModule
   ],
   providers: [
@@ -135,7 +158,7 @@ const config: ExtraOptions = {
     AgGridConfigureService,
     LoginService,
     LogoutService,
-    TokenInterceptor,        
+    TokenInterceptor,
   ],
   bootstrap: [AppComponent]
 })

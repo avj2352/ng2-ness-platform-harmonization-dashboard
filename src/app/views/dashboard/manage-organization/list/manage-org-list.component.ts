@@ -146,9 +146,9 @@ export class ManageOrganizationListComponent implements OnInit {
         this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response)  =>  {
             console.log('Response from GetAllOrganziation is: ', response);
             this.organizationTypeListData  =  response;
-            this.selectOrg = response[1];
+            this.selectOrg = response[0];
             this.selectOrganizationType(this.selectOrg);
-            this.headingLable = response[1].name;
+            this.headingLable = response[0].name;
         },
             (error) => {
                 this.isVisible  =  false;

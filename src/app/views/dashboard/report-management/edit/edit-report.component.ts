@@ -58,7 +58,9 @@ export class EditReportComponent implements OnInit {
                 var msg = JSON.parse(response._body)
                 this.alertModel.content = "Error in Update Report :  " + msg.generalMessage;
                 this.isPopupAlertVisible = true;
-                this.router.navigateByUrl('/login');
+                setTimeout( () => {
+                    this.router.navigateByUrl('/login');
+                },3000)
             }
             else if (response.status && response.status != 401 && response.status!=200){
                 var msg = JSON.parse(response._body)
@@ -137,18 +139,14 @@ export class EditReportComponent implements OnInit {
         this.alertModel.title = 'Alert '
         this.alertModel.content = '';
         this.reportManagementService.getReportbyId(this.id).subscribe(async response => {
-            console.log("aaaaaaaaaaaaaaaaaaaaaa"+response);
-            console.log(response);
             var response1=JSON.parse(await response._body);
             if (response.status && response.status === 401) {
                 this.isVisibleLoader = false;
                 var msg = JSON.parse(response._body)
                 this.alertModel.content = "Error in get report by id :  " + msg.generalMessage;
                 this.isPopupAlertVisible = true;
-                console.log("in 401 error");
-                console.log(response);
                 setTimeout(()=> {
-                   // this.router.navigateByUrl('/login');
+                   this.router.navigateByUrl('/login');
                 },2000);
             }
             else if (response.status && response.status !== 401 && response.status!== 200){
@@ -173,7 +171,7 @@ export class EditReportComponent implements OnInit {
                         this.isPopupAlertVisible = true;
                         setTimeout( () => {
                             this.router.navigateByUrl('/login');
-                        },2000)
+                        },3000)
                     }
                     else if (response.status && response.status != 401 && response.status!=200){
                         var msg = JSON.parse(response._body)

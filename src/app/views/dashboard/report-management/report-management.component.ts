@@ -39,9 +39,9 @@ export class ReportManagementComponent implements OnInit {
     let selectedScreen;
     this.logInService.currentData.subscribe(message =>
       selectedScreen = message);
-    if(envConfig.routerURL.Report_Management !== this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management)){
-      this.router.navigateByUrl('/dashboard/'+this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management));
-    }
+    // if(envConfig.routerURL.Report_Management !== this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management)){
+    //   this.router.navigateByUrl('/dashboard/'+this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management));
+    // }
     this.selectedDashboardScreen.emit(envConfig.routerURL.Report_Management);
     this.logInService.sentData(envConfig.routerURL.Report_Management);
     this.router.navigateByUrl('/dashboard/'+envConfig.routerURL.Report_Management+'/list');

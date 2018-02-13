@@ -123,7 +123,9 @@ export class CreateReportComponent implements OnInit {
                 var msg = JSON.parse(response._body)
                 this.alertModel.content = "Error in create report :  " + msg.generalMessage;
                 this.isPopupAlertVisible = true;
-                this.router.navigateByUrl('/login');
+                setTimeout( () => {
+                    this.router.navigateByUrl('/login');
+                },3000)
             }
             else if (response.status && response.status != 401 && response.status!=200){
                 var msg = JSON.parse(response._body)
@@ -183,7 +185,9 @@ export class CreateReportComponent implements OnInit {
                 var msg = JSON.parse(response._body)
                 this.alertModel.content = "Error in get kpi :  " + msg.generalMessage;
                 this.isPopupAlertVisible = true;
-                this.router.navigateByUrl('/login');
+                setTimeout( () => {
+                    this.router.navigateByUrl('/login');
+                },3000)
             }
             else if (response.status && response.status != 401 && response.status!=200){
                 var msg = JSON.parse(response._body)

@@ -69,7 +69,9 @@ export class ReportManagementListComponent implements OnInit {
                             var msg = JSON.parse(response._body)
                             this.alertModel.content = "Error in delete Report :  " + msg.generalMessage;
                             this.isPopupAlertVisible = true;
-                            this.router.navigateByUrl('/login');
+                            setTimeout( () => {
+                                this.router.navigateByUrl('/login');
+                            },3000)
                         } 
                         else if (response.status != 401 && response.status != 200 )
                         {
@@ -97,7 +99,9 @@ export class ReportManagementListComponent implements OnInit {
                         var msg = JSON.parse(response._body)
                         this.alertModel.content = "Error in initiate Report :  " + msg.generalMessage;
                         this.isPopupAlertVisible = true;
-                        this.router.navigateByUrl('/login');
+                        setTimeout( () => {
+                            this.router.navigateByUrl('/login');
+                        },3000)
                     } 
                     else if (response.status != 401 && response.status != 200 )
                     {
@@ -123,7 +127,9 @@ export class ReportManagementListComponent implements OnInit {
                         var msg = JSON.parse(response._body)
                         this.alertModel.content = "Error in Reinitiate Report :  " + msg.generalMessage;
                         this.isPopupAlertVisible = true;
-                        this.router.navigateByUrl('/login');
+                        setTimeout( () => {
+                            this.router.navigateByUrl('/login');
+                        },3000)
                     } 
                     else if (response.status != 401 && response.status != 200 )
                     {
@@ -149,7 +155,9 @@ export class ReportManagementListComponent implements OnInit {
                         var msg = JSON.parse(response._body)
                         this.alertModel.content = "Error in close Report :  " + msg.generalMessage;
                         this.isPopupAlertVisible = true;
-                        this.router.navigateByUrl('/login');
+                        setTimeout( () => {
+                            this.router.navigateByUrl('/login');
+                        },3000)
                     } 
                     else if (response.status != 401 && response.status != 200 )
                     {
@@ -255,9 +263,9 @@ export class ReportManagementListComponent implements OnInit {
         this.alertModel.title = 'Alert '
         this.alertModel.content = '';
         this.isVisibleIntiate = true;
-        if (envConfig.routerURL.Report_Management !== this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management)) {
-            this.router.navigateByUrl('/dashboard/' + this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management));
-        }
+        // if (envConfig.routerURL.Report_Management !== this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management)) {
+        //     this.router.navigateByUrl('/dashboard/' + this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management));
+        // }
         this.reportManagementService.getAllReportsAndUnitConfig().subscribe((response) => {
             var temp_data = response;
             var index = 1;
@@ -266,7 +274,9 @@ export class ReportManagementListComponent implements OnInit {
                 var msg = JSON.parse(response._body)
                 this.alertModel.content = "Error in get Report :  " + msg.generalMessage;
                 this.isPopupAlertVisible = true;
-                this.router.navigateByUrl('/login');
+                setTimeout( () => {
+                    this.router.navigateByUrl('/login');
+                },3000)
             }
             else if (response.status && response.status != 401 && response.status!=200){
                 var msg = JSON.parse(response._body)

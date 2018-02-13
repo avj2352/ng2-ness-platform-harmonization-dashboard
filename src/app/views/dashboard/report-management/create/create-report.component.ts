@@ -6,6 +6,7 @@ import * as envConfig from 'app/services/constants/env.endpoints';
 import { ConfirmModel } from '../../models/confirmModel';
 import { AlertModel } from '../../models/alertModel';
 import { LoginService } from 'app/services/auth/login.service';
+import { StaticDataService } from 'app/services/static-data/static-data.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class CreateReportComponent implements OnInit {
     private alertModel: AlertModel;
     private isPopupAlertVisible: boolean;
     constructor(
+        private staticDataService:StaticDataService,
         private reportManagementService: ReportManagementService,
         private router: Router,
         private logInService: LoginService
@@ -86,9 +88,11 @@ export class CreateReportComponent implements OnInit {
     onCancel() {
         this.confirmModel.content = "Any unsaved changes may be lost ! Are you sure you want to proceed ?"
         this.isPopupConfirmVisible = true;
+        
     }
 
     onPopupConfirmOk(eventData: string) {
+        this.staticDataService.switchReportTab(0);
         this.isPopupConfirmVisible = false;
             this.router.navigateByUrl('/dashboard/'+envConfig.routerURL.Report_Management+'/list');
       }//end:onPopupConfirmOk
@@ -133,6 +137,7 @@ export class CreateReportComponent implements OnInit {
                 this.isPopupAlertVisible = true;
                 this.isVisibleLoader = false;
             } else {
+                this.staticDataService.switchReportTab(0);
                 this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Report_Management + '/list');
             }
 
@@ -174,9 +179,9 @@ export class CreateReportComponent implements OnInit {
         this.alertModel.title = 'Alert '
         this.alertModel.content = '';
         // alert(vm.listofQuarter)
-        if(envConfig.routerURL.Report_Management !== this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management)){
-            this.router.navigateByUrl('/dashboard/'+this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management));
-          }  
+        // if(envConfig.routerURL.Report_Management !== this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management)){
+        //     this.router.navigateByUrl('/dashboard/'+this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management));
+        //   }  
         this.reportManagementService.getallUnitTypes().subscribe((response) => {
           console.log('Response from GetAllOrganziation is: ', response.status);
             // this.organizationTypeListData= response; 

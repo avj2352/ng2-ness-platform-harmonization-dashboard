@@ -17,12 +17,17 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class StaticDataService {
   myBehavior$;
+  private tabNumber$ = new BehaviorSubject<number>(0);
+  activeTab$ = this.tabNumber$.asObservable();
 
   constructor(
     private http:Http
-  ) {
-
+  ) {    
   }//end:constructor
+
+  switchReportTab(tab:number){
+    this.tabNumber$.next(tab);
+  }//end:switchReportTab  
 
   createSwitchMapExample(){
     const numbers$ = Observable.interval(1000);

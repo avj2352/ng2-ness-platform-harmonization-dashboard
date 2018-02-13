@@ -1,3 +1,4 @@
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" type="{{confirmModel.type}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>
 <div class="dashboard-view">        
   <header>
     <!-- <button class="btn" (click)="toggleSideBar()">
@@ -5,7 +6,7 @@
     </button> -->
     <p class="header-title">Platform Adoption Roadmap</p>            
     <div class="right-navigation">
-      <p (click)="toggleUserProfileDropdown()" (blur)="isUserProfileDropdown =false">{{userName | uppercase}} ({{userRole.name | uppercase}})
+      <p (click)="toggleUserProfileDropdown()" (blur)="isUserProfileDropdown=false">{{userName | uppercase}} ({{userRole.name | uppercase}})
         <phd-button-dropdown [visible]="isUserProfileDropdown" >
   			<li *ngFor="let role of roleList" (click)="setUserRole(role)" [ngClass]="{'active': role.code == userRole.code}">{{role.code}} </li>
         </phd-button-dropdown>

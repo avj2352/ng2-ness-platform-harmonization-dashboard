@@ -182,19 +182,18 @@ export class LoginService {
   //   this.headers = this.getHeaderParams();
   //   this.options = new RequestOptions({ headers: this.headers });
   //   return this.http.put(envConfig.appURL.selectedRole,sessionObj,this.options)
-  //   .map(res => {
-      
-  //     return res.json()
+  //   .map(res => {      
+  //     return res;
   //   })
   //   .catch((error)=>{
   //     return Observable.of(error);
   //   });
-  // }//end: set
+  // }//end:set
 
   setRoleId(roleObj:any) { 
     let sessionObj: any = this.localStorage.get('session');
-    sessionObj.selectedRole = roleObj;
-
+    sessionObj.selectedRole = roleObj;        
+    this.localStorage.set('session',sessionObj);
     this.headers = this.getSimpleAJAXHeaderParams();
     sessionObj = JSON.stringify(sessionObj);
     let promise = Observable.ajax({
@@ -203,7 +202,7 @@ export class LoginService {
       headers:this.headers,
       body:sessionObj,        
     }).map(res => {
-      return res;
+      return Observable.of(res);
     })
     .catch((error)=>{
       return Observable.of(error);

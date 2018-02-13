@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "temp":"ng build --base-href=/shpar-tmp/",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

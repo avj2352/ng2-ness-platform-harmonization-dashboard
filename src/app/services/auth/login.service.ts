@@ -54,9 +54,23 @@ export class LoginService {
     console.log('Session ID: ', sessionID);
     return new Headers({ 'Content-Type': 'application/json', 
     'Accept': 'application/json',
+    'Cache-control':'no-cache',
+    'Pragma': 'no-cache',
+    'Expires': '0', 
     'sessionId':sessionID
     });   
   }//end:getHeaderParams
+
+  getStaticHeaderParams():any{
+    const sessionID = this.getToken().sessionId;
+    return { 'Content-Type': 'application/json', 
+    'Accept': 'application/json',
+    'Cache-control':'no-cache',
+    'Pragma': 'no-cache',
+    'Expires': '0', 
+    'sessionId':sessionID
+    }
+  }//end:getStaticHeaderParams
 
   getUserName(){
     return `${this.getToken().firstName} ${this.getToken().lastName}`;

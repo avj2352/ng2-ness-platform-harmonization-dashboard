@@ -1,0 +1,38 @@
+{
+    "deploy":{
+        "packages": [
+            {
+                "name": "Shpar Build SFTP",
+                "description": "Deploy files to Shpar Server",
+                "files": ["/dist/**/*"],
+                "exclude": [
+                    "e2e/*",
+                    "node_modules/*"
+                ],
+                "deployOnSave": false,
+                "targets":[
+                    "shpar"
+                ]
+            }
+        ],
+        "targets": [
+            {
+                "type": "sftp",
+                // "type":"test",
+                "name":"shpar",
+                "description":"Remote Server",
+                "host": "161.85.105.168",
+                "port": 22,
+                "user":"philips",
+                "password":"#welcome123",
+                "checkBeforeDeploy": true,
+                "mappings": [
+                    {
+                        "source": "/dist",
+                        "target":"/usr/local/tomcat8/webapps/shpar-tmp/"
+                    }
+                ]
+            }
+        ]
+    }
+}

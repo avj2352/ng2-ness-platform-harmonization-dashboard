@@ -84,28 +84,57 @@ export class AdoptionService {
       });
   } //end : downloadReport
 
+
     //Save the report 
-  saveReport(reportId: number, data:any) { 
+  saveReport(reportId: number, saveReportObj:any) { 
+      this.headers = this.loginService.getSimpleAJAXHeaderParams();
       let reportParams = { };
       console.log(reportId);
-      this.options = new RequestOptions({headers:this.headers, params: reportParams});
-      return this.http.put(envConfig.appURL.updateAssetAdoption+ '/'+reportId,data,this.options)
-      .map(res => {
-        // debugger;
-        return res
+      console.log('PUT Request Body as Object is: ', saveReportObj);
+      saveReportObj = JSON.stringify(saveReportObj);
+      console.log('PUT Request Body as JSON string is: ', saveReportObj);
+      let promise = Observable.ajax({
+        url:envConfig.appURL.updateAssetAdoption+ '/'+reportId,
+        method:'PUT',
+        headers:this.headers,
+        body:saveReportObj,        
+      }).map(res => {
+        return res;
       })
       .catch((error)=>{
         return Observable.of(error._body);
       });
+      return promise;
+      // this.options = new RequestOptions({headers:this.headers, params: reportParams});
+      // return this.http.put(envConfig.appURL.updateAssetAdoption+ '/'+reportId,data,this.options)
+      // .map(res => {
+      //   debugger;
+      //   return res
+      // })
+      // .catch((error)=>{
+      //   return Observable.of(error._body);
+      // });
+      // let promise = $.ajax({
+      //   url: envConfig.appURL +'/' + reportId,
+      //   type: 'PUT',
+      //   headers:this.headers,
+      //   data: data,
+      //   success: function(data) {
+      //     alert('Load was performed.');
+      //   }
+      // });
+
+    //  return Observable.of(promise);
   } //end: saveReport
 
   submitReport(reportId: number, data:any) { 
     let reportParams = { };
     console.log(reportId);
     this.options = new RequestOptions({headers:this.headers, params: reportParams});
+    console.log('PUT Request is: ', data);
     return this.http.put(envConfig.appURL.assetSubmit+ '/'+reportId,data,this.options)
     .map(res => {
-      // debugger;
+      debugger;
       return res
     })
     .catch((error)=>{

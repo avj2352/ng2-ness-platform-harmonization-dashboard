@@ -19,6 +19,7 @@ export class TrackStatusComponent implements OnChanges {
   private submittedCount:Number;
   private pendingCount:Number;
   private tracklistData:any;
+  private isVisibleLoader:boolean;
 
   constructor() {
     this.visible = false; 

@@ -1,4 +1,157 @@
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>
+<phd-loader content="Content loading..." [visible]="isVisibleLoader"></phd-loader>
+<div class="create-assetCategories">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- <h1>New AssetCategory</h1> -->
+            <!-- <hr/> -->
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="">
+                                <div class="select-label">
+                                    <p>
+                                        <strong>Platform :</strong>
+                                    </p>
+                                </div>
+                                <div class="select-div">
+                                    <select class="btn-group bootstrap-select form-control" name="selectOrg" [(ngModel)]="selectOrg" (change)="selectPlatform(selectOrg)">
+                                        <option *ngFor="let item of platformTypeListData " [ngValue]="item">
+                                            {{item.name}}
+                                        </option>
+                                    </select>
+                                    <i class="bar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Empty Row -->
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <p></p>
 
-<div>
-    hello
+                        </div>
+                    </div>
+                    <!-- end: Empty Row -->
+
+                    <div class="col-md-12">
+
+                    </div>
+
+                    <!-- Empty Row -->
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <p></p>
+
+                        </div>
+                    </div>
+                    <!-- end: Empty Row -->
+
+                    <div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="assetCategoriesName">Asset Name:</label>
+                                <span style="color:red" *ngIf=" (assetCategoriesName.dirty || assetCategoriesName.touched) && assetCategoriesName.errors?.required">required</span>
+                                <span style="color:red" *ngIf="(assetCategoriesName.dirty || assetCategoriesName.touched) && assetCategoriesName.errors?.maxlength">Max 64 chars.</span>
+                                <input type="text" #assetCategoriesName="ngModel" class="form-control" [(ngModel)]="assetObj.name" placeholder="Enter assetCategories Name"
+                                    maxlength="64" name="assetCategoriesName" required>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="assetCategoriesValue">Asset Value (in Euros):</label>
+                                <input type="number" #assetCategoriesValue="ngModel" class="form-control" [(ngModel)]="assetObj.value" placeholder="Enter Asset Value in Euros"
+                                    name="assetCategoriesValue">
+                            </div>
+                        </div>
+                        <!-- Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <p></p>
+
+                            </div>
+                        </div>
+                        <!-- end: Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="assetCategoriesHierarchy">Asset Order:</label>
+                                <span style="color:red" *ngIf=" (assetCategoriesHierarchy.dirty || assetCategoriesHierarchy.touched) && assetCategoriesHierarchy.errors?.required">required</span>
+                                <span style="color:red" *ngIf="(assetCategoriesHierarchy.dirty || assetCategoriesHierarchy.touched) && assetCategoriesHierarchy.errors?.pattern">Max two digit and Three decimal point allow</span>
+                                <input type="number" [pattern]="patternCheckHierarchy" class="form-control" #assetCategoriesHierarchy="ngModel" [(ngModel)]="assetObj.hierarchy" placeholder="Enter Asset Order"
+                                    step="0.1" name="assetCategoriesHierarchy" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="assetCategoriesHierarchy">Asset Type:</label>
+                                <div>
+                                    <div class="select-div">
+                                        <select class="btn-group bootstrap-select form-control" name="selectAssetType" [(ngModel)]="selectAssetType" (change)="selectAssetTypeValue(selectAssetType)">
+                                            <option *ngFor="let item of assetTypeListData " [ngValue]="item">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                        <i class="bar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <p></p>
+
+                            </div>
+                        </div>
+                        <!-- end: Empty Row -->
+
+                        <!-- Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <p></p>
+
+                            </div>
+                        </div>
+                        <!-- end: Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label for="assetCategoriesDescription">Description:</label>
+                                <span style="color:red" *ngIf="(assetCategoriesDescription.dirty || assetCategoriesDescription.touched) && assetCategoriesDescription.errors?.maxlength">Max 256 chars.</span>
+                                <input type="text" class="form-control" #assetCategoriesDescription="ngModel" [(ngModel)]="assetObj.description" placeholder="Enter a Description"
+                                    maxlength="256" name="assetCategoriesDescription">
+                            </div>
+                            <div style="margin-top:35px" class="col-md-6">
+                                <label >Active:
+                                <input  type="checkbox" name="first" [(ngModel)]="assetObj.active" /></label>
+                            </div>
+                        </div>
+                        <!-- Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <p></p>
+
+                            </div>
+                        </div>
+                        <!-- end: Empty Row -->
+
+                        <!-- Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <p></p>
+
+                            </div>
+                        </div>
+                        <!-- end: Empty Row -->
+                        <div class="col-md-12">
+                            <button type="button" [disabled]="!(assetCategoriesName.valid && assetCategoriesValue.valid && assetCategoriesDescription.valid && assetCategoriesHierarchy.valid )"
+                                class="btn btn-success" (click)="updateAssetCategoriesAction(assetObj)">Update AssetCategory</button>
+                            <button type="button" class="btn btn-danger float-right" (click)="onCancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            <!-- <phd-toggle-switch></phd-toggle-switch> -->
+        </div>
+    </div>
 </div>

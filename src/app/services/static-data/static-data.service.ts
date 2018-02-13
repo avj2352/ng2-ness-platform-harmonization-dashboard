@@ -75,7 +75,7 @@ export class StaticDataService {
 
   getPackageDetails(){
     return this.http
-    .get('http://localhost:4200/assets/package.json')    
+    .get('./assets/package.json')    
     .map(response => response.json())
     .catch((err:Response) => {
       let details = err.json();
@@ -86,7 +86,7 @@ export class StaticDataService {
   getStaticDelay(){
     return this.http
     .get('http://localhost:4200/assets/data/asset-adoption.json')
-    .delay(3000)
+    .delay(1000)
     .map(response => response.json())
     .catch((err:Response) => {
       let details = err.json();

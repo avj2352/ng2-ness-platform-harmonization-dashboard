@@ -1,12 +1,14 @@
 {
   "name": "ng2-platform-harmonization-dashboard",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "temp":"ng build --base-href=/shpar-tmp/",
-    "build": "ng build",
+    "build": "ng build",    
+    "buildprod": "ng build --base-href=/shpar/",
+    "buildUat":  "ng build --base-href=/shpar-uat/",
+    "buildDev": "ng build --base-href=/shpar-dev/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -31,13 +33,16 @@
     "ag-grid-angular": "^15.0.0",
     "angular-2-local-storage": "^1.0.1",
     "body-parser": "^1.17.1",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "ng2-smart-table": "^1.2.2",
+    "ngx-cookie-service": "^1.0.10",
     "rxjs": "^5.1.0",
     "uuid": "^3.2.1",
+    "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.20"
   },
   "devDependencies": {

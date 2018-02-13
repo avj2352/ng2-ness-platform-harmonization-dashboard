@@ -10,7 +10,7 @@
     </option>
   </select>
   <span [hidden]="params.values">
-    <input type="text" ng-model="selectedValue"/>
+    <input type="text" [(ngModel)] ="unitCode" (ngModelChange)="toUnitCode(unitCode)" [ngClass]="agEditText"  maxlength="128"/>
   </span>
    <!-- <select>
     <option *ngFor="let unit of {params.values" [ngValue]="unit.code" class="unit.colorCode">{{unit.code}}</option>

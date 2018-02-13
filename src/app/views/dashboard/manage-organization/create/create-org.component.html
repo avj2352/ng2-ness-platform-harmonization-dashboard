@@ -1,3 +1,5 @@
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>
+<phd-loader content="Content loading..." [visible]="isVisibleLoader"></phd-loader>
 <div class="create-org">
     <div class="row">
         <div class="col-md-12">
@@ -42,7 +44,7 @@
                                     </p>
                                 </div>
                                 <div class="select-div">
-                                    <select class="btn-group bootstrap-select form-control" name="selectedChildObj" [(ngModel)]="selectedChildObj" (change)="selectParentType(selectParent)">
+                                    <select class="btn-group bootstrap-select form-control" name="selectedChildObj" [(ngModel)]="selectedChildObj" (change)="selectParentType(selectedChildObj)">
                                         <option *ngFor="let item of parentTypeListData " [ngValue]="item">
                                             {{item.name}}
                                         </option>
@@ -67,16 +69,16 @@
                             <div class="col-md-6">
                                 <label for="organizationCode">Code:</label>
                                 <span style="color:red" *ngIf=" (organizationCode.dirty || organizationCode.touched) && organizationCode.errors?.required">required</span>
-                                <span style="color:red" *ngIf="(organizationCode.dirty || organizationCode.touched) && organizationCode.errors?.maxlength">Max 16 chars.</span>
-                                <input type="text" #organizationCode="ngModel" class="form-control" [(ngModel)]="orgObj.code" placeholder="Enter organization code"
-                                    maxlength="16" name="organizationCode" required>
+                                <span style="color:red" *ngIf="(organizationCode.dirty || organizationCode.touched) && organizationCode.errors?.maxlength">Max 64 chars.</span>
+                                <input type="text" #organizationCode="ngModel" class="form-control" [(ngModel)]="orgObj.code" placeholder="Enter Organization Code"
+                                    maxlength="64" name="organizationCode" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="organizationName"> Name:</label>
                                 <span style="color:red" *ngIf=" (organizationName.dirty || organizationName.touched) && organizationName.errors?.required">required</span>
-                                <span style="color:red" *ngIf="(organizationName.dirty || organizationName.touched) && organizationName.errors?.maxlength">Max 32 chars.</span>
-                                <input type="text" #organizationName="ngModel" class="form-control" [(ngModel)]="orgObj.name" placeholder="Enter organization Name"
-                                    maxlength="32" name="organizationName" required>
+                                <span style="color:red" *ngIf="(organizationName.dirty || organizationName.touched) && organizationName.errors?.maxlength">Max 64 chars.</span>
+                                <input type="text" #organizationName="ngModel" class="form-control" [(ngModel)]="orgObj.name" placeholder="Enter Organization Name"
+                                    maxlength="64" name="organizationName" required>
 
                             </div>
                         </div>
@@ -92,8 +94,8 @@
                             <div class="col-md-6">
                                 <label for="organizationHierarchy">Order:</label>
                                 <span style="color:red" *ngIf=" (organizationHierarchy.dirty || organizationHierarchy.touched) && organizationHierarchy.errors?.required">required</span>
-                                <!-- <span style="color:red" *ngIf="(organizationHierarchy.dirty || organizationHierarchy.touched) && organizationHierarchy.errors?.pattern">>Only two digits and only five decimal point required</span> -->
-                                <input type="number" class="form-control" #organizationHierarchy="ngModel" [(ngModel)]="orgObj.hierarchy" placeholder="Enter Platform Order"
+                                <span style="color:red" *ngIf="(organizationHierarchy.dirty || organizationHierarchy.touched) && organizationHierarchy.errors?.pattern">Max two digit and Three decimal point allow</span>
+                                <input type="number" [pattern]="patternCheckHierarchy" class="form-control" #organizationHierarchy="ngModel" [(ngModel)]="orgObj.hierarchy" placeholder="Enter Organization Order"
                                     step="0.1" name="organizationHierarchy" required>
                             </div>
                             <div class="col-md-6">
@@ -112,6 +114,12 @@
                             </div>
                         </div>
                         <!-- end: Empty Row -->
+                        <div class="col-md-12">
+                                <div style="margin-top:10px" class="col-md-6">
+                                        <label >Active:
+                                        <input  type="checkbox" name="first" [(ngModel)]="orgObj.active" /></label>
+                                    </div>
+                        </div>
 
                         <!-- Empty Row -->
                         <div class="col-md-12">

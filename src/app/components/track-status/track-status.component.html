@@ -1,9 +1,10 @@
+<phd-loader content="Content loading..." [visible]="isVisibleLoader"></phd-loader>
 <div [ngClass]="{'popup':true,'popup-visible':visible}">
   <div [ngClass]="{'popup__content':true,'popup__content-visible':visible}">
     <div class="popup__header">
       <p>{{title}}</p>
       <button title="close" (click)="close()">
-        <img src="/assets/svg/004-clear-button.svg" alt="close-icon" />
+        <img src="assets/svg/004-clear-button.svg" alt="close-icon" />
       </button>
     </div>
     <div class="popup__body">
@@ -28,8 +29,8 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Platform Code</th>
-                <th scope="col">Platform Name</th>
+                <th scope="col">BG Code</th>
+                <th scope="col">BG Name</th>
                 <th scope="col">Status</th>
                 <!-- <th scope="col">Status</th> -->
               </tr>

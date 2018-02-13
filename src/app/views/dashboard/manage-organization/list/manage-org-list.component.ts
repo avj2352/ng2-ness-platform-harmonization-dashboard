@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChange} from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChange } from '@angular/core';
 import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
 import { Observable } from 'rxjs/Observable';
 //Custom Modules from ng2-smart-table
@@ -8,12 +8,16 @@ import { Row } from 'ng2-smart-table/lib/data-set/row';
 import { deepExtend } from 'ng2-smart-table/lib/helpers';
 import { LocalDataSource } from 'ng2-smart-table/lib/data-source/local/local.data-source';
 import { Router } from '@angular/router';
+import * as envConfig from 'app/services/constants/env.endpoints';
+import { ConfirmModel } from '../../models/confirmModel';
+import { AlertModel } from '../../models/alertModel';
+
 
 interface ManageHierarchy {
-    id:number;
-    name:string;
-    code:string;
-    hierarchy:number;
+    id: number;
+    name: string;
+    code: string;
+    hierarchy: number;
 };
 
 @Component({
@@ -27,19 +31,26 @@ export class ManageOrganizationListComponent implements OnInit {
     private organizationListData : ManageHierarchy[];
     private selectOrg: any;
     private settings: any;
+    private isVisibleLoader: boolean;
     private headingLable: String;
-  
+    private confirmModel: ConfirmModel;
+    private isPopupConfirmVisible: boolean;
+    private idDelete: boolean;
+    private alertModel: AlertModel;
+    private isPopupAlertVisible: boolean;
+
     constructor(
         private manageOrgService: ManageOrganizationService,
-        private router:Router
+        private router: Router
     ) {
         // ng-smart-table settings        
 
     }//end:constructor
 
     selectOrganizationType(item: ManageHierarchy) {
+        this.isVisibleLoader = true;
         console.log('Item selected is: ', item.name);
-        this.manageOrgService.getAllOrganizationbyIdConfig(item.id).subscribe((response)  =>  {
+        this.manageOrgService.getAllOrganizationbyIdConfig(item.id).subscribe((response) => {
             console.log('Response is: ', response);
             var temp_data = response;
             temp_data.forEach(element => {
@@ -50,8 +61,9 @@ export class ManageOrganizationListComponent implements OnInit {
                 }
 
             });
-            this.organizationListData  = temp_data;
+            this.organizationListData = temp_data;
             this.headingLable = item.name;
+            this.isVisibleLoader = false;
             this.settings = {
                 actions: {
                     edit: false,
@@ -103,55 +115,75 @@ export class ManageOrganizationListComponent implements OnInit {
                     // },
                     active: {
                         title: 'Status',
-                        filter: {
-                            type: 'checkbox',
-                            config: {
-                                true: 'Active',
-                                false: 'Inactive',
-                                resetText: 'clear',
-                            },
-                        },
                     }
                 }
             };//end:settings
 
         },
             (error) => {
-                this.isVisible  =  false;
+                this.isVisible = false;
+                this.isVisibleLoader = false;
             });
     }//end:selectOrganizationType()
 
-    onEdit(event)
-    {
-        //event.data
-        this.router.navigate(['/dashboard/manage-organizations/edit',event.data.id,event.data.name]);
+    onEdit(event) {
+        this.router.navigate(['/dashboard/' + envConfig.routerURL.Manage_Organizations + '/edit', event.data.id]);
     }
 
     onDeleteConfirm(event) {
-        if (window.confirm('Are you sure you want to delete?')) {
-            this.manageOrgService.deleteOrganization(event.data.id).subscribe((response) => {
-                console.log(response)   
-              },
-              (error)=>{
-                console.log(error)   
-                // this.isVisible = false;
-              });
-          event.confirm.resolve();
-        } else {
-          event.confirm.reject();
-        }
-      }
+        this.idDelete = event.data.id
+        this.confirmModel.content = "Are you sure you want to delete ?"
+        this.isPopupConfirmVisible = true;
+    }
+
+    onPopupConfirmOk(eventData: string) {
+        this.isPopupConfirmVisible = false;
+            this.manageOrgService.deleteOrganization(this.idDelete).subscribe((response) => {
+                if (response.status != 200) {
+                    var msg = JSON.parse(response._body)
+                    this.alertModel.content = "Error in delete Organization :  " + msg.generalMessage;
+                    this.isPopupAlertVisible = true;
+                } else {
+                    window.location.reload();
+                }
+
+            },
+                (error) => {
+                    this.alertModel.content = "Error in delete "
+                    this.isPopupAlertVisible = true;
+                    console.log(error)
+                    // this.isVisible = false;
+                });
+    }//end:onPopupConfirmClose
+
+    onPopupConfirmCancel(eventData: boolean) {
+        this.isPopupConfirmVisible = eventData;
+    }//end:onPopupConfirmCancel
+
+    onPopupAlertCancel(eventData: boolean) {
+        this.isPopupAlertVisible = eventData;
+    }//end:onPopupAlertCancel
+
 
     ngOnInit() {
-        this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response)  =>  {
+        this.isVisibleLoader = true;
+        this.confirmModel = new ConfirmModel();
+        this.isPopupConfirmVisible = false;
+        this.confirmModel.title = 'Confirmation '
+        this.alertModel = new AlertModel();
+        this.isPopupAlertVisible = false;
+        this.alertModel.title = 'Alert '
+        this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response) => {
             console.log('Response from GetAllOrganziation is: ', response);
-            this.organizationTypeListData  =  response;
+            this.organizationTypeListData = response;
             this.selectOrg = response[0];
             this.selectOrganizationType(this.selectOrg);
             this.headingLable = response[0].name;
+            this.isVisibleLoader = false;
         },
             (error) => {
-                this.isVisible  =  false;
+                this.isVisible = false;
+                this.isVisibleLoader = false;
             });
     }//end:ngOnInit
 }//end:class-ManageOrganizationListComponent    

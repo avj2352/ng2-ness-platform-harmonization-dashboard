@@ -1,3 +1,88 @@
-<div>
-    Edit Organization Works
-</div>
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>
+<phd-loader content="Content loading..." [visible]="isVisibleLoader"></phd-loader>
+<div class="create-org">
+        <div class="row">
+    
+            <!-- Empty Row -->
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <p></p>
+    
+                </div>
+            </div>
+            <!-- end: Empty Row -->
+    
+            <!-- Empty Row -->
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <p></p>
+    
+                </div>
+            </div>
+            <!-- end: Empty Row -->
+            <div class="col-md-12">
+                <!-- <h1>New Report</h1> -->
+                <!-- <hr/> -->
+                <form>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label for="reportName">Report Name:</label>
+                            <span style="color:red" *ngIf=" (reportName.dirty || reportName.touched) && reportName.errors?.required">required</span>
+                            <span style="color:red" *ngIf="(reportName.dirty || reportName.touched) && reportName.errors?.maxlength">Max 64 chars.</span>
+                            <input type="text" #reportName="ngModel" class="form-control" [(ngModel)]="obj.name" placeholder="Enter Report Name"
+                                maxlength="64" name="reportName" required>
+                        </div>
+                    </div>
+    
+    
+                    <!-- Empty Row -->
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <p></p>
+    
+                        </div>
+                    </div>
+                    <!-- end: Empty Row -->
+    
+                    <div class="col-md-12">
+                        <div style="margin:10px !important">
+                            <div>
+                                <span *ngFor="let row of checkboxList" class="quaterly-span">
+                                    <label class="checkbox-inline  nowrap">
+                                        <input (click)="selectedList(row.id)" [checked]="row.isActive" type="checkbox" name="first"  />{{row.name}}&nbsp;&nbsp;</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+    
+    
+                    <!-- Empty Row -->
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <p></p>
+    
+                        </div>
+                    </div>
+                    <!-- end: Empty Row -->
+    
+                    <!-- Empty Row -->
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <p></p>
+    
+                        </div>
+                    </div>
+                    <!-- end: Empty Row -->
+    
+                    <div class="col-md-12">
+                        <!-- <div class="col-md-6"> -->
+                        <button type="button" [disabled]="!(validationCheckbox && reportName.valid )" class="btn btn-success" (click)="updateReportAction(obj)">Update Report</button>
+                        <button type="button" class="btn btn-danger float-right" (click)="onCancel()">Cancel</button>
+                        <!-- </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+    </div>

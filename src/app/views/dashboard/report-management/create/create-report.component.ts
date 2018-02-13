@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ReportManagementService } from 'app/services/dashboard/report-management.service';
 import { ManageHierarchy } from './../../../../interfaces/manageHierarchy.interface';
 import { Router } from '@angular/router';
+import * as envConfig from 'app/services/constants/env.endpoints';
+import { ConfirmModel } from '../../models/confirmModel';
+import { AlertModel } from '../../models/alertModel';
+import { LoginService } from 'app/services/auth/login.service';
 
 
 @Component({
@@ -18,9 +22,16 @@ export class CreateReportComponent implements OnInit {
     private checkboxSelectedItems: any;
     private checkboxList: any;
     private obj: any;
+    private validationCheckbox: boolean;
+    private isVisibleLoader: boolean;
+    private confirmModel: ConfirmModel;
+    private isPopupConfirmVisible: boolean;
+    private alertModel: AlertModel;
+    private isPopupAlertVisible: boolean;
     constructor(
         private reportManagementService: ReportManagementService,
-        private router: Router
+        private router: Router,
+        private logInService: LoginService
     ) {
 
     }//end:constructor
@@ -72,8 +83,26 @@ export class CreateReportComponent implements OnInit {
         return [year, month, day].join('-');
     }
 
-    createReportAction(obj,selectedQuarter) {
-        var reportObj = {'name':'','startDate':'','endDate':'','unitTypeList':[]};
+    onCancel() {
+        this.confirmModel.content = "Any unsaved changes may be lost ! Are you sure you want to proceed ?"
+        this.isPopupConfirmVisible = true;
+    }
+
+    onPopupConfirmOk(eventData: string) {
+        this.isPopupConfirmVisible = false;
+            this.router.navigateByUrl('/dashboard/'+envConfig.routerURL.Report_Management+'/list');
+      }//end:onPopupConfirmOk
+    
+      onPopupConfirmCancel(eventData: boolean) {
+        this.isPopupConfirmVisible = eventData;
+    }//end:onPopupConfirmCancel
+
+    onPopupAlertCancel(eventData: boolean){
+        this.isPopupAlertVisible = eventData;
+      }//end:onPopupAlertCancel
+      
+    createReportAction(obj, selectedQuarter) {
+        var reportObj = { 'name': '', 'startDate': '', 'endDate': '', 'unitTypeList': [] };
         var checkboxSelectedItemsList = [];
         for (var i = 0; i < this.checkboxSelectedItems.length; i++) {
             checkboxSelectedItemsList.push({
@@ -87,48 +116,94 @@ export class CreateReportComponent implements OnInit {
         reportObj.startDate = this.formatDate(startTimeofQuarterWithOutFormat);
         reportObj.endDate = this.formatDate(endTimeofQuarterWithOutFormat);
         reportObj.unitTypeList = checkboxSelectedItemsList;
-        this.reportManagementService.creatReport(reportObj).subscribe((response)  =>  {
-            console.log('Response post method: ', response);
-            this.router.navigateByUrl('/dashboard/report-management/list');
+        console.log("report object"+ reportObj);
+        this.reportManagementService.creatReport(reportObj).subscribe((response) => {
+            if (response.status && response.status == 401) {
+                this.isVisibleLoader = false;
+                var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in create report :  " + msg.generalMessage;
+                this.isPopupAlertVisible = true;
+                this.router.navigateByUrl('/login');
+            }
+            else if (response.status && response.status != 401 && response.status!=200){
+                var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in create report :  " + msg.generalMessage;
+                this.isPopupAlertVisible = true;
+                this.isVisibleLoader = false;
+            } else {
+                this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Report_Management + '/list');
+            }
+
         },
             (error) => {
-                console.log('Response post method: ', error);
-                this.router.navigateByUrl('/dashboard/report-management/list');
+                this.alertModel.content = "Error in Create Report "
+                this.isPopupAlertVisible = true;
+                console.log(error)
             });
-            // this.router.navigateByUrl('/dashboard/report-management/list');
     }
 
-    selectedList (selectedValue, selected) {
-        if (selected == true) {
-            var index = this.checkboxSelectedItems.indexOf(selectedValue)
-            this.checkboxSelectedItems.splice(index, 1)
-
-        } else {
-            this.checkboxSelectedItems.push(selectedValue)
-
+    selectedList(id) {
+        var a = this.checkboxSelectedItems.indexOf(id);
+        if (a > -1) {
+        var index = this.checkboxSelectedItems.indexOf(id)
+        this.checkboxSelectedItems.splice(index, 1)
+        } else {
+        this.checkboxSelectedItems.push(id)
+        
         }
-    };//end:selectedQuarter
+        if (this.checkboxSelectedItems.length == 0) {
+        this.validationCheckbox = false;
+        } else {
+        this.validationCheckbox = true;
+        }
+        };//end:selectedList
 
     ngOnInit() {
+        this.isVisibleLoader = true;
+        this.validationCheckbox = true;
         var quarterYear = this.quarteroftheYear(new Date());
         var year = new Date().getFullYear()
         this.listofQuarter = this.getListOfQuarter(quarterYear, year);
+        this.confirmModel = new ConfirmModel();
+        this.isPopupConfirmVisible = false;
+        this.confirmModel.title = 'Confirmation'
+        this.alertModel = new AlertModel();
+        this.isPopupAlertVisible = false;
+        this.alertModel.title = 'Alert '
+        this.alertModel.content = '';
         // alert(vm.listofQuarter)
-        this.reportManagementService.getallUnitTypes().subscribe((response)  =>  {
-            // console.log('Response from GetAllOrganziation is: ', response);
+        if(envConfig.routerURL.Report_Management !== this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management)){
+            this.router.navigateByUrl('/dashboard/'+this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management));
+          }  
+        this.reportManagementService.getallUnitTypes().subscribe((response) => {
+          console.log('Response from GetAllOrganziation is: ', response.status);
             // this.organizationTypeListData= response; 
-          
-            var listArrayTemp = [];
-            response.forEach(element => {
-                listArrayTemp.push(element.id);
-                element.isActive=true;
-            });
-            this.checkboxList = response;
-            this.checkboxSelectedItems = listArrayTemp;
-            console.log("list of all checkbox : " + listArrayTemp)
+            if (response.status && response.status == 401) {
+                this.isVisibleLoader = false;
+                var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in get kpi :  " + msg.generalMessage;
+                this.isPopupAlertVisible = true;
+                this.router.navigateByUrl('/login');
+            }
+            else if (response.status && response.status != 401 && response.status!=200){
+                var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in get kpi :  " + msg.generalMessage;
+                this.isPopupAlertVisible = true;
+                this.isVisibleLoader = false;
+            }
+            else {
+                var listArrayTemp = [];
+                response.forEach(element => {
+                    listArrayTemp.push(element.id);
+                    element.isActive = true;
+                });
+                this.checkboxList = response;
+                this.checkboxSelectedItems = listArrayTemp;
+                this.isVisibleLoader = false;
+            }
         },
             (error) => {
-                this.isVisible  =  false;
+                this.isVisibleLoader = false;
             });
 
         this.obj = {

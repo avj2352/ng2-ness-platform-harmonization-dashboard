@@ -1,5 +1,5 @@
 <div class="dropdown-container">
-    <ul [ngClass]="{'dropdown-content':true,'open':visible}">
+    <ul [ngClass]="{'dropdown-content':true,'open':visible}" (blur)="visible=false;">
         <ng-content></ng-content>
       </ul>
 </div>

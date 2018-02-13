@@ -39,39 +39,50 @@ export class ManageAssetCategoriesService {
       });
   }//end:getAssetTypeList
 
-  creatAsset(assetObj){
-    return this.http.post(envConfig.appURL.createAsset,assetObj,this.options)
+
+  getAssetbyid(id){
+    return this.http.get(envConfig.appURL.createAsset+"/"+id,this.options)
       .map(res => {
-        // debugger;
-        // console.log('Get All Platform response', res);
-        return res.json()
+        return res.json();
       })
       .catch((error)=>{
         return Observable.of(error._body);
+      });
+  }//end:getAssetbyid
+
+  creatAsset(assetObj){
+    return this.http.post(envConfig.appURL.createAsset,assetObj,this.options)
+      .map(res => {
+        
+        // console.log('Get All Platform response', res);
+        return res;
+      })
+      .catch((error)=>{
+        return Observable.of(error);
       });
   }//end:creatAsset
 
   updateAsset(assetObj){
     return this.http.put(envConfig.appURL.updateAsset,assetObj,this.options)
       .map(res => {
-        // debugger;
+        
         // console.log('Get All Platform response', res);
-        return res.json()
+        return res;
       })
       .catch((error)=>{
-        return Observable.of(error._body);
+        return Observable.of(error);
       });
   }//end:updateAsset
 
   deleteAsset(intiatedReportId){
     return this.http.delete(envConfig.appURL.deleteAsset +'/'+ intiatedReportId ,this.options)
       .map(res => {
-        // debugger;
+        
         console.log('response', res);
-        return res.json()
+        return res
       })
       .catch((error)=>{
-        return Observable.of(error._body);
+        return Observable.of(error);
       });
   }//end:deleteAsset
 

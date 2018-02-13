@@ -1,6 +1,9 @@
+<phd-loader content="Content loading..." [visible]="isVisibleLoader"></phd-loader>
 <div class="manage-assetCategories-list">
     <div class="smart-table-section">
         <ng2-smart-table [source]="assetCategoriesListData" [settings]="settings" (deleteConfirm)="onDeleteConfirm($event)"
         (custom)="onEdit($event)" ></ng2-smart-table> 
     </div>   
 </div>
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>

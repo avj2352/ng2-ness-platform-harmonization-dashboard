@@ -1,0 +1,17 @@
+<div [ngClass]="{'popup':true,'popup-visible':visible}">
+    <div [ngClass]="{'popup__content':true,'popup__content-visible':visible}">
+      <div class="popup__header">
+        <p>{{title}}</p>
+        <button title="close" (click)="cancel()">
+          <img src="assets/svg/004-clear-button.svg" alt="close-icon"/>
+        </button>
+      </div>
+      <div class="popup__body">
+        <p>{{content}}</p>
+        <div>
+            <button class="btn btn-popup" (click)="cancel()"><span>OK</span></button> 
+            <!-- <button class="btn-material" (click)="cancel()"><span>Cancel</span></button> -->
+        </div>
+      </div>
+    </div>
+  </div>

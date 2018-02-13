@@ -43,8 +43,15 @@
                 float: none;
                 display: block;
                 padding: 12px;
-                border-bottom: 1px solid #dedede;
+                border-bottom: 1px solid $color-white-grey;
                 box-shadow: 0 0 0 0;                
+
+                &.active {
+                    outline:none;
+                    background: linear-gradient(to right,$dark-blue-start,$medium-blue-end);
+                    color:$color-white;
+                    cursor: pointer;    
+                }
                 
 
                 &:first-child{
@@ -53,8 +60,10 @@
                 }
 
                 &:hover {
-                    background: #e5e5e5;
-                    cursor: pointer;                    
+                    &:not(.active){
+                        background: #e5e5e5;
+                        cursor: pointer;    
+                    }                                    
                 }
             }
     }//end:dropdown-content

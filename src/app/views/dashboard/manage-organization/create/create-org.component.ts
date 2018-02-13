@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ManageOrganizationService } from 'app/services/dashboard/manage-organization.service';
 import { ManageHierarchy } from './../../../../interfaces/manageHierarchy.interface';
 import { Router } from '@angular/router';
+import * as envConfig from 'app/services/constants/env.endpoints';
+import { ConfirmModel } from '../../models/confirmModel';
+import { AlertModel } from '../../models/alertModel';
+import { LoginService } from 'app/services/auth/login.service';
+
 
 @Component({
     selector: 'phd-create-org',
@@ -20,46 +25,99 @@ export class CreateOrganizationComponent implements OnInit {
     private orgObj: any;
     private selectedOrgObj: any;
     private selectedChildObj: any;
+    private isVisibleLoader:boolean;
+    private confirmModel: ConfirmModel;
+    private isPopupConfirmVisible: boolean;
+    private alertModel: AlertModel;
+    private isPopupAlertVisible: boolean;
+    private patternCheckHierarchy:any;
     constructor(
         private manageOrgService: ManageOrganizationService,
-        private router: Router
+        private router: Router,
+        private logInService: LoginService
     ) {
 
 
     }//end:constructor
     ngOnInit() {
+        this.isVisibleLoader=true;
         this.orgObj = {
             name: '',
             code: '',
             hierarchy: '',
             description: '',
-            active:'1'
+            active:true
         }
+        this.patternCheckHierarchy="^[0-9]{0,2}([.][0-9]{1,3})?$"
+        this.confirmModel = new ConfirmModel();
+        this.isPopupConfirmVisible = false;
+        this.confirmModel.title = 'Confirmation '
         this.isVisibleParentSelectBox = false;
+        this.alertModel = new AlertModel();
+        this.isPopupAlertVisible = false;
+        this.alertModel.title = 'Alert '
+        this.alertModel.content = '';
+    	if(envConfig.routerURL.Manage_Organizations !== this.logInService.verifyAuthScreen(envConfig.routerURL.Manage_Organizations)){
+            this.router.navigateByUrl('/dashboard/'+this.logInService.verifyAuthScreen(envConfig.routerURL.Manage_Organizations));
+          }    
         this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response)  =>  {
             console.log('Response from GetAllOrganziation is: ', response);
             this.organizationTypeListData =  response;
             this.selectedOrgObj= response[0];
             this.selectedChildObj={};
+            this.isVisibleLoader=false;
         },
             (error) => {
                 this.isVisible  =  false;
+                this.isVisibleLoader=false;
             });
     }//end:ngOnInit
 
-    createOrgAction(orgobj){
 
-        orgobj.organizationType=this.selectedOrgObj;
-        orgobj.parentOrganization=this.selectedChildObj;
-        console.log("object coming"+orgobj)
-        this.manageOrgService.creatOrganization(orgobj).subscribe((response)  =>  {
-            console.log('Response post method: ', response);
-            this.router.navigateByUrl('/dashboard/manage-organizations/list');
-        },
-            (error) => {
-                console.log('Response post method: ', error);
-                this.router.navigateByUrl('/dashboard/manage-organizations/list');
-            });
+    onCancel()
+    {
+        this.confirmModel.content="Any unsaved changes may be lost ! Are you sure you want to proceed ?"
+        this.isPopupConfirmVisible = true;
+    }
+
+      onPopupConfirmOk(eventData: string) {
+        this.isPopupConfirmVisible = false;
+        this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Manage_Organizations+ '/list');
+      }//end:onPopupConfirmOk
+    
+      onPopupConfirmCancel(eventData: boolean) {
+        this.isPopupConfirmVisible = eventData;
+      }//end:onPopupConfirmCancel
+
+      onPopupAlertCancel(eventData: boolean){
+        this.isPopupAlertVisible = eventData;
+      }//end:onPopupAlertCancel
+
+    createOrgAction(orgObj){
+
+        orgObj.organizationType=this.selectedOrgObj;
+        orgObj.parentOrganization=this.selectedChildObj;
+        if(orgObj.active==true){
+            orgObj.active=1;
+        }else{
+            orgObj.active=0;
+        }
+
+        this.manageOrgService.creatOrganization(orgObj).subscribe((response)  =>  {
+        if (response.status != 200) {
+            var msg = JSON.parse(response._body)
+            this.alertModel.content = "Error in Create Organization :  " + msg.generalMessage;
+            this.isPopupAlertVisible = true;
+        } else {
+            this.router.navigateByUrl('/dashboard/'+envConfig.routerURL.Manage_Organizations+'/list');
+        }
+
+    },
+        (error) => {
+            this.alertModel.content = "Error in Create Organization "
+            this.isPopupAlertVisible = true;
+            console.log(error)
+        });
 
     }
 
@@ -76,6 +134,7 @@ export class CreateOrganizationComponent implements OnInit {
             this.selectedChildObj={};
         }
         else {
+            this.isVisibleLoader=true;
             this.isVisibleParentSelectBox = true;
             this.isVisibleParentSelectBox1 = true;
             var name;
@@ -89,9 +148,11 @@ export class CreateOrganizationComponent implements OnInit {
                 console.log('Response is: ', response);
                 this.parentTypeListData  =  response;
                 this.selectedChildObj= response[0];
+                this.isVisibleLoader=false;
             },
                 (error) => {
                     this.isVisible  =  false;
+                    this.isVisibleLoader=false;
                 });
         }
     }//end:selectOrganizationType()    

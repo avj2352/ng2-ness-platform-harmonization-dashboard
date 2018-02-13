@@ -1,3 +1,4 @@
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>
 <div class="create-platform">
     <div class="row">
         <div class="col-md-12">
@@ -26,16 +27,16 @@
                         <div class="col-md-6">
                             <label for="platformCode">Platform Code:</label>
                             <span style="color:red" *ngIf=" (platformCode.dirty || platformCode.touched) && platformCode.errors?.required">required</span>
-                            <span style="color:red" *ngIf="(platformCode.dirty || platformCode.touched) && platformCode.errors?.maxlength">Max 16 chars.</span>
+                            <span style="color:red" *ngIf="(platformCode.dirty || platformCode.touched) && platformCode.errors?.maxlength">Max 64 chars.</span>
                             <input type="text" #platformCode="ngModel" class="form-control" [(ngModel)]="platformObj.code" placeholder="Enter Platform code"
-                                maxlength="16" name="platformCode" required>
+                                maxlength="64" name="platformCode" required>
                         </div>
                         <div class="col-md-6">
                             <label for="platformName">Platform Name:</label>
                             <span style="color:red" *ngIf=" (platformName.dirty || platformName.touched) && platformName.errors?.required">required</span>
-                            <span style="color:red" *ngIf="(platformName.dirty || platformName.touched) && platformName.errors?.maxlength">Max 32 chars.</span>
+                            <span style="color:red" *ngIf="(platformName.dirty || platformName.touched) && platformName.errors?.maxlength">Max 64 chars.</span>
                             <input type="text" #platformName="ngModel" class="form-control" [(ngModel)]="platformObj.name" placeholder="Enter Platform Name"
-                                maxlength="32" name="platformName" required>
+                                maxlength="64" name="platformName" required>
                         </div>
                     </div>
                     <!-- Empty Row -->
@@ -50,14 +51,14 @@
                         <div class="col-md-6">
                             <label for="platformHierarchy">Platform Order:</label>
                             <span style="color:red" *ngIf=" (platformHierarchy.dirty || platformHierarchy.touched) && platformHierarchy.errors?.required">required</span>
-                            <!-- <span style="color:red" *ngIf="(platformHierarchy.dirty || platformHierarchy.touched) && platformHierarchy.errors?.pattern">>Only two digits and only five decimal point required</span> -->
-                            <input type="number" class="form-control" #platformHierarchy="ngModel" [(ngModel)]="platformObj.hierarchy" placeholder="Enter Platform Order"
+                            <span style="color:red" *ngIf="(platformHierarchy.dirty || platformHierarchy.touched) && platformHierarchy.errors?.pattern">Max two digit and Three decimal point allow</span>
+                            <input type="number" class="form-control" #platformHierarchy="ngModel" [(ngModel)]="platformObj.hierarchy" [pattern]="patternCheckHierarchy" placeholder="Enter Platform Order" 
                                 step="0.1" name="platformHierarchy" required>
                         </div>
                         <div class="col-md-6">
                             <label for="platformDescription">Description:</label>
                             <span style="color:red" *ngIf="(platformDescription.dirty || platformDescription.touched) && platformDescription.errors?.maxlength">Max 256 chars.</span>
-                            <input type="text" class="form-control" #platformDescription="ngModel" [(ngModel)]="description" placeholder="Enter a Description"
+                            <input type="text" class="form-control" #platformDescription="ngModel" [(ngModel)]="platformObj.description" placeholder="Enter a Description"
                                 maxlength="256" name="platformDescription">
                         </div>
                     </div>
@@ -70,6 +71,13 @@
                         </div>
                     </div>
                     <!-- end: Empty Row -->
+                    
+                    <div class="col-md-12">
+                            <div style="margin-top:10px" class="col-md-6">
+                                    <label >Active:
+                                    <input  type="checkbox" name="first" [(ngModel)]="platformObj.active" /></label>
+                                </div>
+                    </div>
                     <!-- Empty Row -->
                     <div class="col-md-12">
                         <div class="col-md-6">
@@ -97,7 +105,7 @@
                     <div class="col-md-12">
                         <button type="button" [disabled]="!(platformName.valid && platformCode.valid && platformDescription.valid && platformHierarchy.valid )"
                             class="btn btn-success" (click)="createPlatformAction(platformObj)">Create Platform</button>
-                        <button type="button" class="btn btn-danger float-right" ng-click="onCancel()">Cancel</button>
+                        <button type="button" class="btn btn-danger float-right" (click)="onCancel()">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -105,3 +113,4 @@
         </div>
     </div>
 </div>
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>

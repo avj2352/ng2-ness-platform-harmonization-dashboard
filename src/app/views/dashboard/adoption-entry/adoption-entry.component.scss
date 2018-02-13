@@ -6,7 +6,48 @@
     .tab-content{
         background-color: $color-white; 
         height: 80vh;
-        padding-top:5px;        
+        padding-top:5px;
+        .tab-con-report{
+            height:2.5rem;
+            table{
+                display: inline;
+                margin-left: 1rem;
+                font-size: 11px;
+                th{
+                    background: #e2e2e2;
+                }
+                th, td{
+                    padding:2px;
+                    width: 6.5rem;
+                    border: 1px solid black;
+                    &.greycell {
+                        background: #96938C;
+                        color     : black;
+                    }
+                    &.orangecell {
+                        background: #f09a60;
+                        color     : black;
+            
+                    }
+                    &.pinkcell{
+                        background: #e5c1bf;
+                        color     : black;  
+            
+                    }
+                    &.lightgreencell{
+                        background: #b5d69a;
+                        color     : black; 
+                    }
+                    &.greencell{
+                        background: #458B00;
+                        color     :rgb(24, 22, 22);
+                    }
+                }
+            } //End: Table
+            .reportName{
+                padding-left: 15px;
+            }
+        }       
     }
     .nav-tabs {
         .nav-item{
@@ -32,24 +73,74 @@
         margin: 0 15px;
         color: $dark-blue-start;
     }
+
+    .table th, .table td {
+        padding: 0.1rem;
+        vertical-align: top;
+       
+    }
+
+    table.table{
+        thead {
+            th {
+                border-top: none;
+            }
+        tbody {                                    
+            }
+        }
+    }//end:table
     ag-grid-angular {        
         margin: 10px 0;
         font-family: "Centrale-Sans", sans-serif;        
     }
     .button-section {
-        display: flex;        
+        display: initial;
         button {
             margin: 0 5px;
             font-family: "Centrale-Sans", sans-serif;        
             padding: 10px 25px;
             font-size: 0.9rem;
-            &:first-child {
-                color: $color-green-dark;
-            }
+            // &:first-child {
+            //     color: $color-green-dark;
+            // }
         }
+        .legend{
+            font:10px;
+            padding-top: 0px;
+            padding-right: 10px;
+            float: right;
+            p{
+                display: inline;
+                color:  $color-black  
+            }
+            color:rgb(24, 22, 22);
+            & span.greycell {
+                background: #96938C;
+                color     : $color-black;
+            }
+            & span.orangecell {
+                background: #f09a60;
+                color     : black;
+    
+            }
+            & span.pinkcell{
+                background: #e5c1bf;
+                color     : black;  
+    
+            }
+            & span.lightgreencell{
+                background: #b5d69a;
+                color     : black; 
+            }
+            & span.greencell{
+                background: #458B00;
+                color     :rgb(24, 22, 22);
+            }
+        } //End: Legend
+        
     }
 }//end:adoption-entry
 h3.errorBlock {
     margin: 0 15px; 
-    color: red;
+    color: rgb(22, 21, 21);
 }

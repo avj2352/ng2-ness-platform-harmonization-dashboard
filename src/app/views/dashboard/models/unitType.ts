@@ -5,7 +5,7 @@ export class UnitType {
     code: string;
     type: string;
     active: string;
-    unitTypeLst: Array<UnitMetric>;
+    unitList: Array<UnitMetric>;
     defaultUnit: UnitMetric;
     display: boolean;
 }

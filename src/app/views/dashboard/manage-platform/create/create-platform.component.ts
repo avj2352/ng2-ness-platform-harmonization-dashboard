@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagePlatformService } from '../../../../services/dashboard/manage-platform.service';
-import { ManageHierarchy } from './../../../../interfaces/manageHierarchy.interface';
 import { Router } from '@angular/router';
+import * as envConfig from 'app/services/constants/env.endpoints';
+import { ConfirmModel } from '../../models/confirmModel';
+import { AlertModel } from '../../models/alertModel';
 
 @Component({
     selector: 'phd-create-platform',
@@ -11,31 +13,75 @@ import { Router } from '@angular/router';
 export class CreatePlatformComponent implements OnInit {
 
     private platformObj: any;
-    constructor(
-        private managePlatformService: ManagePlatformService,
-        private router: Router
-    ) {
+    private confirmModel: ConfirmModel;
+    private isPopupConfirmVisible: boolean;  
+    private alertModel: AlertModel;
+    private isPopupAlertVisible: boolean;
+    private patternCheckHierarchy:any;
 
+    constructor(
+        private managePlatformService: ManagePlatformService,        
+        private router: Router        
+    ) {        
 
     }//end:constructor
     ngOnInit() {
+        this.patternCheckHierarchy="^[0-9]{0,2}([.][0-9]{1,3})?$"
         this.platformObj = {
             name: '',
             code: '',
             hierarchy: '',
             description: '',
-            active:'1'
+            active:true
         }
+        this.confirmModel = new ConfirmModel();
+        this.isPopupConfirmVisible = false;
+        this.confirmModel.title = 'Confirmation '
+        this.alertModel = new AlertModel();
+        this.isPopupAlertVisible = false;
+        this.alertModel.title = 'Alert '
+        this.alertModel.content = '';
+
     }//end:ngOnInit
 
+    onCancel() {
+        this.confirmModel.content = "Any unsaved changes may be lost ! Are you sure you want to proceed ?"
+        this.isPopupConfirmVisible = true;
+    }
+
+    onPopupConfirmOk(eventData: string) {
+        this.isPopupConfirmVisible = false;
+        this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Manage_Platform + '/list');
+    }//end:onPopupConfirmOk
+
+    onPopupConfirmCancel(eventData: boolean) {
+        this.isPopupConfirmVisible = eventData;
+      }//end:onPopupConfirmCancel
+
+      onPopupAlertCancel(eventData: boolean){
+        this.isPopupAlertVisible = eventData;
+      }//end:onPopupAlertCancel
+
     createPlatformAction(platformobj){
-        this.managePlatformService.creatPlatform(platformobj).subscribe((response)  =>  {
-            console.log('Response post method: ', response);
-            this.router.navigateByUrl('/dashboard/manage-platform/list');
-        },
-            (error) => {
-                console.log('Response post method: ', error);
-                this.router.navigateByUrl('/dashboard/manage-platform/list');
-            });
+        if(platformobj.active==true){
+            platformobj.active=1;
+        }else{
+            platformobj.active=0;
+        }
+        this.managePlatformService.creatPlatform(platformobj).subscribe((response) => {
+        if (response.status != 200) {
+            var msg = JSON.parse(response._body)
+            this.alertModel.content = "Error in Create Platform :  " + msg.generalMessage;
+            this.isPopupAlertVisible = true;
+        } else {
+            this.router.navigateByUrl('/dashboard/'+envConfig.routerURL.Manage_Platform+'/list');
+        }
+
+    },
+        (error) => {
+            this.alertModel.content = "Error in Create Platform "
+            this.isPopupAlertVisible = true;
+            console.log(error)
+        });
     }  
 }//end:CreatePlatformComponent

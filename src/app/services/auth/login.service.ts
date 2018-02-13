@@ -34,20 +34,24 @@ export class LoginService {
     })
     .catch((error)=>{
       return Observable.of(JSON.parse(error._body));
-    });
-    // return this.http.post(envConfig.appURL.loginEndPoint,userInput,this.options)
-    //   .map(res => {
-    //     // debugger;
-    //     return res.json()
-    //   })
-    //   .catch((error)=>{
-    //     return Observable.of(error._body);
-    //   });
+    });    
   }//end:loginUser
 
   storeCredentials(inputObj){
     return this.localStorage.add('session',inputObj);
   }//end:storeToken
+
+  getSimpleAJAXHeaderParams():any{
+    const sessionID = this.getToken().sessionId;    
+    return { 
+    'Content-Type': 'application/json', 
+    'Accept': 'application/json',
+    'Cache-control':'no-cache',
+    'Pragma': 'no-cache',
+    'Expires': '0', 
+    'sessionId':sessionID
+    };   
+  }//end:getSimpleAJAXHeaderParams
 
   getHeaderParams():Headers{
     const sessionID = this.getToken().sessionId;

@@ -104,27 +104,7 @@ export class AdoptionService {
       .catch((error)=>{
         return Observable.of(error._body);
       });
-      return promise;
-      // this.options = new RequestOptions({headers:this.headers, params: reportParams});
-      // return this.http.put(envConfig.appURL.updateAssetAdoption+ '/'+reportId,data,this.options)
-      // .map(res => {
-      //   debugger;
-      //   return res
-      // })
-      // .catch((error)=>{
-      //   return Observable.of(error._body);
-      // });
-      // let promise = $.ajax({
-      //   url: envConfig.appURL +'/' + reportId,
-      //   type: 'PUT',
-      //   headers:this.headers,
-      //   data: data,
-      //   success: function(data) {
-      //     alert('Load was performed.');
-      //   }
-      // });
-
-    //  return Observable.of(promise);
+      return promise;      
   } //end: saveReport
 
   submitReport(reportId: number, data:any) { 

@@ -1,24 +1,8 @@
-.greycell {
-    background: #96938C;
-    color     : black;
-    padding:4px;
-    width: 50px;
-}
-.orangecell {
-    background: #f09a60;
-    color     : black;
-}
-.pinkcell{
-    background: #e5c1bf;
-    color     : black;  
-}
-.lightgreencell{
-    background: #b5d69a;
-    color     : black;  
-}
-.greencell{
-    background: #458B00;
-    color     :black
+input.agEditText {
+    width: 50px;  
+  }
+.locked{
+    border: 2px rgb(23, 24, 23);
 }
 .ag-theme-fresh .ag-cell{
     padding: 0px;

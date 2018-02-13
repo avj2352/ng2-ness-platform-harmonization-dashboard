@@ -18,7 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
     });
     console.log('New Request is: ', newRequest);
     console.log('New Request is: ', newRequest.body);
-    return next.handle(newRequest)
+    return next.handle(request)
     .do(evt => {
       if (evt instanceof HttpResponse) {
         console.log('---> status:', evt.status);

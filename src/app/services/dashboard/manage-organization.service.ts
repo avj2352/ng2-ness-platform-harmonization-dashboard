@@ -20,9 +20,25 @@ export class ManageOrganizationService {
    }//end:constructor
 
   getAllOrganizationTypeConfig(){
+    this.headers = this.loginService.getHeaderParams();
+    this.options = new RequestOptions({ headers: this.headers }); 
     return this.http.get(envConfig.appURL.allOrganizationType,this.options)
       .map(res => {
-        // debugger;
+        
+        console.log('Get All Organization response', res);
+        return res.json();
+      })
+      .catch((error)=>{
+        return Observable.of(error._body);
+      });
+  }//end:getAllOrganizationTypeConfig
+
+  getAllOrganizationbyId(id){
+    this.headers = this.loginService.getHeaderParams();
+    this.options = new RequestOptions({ headers: this.headers }); 
+    return this.http.get(envConfig.appURL.organizationbyId+"/"+id,this.options)
+      .map(res => {
+        
         console.log('Get All Organization response', res);
         return res.json();
       })
@@ -34,7 +50,7 @@ export class ManageOrganizationService {
   getAllOrganizationbyIdConfig(OrganizationId){
     return this.http.get(envConfig.appURL.allOrganizationTypesbyId+'='+OrganizationId,this.options)
       .map(res => {
-        // debugger;
+        
         return res.json();
       })
       .catch((error)=>{
@@ -45,33 +61,33 @@ export class ManageOrganizationService {
   creatOrganization(organizationObj){
     return this.http.post(envConfig.appURL.createOrganization,organizationObj,this.options)
       .map(res => {
-        // debugger;        
-        return res.json();
+                
+        return res;
       })
       .catch((error)=>{
-        return Observable.of(error._body);
+        return Observable.of(error);
       });
   }//end:creatOrganization
 
   updateOrganization(organizationObj){
     return this.http.put(envConfig.appURL.updateOrganization,organizationObj,this.options)
       .map(res => {
-        // debugger;        
-        return res.json();
+                
+        return res;
       })
       .catch((error)=>{
-        return Observable.of(error._body);
+        return Observable.of(error);
       });
   }//end:updateOrganization
 
   deleteOrganization(intiatedReportId){
     return this.http.delete(envConfig.appURL.deleteOrganization +'/'+ intiatedReportId ,this.options)
       .map(res => {
-        // debugger;        
-        return res.json()
+                
+        return res;
       })
       .catch((error)=>{
-        return Observable.of(error._body);
+        return Observable.of(error);
       });
   }//end:deleteOrganization
 

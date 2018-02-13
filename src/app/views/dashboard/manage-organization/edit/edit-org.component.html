@@ -1,3 +1,166 @@
-<div>
-    Edit Organization Works
-</div>
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>
+<phd-loader content="Content loading..." [visible]="isVisibleLoader"></phd-loader>
+<div class="create-org">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- <h1>New Organization</h1> -->
+                <!-- <hr/> -->
+                <form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <div class="select-label">
+                                        <p>
+                                            <strong>Organization Type:</strong>
+                                        </p>
+                                    </div>
+                                    <div class="select-div">
+                                        <select [disabled]="true"class="btn-group bootstrap-select form-control" name="selectOrg" [(ngModel)]="selectOrg" (change)="selectOrganizationType(selectOrg)">
+                                            <option *ngFor="let item of organizationTypeListData " [ngValue]="item">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                        <i class="bar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <p></p>
+    
+                            </div>
+                        </div>
+                        <!-- end: Empty Row -->
+    
+                        <div  class="col-md-12">
+                            <div class="col-md-6">
+                                <div *ngIf="isVisibleParentSelectBox">
+                                    <div class="select-label">
+                                        <p>
+                                            <strong>{{parentName}} : </strong>
+                                        </p>
+                                    </div>
+                                    <div class="select-div">
+                                        <select class="btn-group bootstrap-select form-control" name="selectedChildObj" [(ngModel)]="selectedChildObj" (change)="selectParentType(selectedChildObj)">
+                                            <option *ngFor="let item of parentTypeListData " [ngValue]="item">
+                                                {{item.name}}
+                                            </option>
+                                        </select>
+                                        <i class="bar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Empty Row -->
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <p></p>
+    
+                            </div>
+                        </div>
+                        <!-- end: Empty Row -->
+    
+                        <div>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label for="organizationCode">{{selectOrgName}} Code:</label>
+                                    <span style="color:red" *ngIf=" (organizationCode.dirty || organizationCode.touched) && organizationCode.errors?.required">required</span>
+                                    <span style="color:red" *ngIf="(organizationCode.dirty || organizationCode.touched) && organizationCode.errors?.maxlength">Max 64 chars.</span>
+                                    <input type="text" #organizationCode="ngModel" class="form-control" [(ngModel)]="orgObj.code" placeholder="Enter organization code"
+                                        maxlength="64" name="organizationCode" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="organizationName">{{selectOrgName}} Name:</label>
+                                    <span style="color:red" *ngIf=" (organizationName.dirty || organizationName.touched) && organizationName.errors?.required">required</span>
+                                    <span style="color:red" *ngIf="(organizationName.dirty || organizationName.touched) && organizationName.errors?.maxlength">Max 64 chars.</span>
+                                    <input type="text" #organizationName="ngModel" class="form-control" [(ngModel)]="orgObj.name" placeholder="Enter organization Name"
+                                        maxlength="64" name="organizationName" required>
+    
+                                </div>
+                            </div>
+                            <!-- Empty Row -->
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <p></p>
+    
+                                </div>
+                            </div>
+                            <!-- end: Empty Row -->
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label for="organizationHierarchy">{{selectOrgName}} Order:</label>
+                                    <span style="color:red" *ngIf=" (organizationHierarchy.dirty || organizationHierarchy.touched) && organizationHierarchy.errors?.required">required</span>
+                                    <span style="color:red" *ngIf="(organizationHierarchy.dirty || organizationHierarchy.touched) && organizationHierarchy.errors?.pattern">Max two digit and Three decimal point allow</span>
+                                    <input type="number" [pattern]="patternCheckHierarchy" class="form-control" #organizationHierarchy="ngModel" [(ngModel)]="orgObj.hierarchy" placeholder="Enter Organization Order"
+                                        step="0.1" name="organizationHierarchy" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="organizationDescription">Description:</label>
+                                    <span style="color:red" *ngIf="(organizationDescription.dirty || organizationDescription.touched) && organizationDescription.errors?.maxlength">Max 256 chars.</span>
+                                    <input type="text" class="form-control" #organizationDescription="ngModel" [(ngModel)]="orgObj.description" placeholder="Enter a Description"
+                                        maxlength="256" name="organizationDescription">
+                                </div>
+                            </div>
+    
+                            <!-- Empty Row -->
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <p></p>
+    
+                                </div>
+                            </div>
+                            <!-- end: Empty Row -->
+                            <div class="col-md-12">
+                                    <div style="margin-top:10px" class="col-md-6">
+                                            <label >Active:
+                                            <input  type="checkbox" name="first" [(ngModel)]="orgObj.active" /></label>
+                                        </div>
+                            </div>
+    
+                            <!-- Empty Row -->
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <p></p>
+    
+                                </div>
+                            </div>
+                            <!-- end: Empty Row -->
+                            <!-- Empty Row -->
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <p></p>
+    
+                                </div>
+                            </div>
+                            <!-- end: Empty Row -->
+    
+                            <!-- Empty Row -->
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <p></p>
+    
+                                </div>
+                            </div>
+                            <!-- end: Empty Row -->
+    
+    
+    
+    
+                            <div class="col-md-12">
+                                <button type="button" [disabled]="!(organizationName.valid && organizationCode.valid && organizationDescription.valid && organizationHierarchy.valid )"
+                                    class="btn btn-success" (click)="updateOrgAction(orgObj)">Update Organization</button>
+                                <button type="button" class="btn btn-danger float-right" (click)="onCancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+    
+                </form>
+                <!-- <phd-toggle-switch></phd-toggle-switch> -->
+            </div>
+        </div>
+    </div>

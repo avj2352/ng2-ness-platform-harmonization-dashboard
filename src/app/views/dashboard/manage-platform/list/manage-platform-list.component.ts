@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagePlatformService } from '../../../../services/dashboard/manage-platform.service';
 import { Router } from '@angular/router';
+import * as envConfig from 'app/services/constants/env.endpoints';
+import { LoginService } from 'app/services/auth/login.service';
+import { ConfirmModel } from '../../models/confirmModel';
+import { AlertModel } from '../../models/alertModel';
+
+
 
 interface ManageHierarchy {
   id: number;
@@ -18,6 +24,12 @@ export class ManagePlatformListComponent implements OnInit {
   private isVisible: boolean;
   private platformListData: any;
   private settings: any;
+  private isVisibleLoader: boolean;
+  private confirmModel: ConfirmModel;
+  private isPopupConfirmVisible: boolean;
+  private idDelete: boolean;
+  private alertModel: AlertModel;
+  private isPopupAlertVisible: boolean;
 
   constructor(
     private managePlatformService: ManagePlatformService,
@@ -43,44 +55,68 @@ export class ManagePlatformListComponent implements OnInit {
           title: '#'
         },
         code: {
-          title: 'Code'
+          title: 'Platform Code'
         },
         name: {
-          title: 'Name'
+          title: 'Platform Name'
         },
         active: {
           title: 'Status',
-          filter: {
-            type: 'checkbox',
-            config: {
-              true: 'Active',
-              false: 'Inactive',
-              resetText: 'clear',
-            },
-          },
         }
       }
     };
   }//end:constructor
 
   onDeleteConfirm(event) {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.managePlatformService.deletePlatform(event.data.id).subscribe((response) => {
-        console.log(response)
+    this.idDelete = event.data.id
+    this.confirmModel.content = "Are you sure you want to delete ?"
+    this.isPopupConfirmVisible = true;
+  }
+
+  onPopupConfirmOk(eventData: string) {
+    this.isPopupConfirmVisible = false;
+      this.managePlatformService.deletePlatform(this.idDelete).subscribe((response) => {
+       if(response.status!=200){
+         var msg = JSON.parse(response._body)
+        this.alertModel.content = "Error in delete Platform :  "+msg.generalMessage;
+        this.isPopupAlertVisible = true;
+       }else{
+        window.location.reload();
+       }
+        
       },
         (error) => {
+          this.alertModel.content = "Error in delete "
+          this.isPopupAlertVisible = true;
           console.log(error)
           // this.isVisible = false;
         });
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+  }//end:onPopupConfirmClose
+
+  onPopupConfirmCancel(eventData: boolean) {
+    this.isPopupConfirmVisible = eventData;
+  }//end:onPopupConfirmCancel
+
+  onPopupAlertCancel(eventData: boolean){
+    this.isPopupAlertVisible = eventData;
   }
+
+  onEdit(event) {
+    //event.data
+    this.router.navigate(['/dashboard/' + envConfig.routerURL.Manage_Platform + '/edit', event.data.id]);
+  }//end:onEdit
 
   ngOnInit() {
     // this.isVisible = true;
-    //Service related    
+    //Service related   
+    this.isVisibleLoader = true;
+    this.confirmModel = new ConfirmModel();
+    this.isPopupConfirmVisible = false;
+    this.confirmModel.title = 'Confirmation '
+    this.alertModel = new AlertModel();
+    this.isPopupAlertVisible = false;
+    this.alertModel.title = 'Alert '
+
     this.managePlatformService.getAllPlatformConfig().subscribe((response) => {
       var temp_data = response;
       temp_data.forEach(element => {
@@ -92,9 +128,11 @@ export class ManagePlatformListComponent implements OnInit {
 
       });
       this.platformListData = temp_data;
+      this.isVisibleLoader = false;
     },
       (error) => {
         this.isVisible = false;
+        this.isVisibleLoader = false;
       });
     // this.staticDataService.createMergeMapExample().subscribe(x=>console.log('Merge Map: ',x));
     // this.staticDataService.createSwitchMapExample().subscribe(x=>console.log('Switch Map', x));

@@ -1,8 +1,5 @@
 <div class="dropdown-container">
-    <ul [ngClass]="{'dropdown-menu':true,'open':visible}">
-        <li>CAO Admin</li>
-        <li>BU User</li>
-        <li>Pramod</li>
-        <li>Vijaykumar</li>
+    <ul [ngClass]="{'dropdown-content':true,'open':visible}" (blur)="visible=false;">
+        <ng-content></ng-content>
       </ul>
 </div>

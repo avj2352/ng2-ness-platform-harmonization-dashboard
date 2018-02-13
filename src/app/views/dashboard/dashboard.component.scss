@@ -22,7 +22,7 @@
         color: $color-white;        
         p.header-title {
             // border: 1px solid red;
-            padding: 8px 5px;
+            padding: 8px 9px;
             font-size: 1rem;
         }        
         .right-navigation {    
@@ -30,9 +30,10 @@
                 display: inline-block;
                 cursor: pointer;
                 outline: none;
+                margin-bottom: 1px;                
             }        
             right: 0;
-            margin-left: auto;            
+            margin-left: auto;
             // border: 1px solid red;
         }
 
@@ -44,13 +45,14 @@
             outline: none; 
             margin: 0px 5px;
             padding: 5px 5px 0;
-            img {width: 40%;}
+            img {width: 40%; padding-bottom: 5px}
             &:hover {
                 // border-right: 1px solid black;
                 // border-left: 1px solid black;
                 background-color: rgba(black,0.5);
                 @include box-shadow-effect;
             }
+    
             &--right {
                 // border: 1px solid white;
                 
@@ -93,9 +95,14 @@
             &:hover {
                 transform:translateY(-1px);
             }
-            &:active {
-                transform: translateY(0px);                
-            }       
+            &.active{
+                outline:none;
+                background: linear-gradient(to right,$light-blue-start,$light-blue-end);
+                color:$color-white;
+                padding-bottom: 2px;
+                @include box-shadow-effect;                
+                cursor: pointer;            
+            }      
         }//end:btn
     }//end:nav
 

@@ -14,7 +14,7 @@
     width: 200px;
     font-family: "Centrale-Sans", sans-serif;    
     //This will be the up arrow
-    .dropdown-menu:before {
+    .dropdown-content:before {
         content: "";
         width: 0;
         height: 0;
@@ -23,7 +23,7 @@
         z-index: 0;
     }
     
-    .dropdown-menu {
+    /deep/ul.dropdown-content {
         // border: 1px solid red;
         position: relative;
         visibility: hidden;    
@@ -33,36 +33,49 @@
         width: 100%;
         max-width: 200px;     
         top:10px;   
+        background: #FFFFFF;
         border-radius: 12px;
         @include box-shadow-effect-02;
         position: relative;
-        margin-top: 36px;
-    }    
+        margin-top: 36px;        
+            /deep/li{
+                list-style-type: none;
+                float: none;
+                display: block;
+                padding: 12px;
+                border-bottom: 1px solid $color-white-grey;
+                box-shadow: 0 0 0 0;                
+
+                &.active {
+                    outline:none;
+                    background: linear-gradient(to right,$dark-blue-start,$medium-blue-end);
+                    color:$color-white;
+                    cursor: pointer;    
+                }
+                
+
+                &:first-child{
+                    border-radius: 12px 12px 0 0;
+                    z-index: 10;
+                }
+
+                &:hover {
+                    &:not(.active){
+                        background: #e5e5e5;
+                        cursor: pointer;    
+                    }                                    
+                }
+            }
+    }//end:dropdown-content
     
-    .dropdown-menu li:first-child {
-    border-radius: 12px 12px 0 0;
-    z-index: 10;
-    }
+    .dropdown-content ul li:hover {
     
-    .dropdown-menu li {
-    list-style-type: none;
-    float: none;
-    display: block;
-    padding: 12px;
-    border-bottom: 1px solid #dedede;
-    box-shadow: 0 0 0 0;
-    background: #FFFFFF;
-    }
-    
-    .dropdown-menu li:hover {
-    background: #e5e5e5;
-    cursor: pointer;
     //This will be the up arrow
-    .dropdown-menu:before {
+    .dropdown-content:before {
         content: "";
         @include up-arrow-style(#e5e5e5);
     }
-    .dropdown-menu:after {
+    .dropdown-content:after {
         content: "";
         width: 0;
         height: 0;
@@ -73,7 +86,7 @@
         }
     }//end:li:hover 
     
-    >.dropdown-menu li:last-child {
+    >.dropdown-content li:last-child {
     border-bottom: 0;
     border-radius: 0 0 12px 12px;
     }

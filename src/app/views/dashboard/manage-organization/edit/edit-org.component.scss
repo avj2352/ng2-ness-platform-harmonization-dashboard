@@ -1,0 +1,49 @@
+@import './../../../../../styles.scss';
+
+.create-org {
+    // border: 1px solid red;
+    h1 {
+        // border: 1px solid red;
+        display: block;
+        padding: 0;
+        margin: 0;
+    }
+    height: 79vh;
+    background-color: $color-white;
+    @include box-shadow-effect;
+    padding: 5px;
+    text-align: left;        
+    .form-group { 
+        margin: 0;       
+        // border: 1px solid red;
+        display: flex;
+        flex-direction: row;        
+        flex-direction: column; 
+       
+        .select-label {
+            // width: 15%;
+            padding: 0px;
+        }
+        .select-div {
+            // border: 1px solid green;
+            width: 40%;
+            select {
+                font-family: "Centrale-Sans", sans-serif;        
+                color: $color-black;
+            }    
+        }//end:select-div
+        
+        label {
+            float: left;
+            color: $color-black;
+        }
+
+        button {
+            &[disabled]{
+                cursor: not-allowed;
+            }
+            padding: 2rem 2rem;
+            width: 100px;
+        }
+    }//end:form-group
+}//end:create-org

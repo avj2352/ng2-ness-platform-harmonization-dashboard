@@ -42,6 +42,7 @@ export const appURL = {
      'allOrganizationType':base+'organizationtype',
      'deleteOrganization':base+'organization',
      'updateOrganization':base+'organization',
+     'organizationbyId':base+'organization',
      //locking
      'initiateLockReport': base + 'assetadoption/initiatedReport/lock',
      'releaseLockReport':  base + 'assetadoption/releaseLock',
@@ -77,3 +78,17 @@ export const globalMessage ={
      'editReportMessage': 'Are you sure you want to save the report changes',
      'editReport': 'Save the report'
 };//end:globalMessage constant
+
+export const routerURL = {
+    'Adoption_Entry': 'Adoption_Entry',
+    'Adoption_View':     'Adoption_View',
+    'Report_Management': 'Report_Management',
+    'Manage_Platform': 'Manage_Platforms',
+    'Manage_AssetCategories': 'Manage_Assets',
+    'Manage_Organizations': 'Manage_Organizations'
+}
+
+export enum premssionEnum { 
+    CAO = 1,
+    BG = 3 
+};  

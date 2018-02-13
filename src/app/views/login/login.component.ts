@@ -39,9 +39,11 @@ export class LoginComponent implements OnInit {
       console.log('Login Response',res);
       if(res.type=='error' ){
         this.isValidError = true;
+        this.loginService.removeCredentials();
         console.error('Login Error: ', res);
       }else if(res.hasOwnProperty('errorCode')){
         this.isValidError = true;
+        this.loginService.removeCredentials();
         console.error('Login Error: ', res);
       }
       else{
@@ -51,5 +53,15 @@ export class LoginComponent implements OnInit {
       }
     });
   }//end:onSubmit
+
+  //  checkBrowser(){
+  //   var isIE = /*@cc_on!@*/false || !!document.DOCUMENT_NODE;
+  //   var isChrome = !!window.chrome && !!window.chrome.webstore;
+  //   var isEdge = !isIE && !!window.StyleMedia;
+  //   var res = (isChrome || isEdge)
+  //   if(!res){
+  //     alert("Please use Chrome or Microsoft Edge for best functionality");
+  //   }
+  //  };
 
 }//end:class-LoginComponent

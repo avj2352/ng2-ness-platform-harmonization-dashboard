@@ -9,3 +9,10 @@
 @import "./base/forms";
 @import "./base/buttons";
 @import "./components/bread-crumb";
+
+#nb-global-spinner{
+    display:none;
+    .spinner{
+        display: none;
+    }
+}

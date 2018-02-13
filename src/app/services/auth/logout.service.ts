@@ -3,24 +3,34 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 import { LocalStorageService } from 'angular-2-local-storage';
 import { Observable } from 'rxjs/Observable';
 import * as envConfig from './../constants/env.endpoints';
+import { LoginService} from '../auth/login.service';
+import { CookieService } from 'ngx-cookie-service';
+
+
 @Injectable()
 export class LogoutService {
   private headers: Headers;
   private options: RequestOptions; 
-  constructor(private http:Http) {
-    this.headers = new Headers({ 'Content-Type': 'application/json', 
-    'Accept': 'application/json'});   
-    this.options = new RequestOptions({ headers: this.headers }); 
+  constructor(private http:Http ,    
+    private loginService: LoginService , 
+    private localStorage:LocalStorageService,
+    private cookieService: CookieService
+  ) {
+   
    }
 
    logOut() {
-    return this.http.put(envConfig.appURL.logoutEndPoint,this.options)
-    .map(res => {
-      // debugger;
+    this.headers = this.loginService.getHeaderParams();
+    this.options = new RequestOptions({ headers: this.headers }); 
+    this.localStorage.clearAll();
+    this.cookieService.delete('phdSession');
+    this.cookieService.delete('JSESSIONID');
+    return this.http.put(envConfig.appURL.logoutEndPoint,'',this.options)
+    .map(res => {    
       return res.json()
     })
     .catch((error)=>{
-      return Observable.of(error._body);
+      return Observable.of(error);
     });
    }
 

@@ -72,7 +72,11 @@ export class AdoptionEditor implements ICellEditorAngularComp, AfterViewInit {
     toUnitCode(unitCode: string) {
         console.log(unitCode);
         this.setUnitCode(unitCode);
-        this.params.api.stopEditing();
+        //Fix Me: UnitTypeId:3 temp 
+        if(this.params.value.unitType === 'select' || this.params.value.unitTypeId === 3)
+            {
+                this.params.api.stopEditing();
+            }
     }
 
     onKeyDown(event): void {
@@ -80,6 +84,7 @@ export class AdoptionEditor implements ICellEditorAngularComp, AfterViewInit {
         if (key == 37 ||  // left
             key == 39) {  // right
             //this.toggleMood();
+            this.params.api.stopEditing();
             event.stopPropagation();
         }
     }

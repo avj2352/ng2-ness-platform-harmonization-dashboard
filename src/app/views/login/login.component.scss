@@ -1,5 +1,10 @@
 @import './../../../styles.scss';
-
+#nb-global-spinner{
+    display:none;
+    .spinner{
+        display: none;
+    }
+}
 .login-view {    
     position: absolute;
     margin: 0;
@@ -55,4 +60,11 @@
             }
         }
     }//end:form-container
+    footer {
+        position:absolute; 
+        bottom:0; 
+        width:100%; 
+        height:2rem; 
+        text-align:center;
+    }
 }//end:login-view

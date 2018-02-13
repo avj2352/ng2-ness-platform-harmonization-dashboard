@@ -1,3 +1,6 @@
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>
+<phd-loader content="Content loading..." [visible]="isVisibleLoader"></phd-loader>
 <div class="create-assetCategories">
     <div class="row">
         <div class="col-md-12">
@@ -10,7 +13,7 @@
                             <div class="">
                                 <div class="select-label">
                                     <p>
-                                        <strong>Organization Type:</strong>
+                                        <strong>Platform:</strong>
                                     </p>
                                 </div>
                                 <div class="select-div">
@@ -51,9 +54,9 @@
                             <div class="col-md-6">
                                 <label for="assetCategoriesName">Asset Name:</label>
                                 <span style="color:red" *ngIf=" (assetCategoriesName.dirty || assetCategoriesName.touched) && assetCategoriesName.errors?.required">required</span>
-                                <span style="color:red" *ngIf="(assetCategoriesName.dirty || assetCategoriesName.touched) && assetCategoriesName.errors?.maxlength">Max 32 chars.</span>
-                                <input type="text" #assetCategoriesName="ngModel" class="form-control" [(ngModel)]="assetObj.name" placeholder="Enter assetCategories Name"
-                                    maxlength="32" name="assetCategoriesName" required>
+                                <span style="color:red" *ngIf="(assetCategoriesName.dirty || assetCategoriesName.touched) && assetCategoriesName.errors?.maxlength">Max 64 chars.</span>
+                                <input type="text" #assetCategoriesName="ngModel" class="form-control" [(ngModel)]="assetObj.name" placeholder="Enter Asset Name"
+                                    maxlength="64" name="assetCategoriesName" required>
 
                             </div>
                             <div class="col-md-6">
@@ -74,8 +77,8 @@
                             <div class="col-md-6">
                                 <label for="assetCategoriesHierarchy">Asset Order:</label>
                                 <span style="color:red" *ngIf=" (assetCategoriesHierarchy.dirty || assetCategoriesHierarchy.touched) && assetCategoriesHierarchy.errors?.required">required</span>
-                                <!-- <span style="color:red" *ngIf="(assetCategoriesHierarchy.dirty || assetCategoriesHierarchy.touched) && assetCategoriesHierarchy.errors?.pattern">>Only two digits and only five decimal point required</span> -->
-                                <input type="number" class="form-control" #assetCategoriesHierarchy="ngModel" [(ngModel)]="assetObj.hierarchy" placeholder="Enter Platform Order"
+                                <span style="color:red" *ngIf="(assetCategoriesHierarchy.dirty || assetCategoriesHierarchy.touched) && assetCategoriesHierarchy.errors?.pattern">Max two digit and Three decimal point allow</span>
+                                <input type="number" class="form-control" [pattern]="patternCheckHierarchy" #assetCategoriesHierarchy="ngModel" [(ngModel)]="assetObj.hierarchy" placeholder="Enter Asset Order"
                                     step="0.1" name="assetCategoriesHierarchy" required>
                             </div>
                             <div class="col-md-6">
@@ -116,6 +119,10 @@
                                 <span style="color:red" *ngIf="(assetCategoriesDescription.dirty || assetCategoriesDescription.touched) && assetCategoriesDescription.errors?.maxlength">Max 256 chars.</span>
                                 <input type="text" class="form-control" #assetCategoriesDescription="ngModel" [(ngModel)]="assetObj.description" placeholder="Enter a Description"
                                     maxlength="256" name="assetCategoriesDescription">
+                            </div>
+                            <div style="margin-top:35px" class="col-md-6">
+                                <label >Active:
+                                <input  type="checkbox" name="first" [(ngModel)]="assetObj.active" /></label>
                             </div>
                         </div>
                         <!-- Empty Row -->

@@ -10,24 +10,51 @@
       </ul>
   </phd-bread-crumb> -->
   <div class="tab-content">
+     <div class="tab-con-report">
+        <span class="reportName">
+            <label>Report Name : {{selectedReportName}}</label>
+        </span>
+          <table class="table table-hover" *ngIf="adoptionTable">
+            <tr>
+              <th *ngFor="let unit of unitTypesDisplay">{{unit.name}} </th>
+            </tr>
+            <tr>
+              <td *ngFor="let unitData of adoptionUnitTableData" [ngClass]="unitData.class">{{unitData.value}}</td>
+            </tr>
+          </table>
+     </div>
     <div *ngFor="let unit of unitTypesDisplay" [hidden]="!unit.display">
       <div *ngIf="unit.display">
         <div *ngIf="selectedUnitTypeID === unit.id && displayData">
           <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh" [rowData]="agGridData.rowData" [columnDefs]="agGridData.columnDefs"
-            [groupHeaderHeight]="agGridData.groupHeaderHeight" [frameworkComponents]="frameworkComponents" [headerHeight]="200"
-            [enableFilter]="true" [rowSelection]="single" [domLayout]="domLayout" [singleClickEdit]="true" (cellValueChanged)="adoptionChangeHandler($event)">
+            [groupHeaderHeight]="agGridData.groupHeaderHeight" [frameworkComponents]="frameworkComponents" [headerHeight]="200" 
+            [enableFilter]="true" [rowSelection]="single" [domLayout]="domLayout" [singleClickEdit]="true" (cellValueChanged)="adoptionChangeHandler($event)"
+            [suppressMovableColumns] = "true" (cellClicked)="cellClickEvent($event)">
           </ag-grid-angular>
         </div>
       </div>
     </div>
 
     <div class="button-section">
-      <button class="btn-material" (click)="onSaveReport()">
+      <button class="btn btn-success" (click)="onSaveReport()">
         <span>Save Report</span>
       </button>
-      <button class="btn-material" (click)="onSubitReport()">
-        <span>Submit &amp; Close Report</span>
+      <button class="btn btn-primary" (click)="onSubitReport()" *ngIf="showSubmit">
+        <span>Submit Report</span>
       </button>
+      <!-- <button class="btn btn-warning" (click)="initiatelockScreen()">
+        <span>Lock</span>
+      </button>
+      <button class="btn btn-primary" (click)="releaseLockReport()">
+          <span>Unlock</span>
+        </button> -->
+        <span class="legend float-right" *ngIf="unitList">
+            <!-- <p [hidden]="!unitList">Legends:</p>   -->
+             <span *ngFor="let unit of unitList" ><span [ngClass]= "unit.colorCode">{{unit.code}}:</span>
+                           <span >{{unit.name}}</span>
+                       </span>
+           </span> 
+
     </div>
 
   </div>
@@ -36,4 +63,8 @@
 <div *ngIf="errorBoolean">
   <h3 [innerHTML]="errorMsg" class="errorBlock"></h3>
 </div>
-<phd-loader content="Loading Adoption Entry" [visible]="isVisible"></phd-loader>
+<phd-loader content="{{loadingContent}}" [visible]="isVisible"></phd-loader>
+<phd-pop-up-error [visible]="isPopupErrorVisible" title="{{errorModel.title}}" content="{{errorModel.content}}" (closePopup)="onPopupErrorClose($event)" (cancelPopup)="onPopupErrorCancel($event)" button1="{{errorModel.button1}}" button2="{{errorModel.button2}}"></phd-pop-up-error>
+<phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" type="{{confirmModel.type}}"></phd-pop-up-confirm>
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>
+<phd-pop-up-message [visible]="isPopupMessageVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmMessagePopup)="confirmMessagePopup($event)"  type="{{confirmModel.type}}"></phd-pop-up-message>

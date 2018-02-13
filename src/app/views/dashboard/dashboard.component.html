@@ -1,33 +1,31 @@
 <div class="dashboard-view">        
   <header>
-    <button class="btn" (click)="toggleSideBar()">
-      <img src="/assets/svg/014-menu-button.svg" alt="menu-button"/>
-    </button>
+    <!-- <button class="btn" (click)="toggleSideBar()">
+      <img src="assets/svg/014-menu-button.svg" alt="menu-button"/>
+    </button> -->
     <p class="header-title">Platform Adoption Roadmap</p>            
     <div class="right-navigation">
-      <p (click)="toggleUserProfileDropdown()">{{userName | uppercase}} ({{userRole.name | uppercase}})
-        <span phd-button-dropdown [visible]="isUserProfileDropdown"></span>
+      <p (click)="toggleUserProfileDropdown()" (blur)="isUserProfileDropdown =false">{{userName | uppercase}} ({{userRole.name | uppercase}})
+        <phd-button-dropdown [visible]="isUserProfileDropdown" >
+  			<li *ngFor="let role of roleList" (click)="setUserRole(role)" [ngClass]="{'active': role.code == userRole.code}">{{role.code}} </li>
+        </phd-button-dropdown>
       </p>    
-      <button class="btn btn--right">
-        <img src="/assets/svg/006-notification.svg" alt="menu-button"/>
-      </button>
+      <!-- <button class="btn btn--right">
+        <img src="assets/svg/006-notification.svg" alt="menu-button"/>
+      </button> -->
       <button class="btn btn--right" (click)="logout()">
-        <img src="/assets/svg/002-power.svg" alt="menu-button"/>
+        <img src="assets/svg/002-power.svg" alt="menu-button"/>
       </button>
     </div>
   </header>
   <nav>
-    <button class="btn" (click)="showAdoptionEntry()">Adoption Entry</button>
-    <button class="btn" (click)="showAdoptionView()">Adoption View</button>
-    <button class="btn" (click)="showReportManagement()">Report Management</button>    
-    <button class="btn" (click)="showManageOrg()">Manage Organizations</button>
-    <button class="btn"(click)="showManagePlatform()" >Manage Platforms</button>
-    <button class="btn"(click)="showManageAssetCategories()" >Manage AssetCategories</button>
-    
+    <span *ngFor="let screenName of screens">
+      <button class="btn" (click)="showScreen(screenName)" [class.active]="screenName === selectedScreen">{{screenName}}</button>
+    </span>
     <!-- <button class="btn">Manage Hierarchy</button> -->
   </nav>
   <section>
-    <phd-side-bar [visible]="isSideBarVisible" (hidden)="toggleSideBar()"></phd-side-bar>
+    <!-- <phd-side-bar [visible]="isSideBarVisible" (hidden)="toggleSideBar()"></phd-side-bar> -->
     <div class="main-section">
       <!-- <ag-grid-angular [ngStyle]="configAgGridStyle()" class="ag-theme-fresh"
                  [rowData]="rowData"

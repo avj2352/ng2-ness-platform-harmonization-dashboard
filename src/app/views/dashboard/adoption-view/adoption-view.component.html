@@ -5,7 +5,7 @@
         <p><strong>Select Quarter:</strong></p>
       </div>
       <div class="select-div" *ngIf="selectedReport"> 
-          <select  [(ngModel)]="selectedReport"   (ngModelChange)="selectedReportView()" name="Select report">
+          <select  [(ngModel)]="selectedReport"   (change)="selectedReportView($event)" name="Select report">
               <option  *ngFor="let report of allReportArray" [ngValue]="report">
                  {{report.name}}
               </option>
@@ -27,11 +27,13 @@
       [groupHeaderHeight]="agGridData.groupHeaderHeight"
       [frameworkComponents]="frameworkComponents"
       [headerHeight] = "150"
-      [enableFilter] ="true" >
+      [suppressMovableColumns] = "true" >
+      
       </ag-grid-angular>
   <div class="button-section">
-    <button class="btn-material" (click)="downloadReport()"><span>Download Report</span></button>     
+    <button class="btn btn-success" (click)="downloadReport()"><span>Download Report</span></button>     
   </div>
 </div>
 </div>
-<phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>  
+<phd-loader content="Loading Adoption View" [visible]="isVisible"></phd-loader>
+<phd-pop-up-error [visible]="isPopupErrorVisible" title="{{errorModel.title}}" content="{{errorModel.content}}" (closePopup)="onPopupErrorClose($event)" (cancelPopup)="onPopupErrorCancel($event)" button1="{{errorModel.button1}}" button2="{{errorModel.button2}}"></phd-pop-up-error>

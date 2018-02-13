@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageAssetCategoriesService } from '../../../../services/dashboard/manage-assetcategories.service';
 import { Router } from '@angular/router';
+import * as envConfig from 'app/services/constants/env.endpoints';
+import { ConfirmModel } from '../../models/confirmModel';
+import { AlertModel } from '../../models/alertModel';
 
 interface ManageHierarchy {
   id: number;
@@ -18,6 +21,12 @@ export class ManageAssetCategoriesListComponent implements OnInit {
   private isVisible: boolean;
   private assetCategoriesListData: any;
   private settings: any;
+  private isVisibleLoader: boolean;
+  private confirmModel: ConfirmModel;
+  private isPopupConfirmVisible: boolean;
+  private idDelete: boolean;
+  private alertModel: AlertModel;
+  private isPopupAlertVisible: boolean;
 
   constructor(
     private manageAssetCategoriesService: ManageAssetCategoriesService,
@@ -43,46 +52,69 @@ export class ManageAssetCategoriesListComponent implements OnInit {
           title: '#'
         },
         name: {
-          title: 'Name'
+          title: 'Asset Name'
         },
         platform: {
-              title: 'Platform Code',
-              valuePrepareFunction: (value) => { return (value.code) }
-          },
+          title: 'Platform Code',
+          valuePrepareFunction: (value) => { return (value.code) }
+        },
         active: {
           title: 'Status',
-          filter: {
-            type: 'checkbox',
-            config: {
-              true: 'Active',
-              false: 'Inactive',
-              resetText: 'clear',
-            },
-          },
         }
       }
     };
   }//end:constructor
 
   onDeleteConfirm(event) {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.manageAssetCategoriesService.deleteAsset(event.data.id).subscribe((response) => {
-        console.log(response)
-      },
-        (error) => {
-          console.log(error)
-          // this.isVisible = false;
-        });
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+    this.idDelete = event.data.id
+    this.confirmModel.content = "Are you sure you want to delete ?"
+    this.isPopupConfirmVisible = true;
+  }
+
+  onPopupConfirmOk(eventData: string) {
+    this.isPopupConfirmVisible = false;
+      this.manageAssetCategoriesService.deleteAsset(this.idDelete).subscribe((response) => {
+        if(response.status!=200){
+          var msg = JSON.parse(response._body)
+         this.alertModel.content = "Error in delete Asset :  "+msg.generalMessage;
+         this.isPopupAlertVisible = true;
+        }else{
+         window.location.reload();
+        }
+         
+       },
+         (error) => {
+           this.alertModel.content = "Error in delete "
+           this.isPopupAlertVisible = true;
+           console.log(error)
+           // this.isVisible = false;
+         });
+  }//end:onPopupConfirmClose
+
+  onPopupConfirmCancel(eventData: boolean) {
+    this.isPopupConfirmVisible = eventData;
+  }//end:onPopupConfirmCancel
+
+  onPopupAlertCancel(eventData: boolean){
+    this.isPopupAlertVisible = eventData;
+  }
+
+  onEdit(event) {
+    //event.data
+    this.router.navigate(['/dashboard/' + envConfig.routerURL.Manage_AssetCategories + '/edit', event.data.id]);
   }
 
 
   ngOnInit() {
     // this.isVisible = true;
     //Service related    
+    this.isVisibleLoader = true;
+    this.confirmModel = new ConfirmModel();
+    this.isPopupConfirmVisible = false;
+    this.confirmModel.title = 'Confirmation'
+    this.alertModel = new AlertModel();
+    this.isPopupAlertVisible = false;
+    this.alertModel.title = 'Alert'
     this.manageAssetCategoriesService.getAssetCategoryList().subscribe((response) => {
       var temp_data = response;
       temp_data.forEach(element => {
@@ -94,9 +126,11 @@ export class ManageAssetCategoriesListComponent implements OnInit {
 
       });
       this.assetCategoriesListData = temp_data;
+      this.isVisibleLoader = false;
     },
       (error) => {
         this.isVisible = false;
+        this.isVisibleLoader = false;
       });
     // this.staticDataService.createMergeMapExample().subscribe(x=>console.log('Merge Map: ',x));
     // this.staticDataService.createSwitchMapExample().subscribe(x=>console.log('Switch Map', x));

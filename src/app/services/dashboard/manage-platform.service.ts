@@ -56,29 +56,40 @@ export class ManagePlatformService {
       });
   }//end:getAllOrganizationTypeConfig
 
-  creatPlatform(platformObj){
-    return this.http.post(envConfig.appURL.createPlatform,platformObj,this.options)
-      .map(res => {
-        
-        // console.log('Get All Platform response', res);
-        return res
-      })
-      .catch((error)=>{
-        return Observable.of(error);
-      });
-  }//end:creatPlatform
+  creatPlatform(platformObj:any) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    platformObj = JSON.stringify(platformObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.createPlatform,
+      method:'POST',
+      headers:this.headers,
+      body:platformObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: creatPlatform
 
-  updatePlatform(platformObj){
-    return this.http.put(envConfig.appURL.updatePlatform,platformObj,this.options)
-      .map(res => {
-        
-        // console.log('Get All Platform response', res);
-        return res;
-      })
-      .catch((error)=>{
-        return Observable.of(error);
-      });
-  }//end:updatePlatform
+  updatePlatform(platformObj:any) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    let reportParams = { };
+    platformObj = JSON.stringify(platformObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.updatePlatform,
+      method:'PUT',
+      headers:this.headers,
+      body:platformObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: updatePlatform
 
   deletePlatform(intiatedReportId){
     return this.http.delete(envConfig.appURL.deletePlatform +'/'+ intiatedReportId ,this.options)

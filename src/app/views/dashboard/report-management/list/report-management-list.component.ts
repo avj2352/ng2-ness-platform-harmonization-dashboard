@@ -31,12 +31,12 @@ export class ReportManagementListComponent implements OnInit {
     private isVisibleLoader: boolean;
     private confirmModel: ConfirmModel;
     private isPopupConfirmVisible: boolean;
-    private idDelete: boolean;
-    private idInitiate: boolean;
-    private idReinitiate: boolean;
+    private idDelete: number;
+    private idInitiate: number;
+    private idReinitiate: number;
     private alertModel: AlertModel;
     private isPopupAlertVisible: boolean;
-    private idClose: boolean;
+    private idClose: number;
     private isVisibleIntiate: boolean;
     @Output() selectedDashboardScreen: EventEmitter<string>;
     constructor(

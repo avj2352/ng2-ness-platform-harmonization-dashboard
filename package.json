@@ -5,9 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",    
+    "build": "ng build",
     "buildprod": "ng build --base-href=/shpar/",
-    "buildUat":  "ng build --base-href=/shpar-uat/",
+    "buildUat": "ng build --base-href=/shpar-uat/",
     "buildDev": "ng build --base-href=/shpar-dev/",
     "test": "ng test",
     "lint": "ng lint",

@@ -66,34 +66,57 @@ export class ReportManagementService {
       });
   }//end:getallUnitTypes
 
-  creatReport(reportObj) {
-    let headers = this.loginService.getHeaderParams();
-    let options = new RequestOptions({ headers: headers });
-    console.log("in the report "+reportObj);
-    return this.http.post(envConfig.appURL.createReport, JSON.stringify(reportObj), options)
-    .delay(this.delaySecond) 
-    .map(res => this.extractData(res))
-    .catch((error) => {
-        return Observable.of(error);
-      });
-  }//end:creatReport
+  creatReport(reportObj:any) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    reportObj = JSON.stringify(reportObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.createReport,
+      method:'POST',
+      headers:this.headers,
+      body:reportObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: creatReport
  
   extractData(res){
     let res1 = res.json;
     return res1 || '';
   }
-  updateReport(reportObj) {
-    let headers = this.loginService.getHeaderParams();
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(envConfig.appURL.editReport, reportObj, options).delay(this.delaySecond)
-      .map(res => {
+  // updateReport(reportObj) {
+  //   let headers = this.loginService.getHeaderParams();
+  //   let options = new RequestOptions({ headers: headers });
+  //   return this.http.put(envConfig.appURL.editReport, reportObj, options).delay(this.delaySecond)
+  //     .map(res => {
         
-        return res;
-      })
-      .catch((error) => {
-        return Observable.of(error);
-      });
-  }//end:updateReport
+  //       return res;
+  //     })
+  //     .catch((error) => {
+  //       return Observable.of(error);
+  //     });
+  // }//end:updateReport
+
+  updateReport(reportObj:any) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    let reportParams = { };
+    reportObj = JSON.stringify(reportObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.editReport,
+      method:'PUT',
+      headers:this.headers,
+      body:reportObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: updateReport
 
   deleteReport(intiatedReportId) {
     let headers = this.loginService.getHeaderParams();
@@ -109,41 +132,95 @@ export class ReportManagementService {
       });
   }//end:deleteReport
 
-  setCloseReport(reportObj, intiatedReportId) {
-    let headers = this.loginService.getHeaderParams();
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(envConfig.appURL.closeReport + '/' + intiatedReportId, reportObj, options)
-      .map(res => {
+  // setCloseReport(reportObj, intiatedReportId) {
+  //   let headers = this.loginService.getHeaderParams();
+  //   let options = new RequestOptions({ headers: headers });
+  //   return this.http.put(envConfig.appURL.closeReport + '/' + intiatedReportId, reportObj, options)
+  //     .map(res => {
         
-        return res
-      })
-      .catch((error) => {
-        return Observable.of(error);
-      });
-  }//end:setCloseReport
+  //       return res
+  //     })
+  //     .catch((error) => {
+  //       return Observable.of(error);
+  //     });
+  // }//end:setCloseReport
 
-  reInitiateReport(data, intiatedReportId) {
-    let headers = this.loginService.getHeaderParams();
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(envConfig.appURL.reinitiate + '/' + intiatedReportId, data, options).delay(this.delaySecond)
-      .map(res => {       
-        return res
-      })
-      .catch((error) => {
-        return Observable.of(error);
-      });
-  }//end:reInitiateReport
+  setCloseReport(reportObj:any,intiatedReportId: number) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    let reportParams = { };
+    reportObj = JSON.stringify(reportObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.closeReport + '/' + intiatedReportId,
+      method:'PUT',
+      headers:this.headers,
+      body:reportObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: setCloseReport
 
-  setinitiateReport(data, intiatedReportId) {
-    return this.http.put(envConfig.appURL.initiateReport + '/' + intiatedReportId, data, this.options)
-      .map(res => {
+  // reInitiateReport(data, intiatedReportId) {
+  //   let headers = this.loginService.getHeaderParams();
+  //   let options = new RequestOptions({ headers: headers });
+  //   return this.http.put(envConfig.appURL.reinitiate + '/' + intiatedReportId, data, options).delay(this.delaySecond)
+  //     .map(res => {       
+  //       return res
+  //     })
+  //     .catch((error) => {
+  //       return Observable.of(error);
+  //     });
+  // }//end:reInitiateReport
+
+  reInitiateReport(reportObj:any,intiatedReportId: number,) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    let reportParams = { };
+    reportObj = JSON.stringify(reportObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.reinitiate + '/' + intiatedReportId,
+      method:'PUT',
+      headers:this.headers,
+      body:reportObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: reInitiateReport
+
+  // setinitiateReport(data, intiatedReportId) {
+  //   return this.http.put(envConfig.appURL.initiateReport + '/' + intiatedReportId, data, this.options)
+  //     .map(res => {
         
-        return res
-      })
-      .catch((error) => {
-        return Observable.of(error);
-      });
-  }//end:setinitiateReport
+  //       return res
+  //     })
+  //     .catch((error) => {
+  //       return Observable.of(error);
+  //     });
+  // }//end:setinitiateReport
+
+  setinitiateReport( reportObj:any,intiatedReportId: number,) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    let reportParams = { };
+    reportObj = JSON.stringify(reportObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.initiateReport + '/' + intiatedReportId,
+      method:'PUT',
+      headers:this.headers,
+      body:reportObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: setinitiateReport
 
   //Download the report 
   downloadReport(reportId: number) {

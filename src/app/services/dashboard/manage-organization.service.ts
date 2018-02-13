@@ -58,27 +58,53 @@ export class ManageOrganizationService {
       });
   }//end:getAllOrganizationConfigbyid
 
-  creatOrganization(organizationObj){
-    return this.http.post(envConfig.appURL.createOrganization,organizationObj,this.options)
-      .map(res => {
+  // creatOrganization(organizationObj){
+  //   return this.http.post(envConfig.appURL.createOrganization,organizationObj,this.options)
+  //     .map(res => {
                 
-        return res;
-      })
-      .catch((error)=>{
-        return Observable.of(error);
-      });
-  }//end:creatOrganization
+  //       return res;
+  //     })
+  //     .catch((error)=>{
+  //       return Observable.of(error);
+  //     });
+  // }//end:creatOrganization
 
-  updateOrganization(organizationObj){
-    return this.http.put(envConfig.appURL.updateOrganization,organizationObj,this.options)
-      .map(res => {
-                
-        return res;
-      })
-      .catch((error)=>{
-        return Observable.of(error);
-      });
-  }//end:updateOrganization
+  creatOrganization(organizationObj:any) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    organizationObj = JSON.stringify(organizationObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.createOrganization,
+      method:'POST',
+      headers:this.headers,
+      body:organizationObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: creatOrganization
+
+
+
+  updateOrganization(organizationObj:any) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    let reportParams = { };
+    organizationObj = JSON.stringify(organizationObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.updateOrganization,
+      method:'PUT',
+      headers:this.headers,
+      body:organizationObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: updateOrganization
 
   deleteOrganization(intiatedReportId){
     return this.http.delete(envConfig.appURL.deleteOrganization +'/'+ intiatedReportId ,this.options)

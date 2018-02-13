@@ -50,29 +50,40 @@ export class ManageAssetCategoriesService {
       });
   }//end:getAssetbyid
 
-  creatAsset(assetObj){
-    return this.http.post(envConfig.appURL.createAsset,assetObj,this.options)
-      .map(res => {
-        
-        // console.log('Get All Platform response', res);
-        return res;
-      })
-      .catch((error)=>{
-        return Observable.of(error);
-      });
-  }//end:creatAsset
+  creatAsset(assetObj:any) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    assetObj = JSON.stringify(assetObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.createAsset,
+      method:'POST',
+      headers:this.headers,
+      body:assetObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: creatAsset
 
-  updateAsset(assetObj){
-    return this.http.put(envConfig.appURL.updateAsset,assetObj,this.options)
-      .map(res => {
-        
-        // console.log('Get All Platform response', res);
-        return res;
-      })
-      .catch((error)=>{
-        return Observable.of(error);
-      });
-  }//end:updateAsset
+  updateAsset(assetObj:any) { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    let reportParams = { };
+    assetObj = JSON.stringify(assetObj);
+    let promise = Observable.ajax({
+      url:envConfig.appURL.updateAsset,
+      method:'PUT',
+      headers:this.headers,
+      body:assetObj,        
+    }).map(res => {
+      return res;
+    })
+    .catch((error)=>{
+      return Observable.of(error);
+    });
+    return promise;      
+} //end: updateAsset
 
   deleteAsset(intiatedReportId){
     return this.http.delete(envConfig.appURL.deleteAsset +'/'+ intiatedReportId ,this.options)

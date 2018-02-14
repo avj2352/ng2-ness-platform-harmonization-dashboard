@@ -59,6 +59,7 @@ import { AgGridConfigureService } from './services/ag-grid-configure/ag-grid-con
 import { PopUpConfirmComponent } from './components/pop-up-confirm/pop-up-confirm.component';
 import { PopUpAlertComponent } from './components/pop-up-alert/pop-up-alert.component';
 import { PopUpMessageComponent } from './components/pop-up-message/pop-up-message.component';
+import { StorageService } from 'app/services/storage/storage.service';
 
 
 
@@ -170,7 +171,8 @@ const config: ExtraOptions = {
     AgGridConfigureService,
     LoginService,
     LogoutService,
-    CookieService
+    CookieService,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

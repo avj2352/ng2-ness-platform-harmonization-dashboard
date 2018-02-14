@@ -4,6 +4,7 @@ import { StaticDataService } from 'app/services/static-data/static-data.service'
 import { LoginService } from 'app/services/auth/login.service';
 //Models
 import { UserLoginCreditional } from '../../models/user-login';
+import { StorageService } from 'app/services/storage/storage.service';
 @Component({
   selector: 'phd-login',
   templateUrl: './login.component.html',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router:Router,
     private staticService:StaticDataService,
-    private loginService:LoginService
+    private loginService:LoginService,
+    private storageService:StorageService
   ) { 
     this.disabled = true;
     this.inputObj = new UserLoginCreditional();
@@ -39,16 +41,16 @@ export class LoginComponent implements OnInit {
       console.log('Login Response',res);
       if(res.type=='error' ){
         this.isValidError = true;
-        this.loginService.removeCredentials();
+        this.storageService.removeCredentials();
         console.error('Login Error: ', res);
       }else if(res.hasOwnProperty('errorCode')){
         this.isValidError = true;
-        this.loginService.removeCredentials();
+        this.storageService.removeCredentials();
         console.error('Login Error: ', res);
       }
-      else{
+      else{        
         console.log('Success Response contains: ', res);
-        this.loginService.storeCredentials(res);
+        this.storageService.storeCredentials(res);
         this.router.navigateByUrl('/dashboard');
       }
     });

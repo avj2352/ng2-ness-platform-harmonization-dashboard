@@ -13,6 +13,7 @@ import {map as _map} from 'lodash';
 import {LogoutService} from 'app/services/auth/logout.service';
 import {ManageAssetCategoriesService} from '../../services/dashboard/manage-assetcategories.service';
 import {ConfirmModel} from 'app/views/dashboard/models/confirmModel';
+import { StorageService } from 'app/services/storage/storage.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,11 +23,7 @@ import {ConfirmModel} from 'app/views/dashboard/models/confirmModel';
     ManageOrganizationService,
     ReportManagementService,
     ManagePlatformService,
-    ManageAssetCategoriesService, {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
+    ManageAssetCategoriesService
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -44,7 +41,7 @@ export class DashboardComponent implements OnInit {
   private isPopupConfirmVisible : boolean;
   private roleChange : any;
 
-  constructor(private router : Router, private loginService : LoginService, private logOutService : LogoutService, private reportManagementService : ReportManagementService,) {
+  constructor(private router : Router, private storageService:StorageService, private loginService : LoginService, private logOutService : LogoutService, private reportManagementService : ReportManagementService,) {
     this.isVisible = false;
     this.isPopupVisible = false;
 
@@ -117,7 +114,9 @@ export class DashboardComponent implements OnInit {
     let changeUserService = this.loginService.setRoleId(role);
     changeUserService.subscribe(response => {
       console.log('Reloading');
-      window.location.reload(); 
+      const defaultScreen = this.loginService.verifyAuthScreen({});
+      this.router.navigateByUrl('/dashboard/' + defaultScreen);
+      window.location.reload();
       });
   } //end:setUserRole
 
@@ -150,8 +149,8 @@ export class DashboardComponent implements OnInit {
   initPage(){
     this.isSideBarVisible = false;
     this.isUserProfileDropdown = false;
-    this.userName = this.loginService.getUserName();
-    this.userRole = this.loginService.getSelectedRole();
+    this.userName = this.storageService.getFullName();
+    this.userRole = this.storageService.getSelectedRole();
     this.screens = this.userRole.screens.map(screen => {
         return screen.replace('_', ' ');
       })

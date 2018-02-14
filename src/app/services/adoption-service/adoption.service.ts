@@ -39,9 +39,8 @@ export class AdoptionService {
 
   getAllUnitsReport() {
     let headers = this.loginService.getHeaderParams();
-    let unitparams = { 'userId': this.loginService.getUserId(), 'roleId': this.loginService.getSelectedRole().id };
-
-    let options = new RequestOptions({ headers: headers, params: unitparams });
+    // let unitparams = { 'userId': this.loginService.getUserId(), 'roleId': this.loginService.getSelectedRole()};
+    let options = new RequestOptions({ headers: headers});
     console.log('Adpotion: ', envConfig.appURL.assetAdoption);
     return this.http.get(envConfig.appURL.assetAdoption, options)
       .map(res => {
@@ -70,7 +69,7 @@ export class AdoptionService {
   //Get Report by ID : Usage: View
   getAllUnitsReportById(reportId: number) {
     let headers = this.loginService.getHeaderParams();
-    let reportParams = { 'userId': this.loginService.getUserId(), 'roleId': this.loginService.getSelectedRole().id, 'reportId': reportId };
+    let reportParams = { 'userId': this.loginService.getUserId(), 'roleId': this.loginService.getSelectedRole(), 'reportId': reportId };
     let options = new RequestOptions({ headers: headers, params: reportParams });
     return this.http.get(envConfig.appURL.assetAdoptionByReportID, options)
       .map(res => {
@@ -162,7 +161,7 @@ export class AdoptionService {
 
   initiateLockReport() {
     this.headers = this.loginService.getHeaderParams();
-    let reportParams = { 'userId': this.loginService.getUserId(), 'roleId': this.loginService.getSelectedRole().id };
+    let reportParams = { 'userId': this.loginService.getUserId(), 'roleId': this.loginService.getSelectedRole()};
     this.options = new RequestOptions({ headers: this.headers, params: reportParams });
     return this.http.get(envConfig.appURL.initiateLockReport, this.options)
       .map(res => {

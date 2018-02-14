@@ -194,7 +194,7 @@ export class LoginService {
   setRoleId(roleObj:any) { 
     let sessionObj: any = this.localStorage.get('session');
     sessionObj.selectedRole = roleObj;
-
+    this.localStorage.set('session',sessionObj);
     this.headers = this.getSimpleAJAXHeaderParams();
     sessionObj = JSON.stringify(sessionObj);
     let promise = Observable.ajax({

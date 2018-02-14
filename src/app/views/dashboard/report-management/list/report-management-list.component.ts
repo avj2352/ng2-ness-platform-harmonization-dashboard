@@ -96,8 +96,8 @@ export class ReportManagementListComponent implements OnInit {
             case "initiate": {
                 this.reportManagementService.setinitiateReport('', this.idInitiate).subscribe((response) => {
                     if (response.status == 401) {
-                        var msg = JSON.parse(response._body)
-                        this.alertModel.content = "Error in initiate Report :  " + msg.generalMessage;
+                        //var msg = JSON.parse(response._body)
+                        this.alertModel.content = "Error in initiate Report :  " + response.response.generalMessage;
                         this.isPopupAlertVisible = true;
                         setTimeout( () => {
                             this.router.navigateByUrl('/login');
@@ -105,9 +105,14 @@ export class ReportManagementListComponent implements OnInit {
                     } 
                     else if (response.status != 401 && response.status != 200 )
                     {
-                        var msg = JSON.parse(response._body)
-                        this.alertModel.content = "Error in Initiate Report :  " + msg.generalMessage;
-                        this.isPopupAlertVisible = true;
+                        if(response.response.generalMessage){
+                            this.alertModel.content = "Error in Initiate Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                        } else{
+                            this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                            this.isPopupAlertVisible = true;
+                        }
+
                     } else {
                         window.location.reload();
                     }
@@ -124,8 +129,8 @@ export class ReportManagementListComponent implements OnInit {
             case "reinitiate": {
                 this.reportManagementService.reInitiateReport('', this.idReinitiate).subscribe((response) => {
                     if (response.status == 401) {
-                        var msg = JSON.parse(response._body)
-                        this.alertModel.content = "Error in Reinitiate Report :  " + msg.generalMessage;
+                        //var msg = JSON.parse(response._body)
+                        this.alertModel.content = "Error in reinitiate Report :  " + response.response.generalMessage;
                         this.isPopupAlertVisible = true;
                         setTimeout( () => {
                             this.router.navigateByUrl('/login');
@@ -133,9 +138,14 @@ export class ReportManagementListComponent implements OnInit {
                     } 
                     else if (response.status != 401 && response.status != 200 )
                     {
-                        var msg = JSON.parse(response._body)
-                        this.alertModel.content = "Error in Reinitiate Report :  " + msg.generalMessage;
-                        this.isPopupAlertVisible = true;
+                        if(response.response.generalMessage){
+                            this.alertModel.content = "Error in reinitiate Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                        } else{
+                            this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                            this.isPopupAlertVisible = true;
+                        }
+
                     } else {
                         window.location.reload();
                     }
@@ -152,8 +162,8 @@ export class ReportManagementListComponent implements OnInit {
             case "close": {
                 this.reportManagementService.setCloseReport('', this.idClose).subscribe((response) => {
                     if (response.status == 401) {
-                        var msg = JSON.parse(response._body)
-                        this.alertModel.content = "Error in close Report :  " + msg.generalMessage;
+                        //var msg = JSON.parse(response._body)
+                        this.alertModel.content = "Error in close Report :  " + response.response.generalMessage;
                         this.isPopupAlertVisible = true;
                         setTimeout( () => {
                             this.router.navigateByUrl('/login');
@@ -161,9 +171,14 @@ export class ReportManagementListComponent implements OnInit {
                     } 
                     else if (response.status != 401 && response.status != 200 )
                     {
-                        var msg = JSON.parse(response._body)
-                        this.alertModel.content = "Error in close Report :  " + msg.generalMessage;
-                        this.isPopupAlertVisible = true;
+                        if(response.response.generalMessage){
+                            this.alertModel.content = "Error in close Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                        } else{
+                            this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                            this.isPopupAlertVisible = true;
+                        }
+
                     } else {
                         window.location.reload();
                     }

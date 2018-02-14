@@ -24,7 +24,7 @@ export class ManageAssetCategoriesListComponent implements OnInit {
   private isVisibleLoader: boolean;
   private confirmModel: ConfirmModel;
   private isPopupConfirmVisible: boolean;
-  private idDelete: boolean;
+  private idDelete: number;
   private alertModel: AlertModel;
   private isPopupAlertVisible: boolean;
 

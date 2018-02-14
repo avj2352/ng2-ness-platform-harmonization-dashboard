@@ -35,7 +35,7 @@ export class ManageOrganizationListComponent implements OnInit {
     private headingLable: String;
     private confirmModel: ConfirmModel;
     private isPopupConfirmVisible: boolean;
-    private idDelete: boolean;
+    private idDelete: number;
     private alertModel: AlertModel;
     private isPopupAlertVisible: boolean;
 

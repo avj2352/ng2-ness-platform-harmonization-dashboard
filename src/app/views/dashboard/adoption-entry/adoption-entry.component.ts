@@ -206,7 +206,7 @@ export class AdoptionEntryComponent implements OnInit {
               console.log(JSON.parse(response._body));
               let errorResp = JSON.parse(response._body);
               this.isPopupErrorVisible = true;
-              this.errorMsg = errorResp.specificMessage;
+              this.errorMsg = response.response.specificMessage;
               this.errorBoolean = true;
               this.errorModel.title = 'Error'
               this.errorModel.content = 'Error on Service,' + this.errorMsg + 'Please try again'

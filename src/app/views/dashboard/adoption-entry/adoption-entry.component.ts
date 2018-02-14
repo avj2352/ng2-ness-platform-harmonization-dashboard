@@ -26,6 +26,7 @@ import { ErrorModel } from '../models/errorModel';
 import { ConfirmModel } from '../models/confirmModel';
 import { AlertModel } from '../models/alertModel';
 import { setTimeout } from 'timers';
+import { StorageService } from 'app/services/storage/storage.service';
 
 @Component({
   selector: 'app-adoption-entry',
@@ -62,7 +63,7 @@ export class AdoptionEntryComponent implements OnInit {
   private isBreadCrumbVisible: boolean;
   private isPopupErrorVisible: boolean;
   private isPopupConfirmVisible: boolean;
-  private userEmail: boolean;
+  private isUserEmail: boolean;
   private showSubmit: boolean;
   private isPopupAlertVisible: boolean;
   private adoptionTable: boolean;
@@ -77,7 +78,8 @@ export class AdoptionEntryComponent implements OnInit {
     private adoptionService: AdoptionService,
     private router: Router,
     private logOutService: LogoutService,
-    private logInService: LoginService
+    private logInService: LoginService,
+    private storageService:StorageService
   ) {
 
   }//end:constructor
@@ -385,7 +387,7 @@ export class AdoptionEntryComponent implements OnInit {
             this.unitTypes,
             this.unitTypes[0],
             false,
-            this.userEmail)
+            this.isUserEmail)
         );
         this.frameworkComponents = { adoptionRenderer: AssetRenderer, adoptionEditor: AdoptionEditor };
         this.agGridData = this.reportUnitTypeArray.get(this.selectedUnitTypeID);
@@ -445,7 +447,7 @@ export class AdoptionEntryComponent implements OnInit {
         this.unitTypes,
         unit.id,
         false,
-        this.userEmail));
+        this.isUserEmail));
     console.log(this.reportUnitTypeArray.get(unit.id));
     this.unitTypesDisplay[this.unitIndex].display = true;
     this.agGridData = this.reportUnitTypeArray.get(this.selectedUnitTypeID);
@@ -497,8 +499,8 @@ export class AdoptionEntryComponent implements OnInit {
     //Confirm
     this.confirmModel.title = 'Confirmation '
 
-    this.userEmail = this.logInService.getUserEmail();
-    let selectedRole = this.logInService.getSelectedRole();
+    this.isUserEmail = this.storageService.getEmail()?true:false;
+    let selectedRole = this.storageService.getSelectedRole();
     if (selectedRole.id in envConfig.premssionEnum) {
       this.showSubmit = true;
     }

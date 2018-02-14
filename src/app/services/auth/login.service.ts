@@ -5,15 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import * as envConfig from './../constants/env.endpoints';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 //Models
 import { UserLoginCreditional } from '../../models/user-login';
-import { CookieService } from 'ngx-cookie-service';
+import { StorageService } from 'app/services/storage/storage.service';
 
-    // const inputObj = {
-    //   email:'bg@philips.com',
-    //   password:'Welcome@123'
-    // };
+  
 @Injectable()
 export class LoginService {
   private headers: Headers;
@@ -26,8 +22,8 @@ export class LoginService {
   constructor(
     private http:Http,
     private localStorage:LocalStorageService,
-    private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private storageService:StorageService
   ){ 
     this.headers = new Headers({ 'Content-Type': 'application/json', 
     'Accept': 'application/json'});   
@@ -40,8 +36,7 @@ export class LoginService {
 
 
   loginUser(userInput:UserLoginCreditional){
-    console.log('Login Endpoint is: ',this.cookieService.get('JSESSIONID'));
-    this.cookieService.delete('JSESSIONID');
+    this.storageService.removejSessionCookie();
     return this.http.get(envConfig.appURL.loginLDAP,this.options)
     .map(res => {      
       return res.json()
@@ -50,19 +45,10 @@ export class LoginService {
       return Observable.of(JSON.parse(error._body));
     });    
   }//end:loginUser
-
-  storeCredentials(inputObj){
-    this.localStorage.remove('session');
-    this.cookieService.set('phdSession',inputObj.sessionId);
-    return this.localStorage.set('session',inputObj);
-  }//end:storeToken
-
-  removeCredentials(){
-    return this.localStorage.remove('session');
-  }//end:removeCredentials
-
+  
+  //TODO: Move this to Dashboard Service
   getSimpleAJAXHeaderParams():any{
-    const sessionID = this.getToken().sessionId;    
+    const sessionID = this.storageService.getSessionId();
     return { 
     'Content-Type': 'application/json', 
     'Accept': 'application/json',
@@ -73,16 +59,17 @@ export class LoginService {
     };   
   }//end:getSimpleAJAXHeaderParams
 
+  //TODO: Move this to Dashboard Service
   getHeaderParams():Headers{
-    const session :any = this.localStorage.get('session');
-    let sessionId =  this.cookieService.get('phdSession');
+    // const session :any = this.localStorage.get('session');
+    let sessionId = this.storageService.getSessionId();
     if(!sessionId)
     {
     console.log("session invalid");
     this.router.navigateByUrl('/login');
     }
     else{
-      console.log('Session ID: ', session.sessionId);
+      console.log('Session ID: ', sessionId);
       return new Headers
       ({ 
       'Content-Type': 'application/json', 
@@ -93,20 +80,20 @@ export class LoginService {
       'Expires': 'Sat, 01 Jan 2000 00:00:00 GMT'
       });  
     }
- 
   }//end:getHeaderParams
 
+  //TODO: Move this to Dashboard Service
   getClientHeaderParams(){
-    const session :any = this.localStorage.get('session');
-    let sessionId =  this.cookieService.get('phdSession');
+    // const session :any = this.localStorage.get('session');
+    let sessionId =  this.storageService.getSessionId();
     if(!sessionId)
     {
     console.log("session invalid");
     this.router.navigateByUrl('/login');
     }
     else{
-      console.log('Session ID: ', session.sessionId);
-      let obj = { 
+      console.log('Session ID: ', sessionId);
+      let headers = { 
         'Accept': 'application/json',
         'sessionId':sessionId,
         'Cache-control':'no-cache',
@@ -114,101 +101,79 @@ export class LoginService {
         'Content-Type': 'application/json',
         'Expires': 'Sat, 01 Jan 2000 00:00:00 GMT'
         };
-      return JSON.stringify(obj); 
+      return headers;
     }
- 
   }//end:getHeaderParams
 
   getUserName(){
-    return `${this.getToken().firstName} ${this.getToken().lastName}`;
+    return this.storageService.getFullName;
   }//end:getUserName
 
-  getSelectedRole(){
-    return this.getToken().selectedRole;
+  getSelectedRole():number{
+    const roleType = this.storageService.getSelectedRole();
+    return roleType.id;
   }//end:getUserRoles
 
-  verifyAuthScreen(screen){
+  //TODO: Move this to Dashboard Service
+  verifyAuthScreen(selScreen){
     let authScreen; 
-    let obj = this.getToken();
-    if(obj.selectedRole.screens.indexOf(screen) < 0){
-        authScreen = this.getToken().selectedRole.screens[0];
-    }
-    else {
-      authScreen = screen;
-    }
-   return authScreen ;
-  }
+    const selectedRole = this.storageService.getSelectedRole();        
+    const screenIndex = selectedRole.screens.indexOf(selScreen);
+    //If no screens are found, return the first screen;
+    if(screenIndex < 0){
+        return selectedRole.screens[0]; 
+    }else {
+      return selectedRole.screens[screenIndex];
+    }   
+  }//end:verifyAuthScreen
 
+  //TODO: Move this to Dashboard Service
   getDownloadHeaderParams(): Headers{
-    const sessionID = this.getToken().sessionId;
+    const sessionID = this.storageService.getSessionId();
     console.log('Session ID: ', sessionID);
     return new Headers({ 'Content-Type': 'application/json', 
-    'Accept': 'application/vnd.ms-excel',
-    'sessionId':sessionID,
-    'Cache-control':'no-cache',
-    'Pragma': 'no-cache',
-    'Expires': '0',
-      });  
+      'Accept': 'application/vnd.ms-excel',
+      'sessionId':sessionID,
+      'Cache-control':'no-cache',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    });  
   }//getDownloadHeaderParams
 
   getUserId() {
-    return this.getToken().id;
-  }
-  getToken():any{
-    let sessionObj = this.localStorage.get('session');
-    console.log('Session object is: ', sessionObj);
-    if(!sessionObj)
-     {
-      this.router.navigateByUrl('/login');
-       console.log("session Obj error");
-     }
-     else{
-      return sessionObj;
-     }
-  }
+    return this.storageService.getUserId();
+  }//end:getUserId
 
+  
   getRoleList() {
-    return this.getToken().roleList;
-  }
+    return this.storageService.getListOfRoles();
+  }//end:getRoleList
 
   getUserEmail() { 
-    return this.getToken().email;
-  }
+    return this.storageService.getEmail();
+  }//end:getUserEmail
 
-  // setRoleId(data): any {
-  //   let sessionObj: any = this.localStorage.get('session');
-  //   sessionObj.selectedRole = data;
-  //   this.localStorage.set('session',sessionObj);
-  //   this.headers = this.getHeaderParams();
-  //   this.options = new RequestOptions({ headers: this.headers });
-  //   return this.http.put(envConfig.appURL.selectedRole,sessionObj,this.options)
-  //   .map(res => {
-      
-  //     return res.json()
-  //   })
-  //   .catch((error)=>{
-  //     return Observable.of(error);
-  //   });
-  // }//end: set
-
-  setRoleId(roleObj:any) { 
-    let sessionObj: any = this.localStorage.get('session');
-    sessionObj.selectedRole = roleObj;
-    this.localStorage.set('session',sessionObj);
-    this.headers = this.getSimpleAJAXHeaderParams();
-    sessionObj = JSON.stringify(sessionObj);
+  //TODO: Move this to Dashboard Service
+  setRoleId(roleObj:any) {    
+    this.storageService.updateCredentialsWithRole(roleObj);    
+    const sessionId = this.storageService.getSessionId(); 
+    const payload = JSON.stringify(this.storageService.retrieveCredentials());
     let promise = Observable.ajax({
       url:envConfig.appURL.selectedRole,
       method:'PUT',
-      headers:this.headers,
-      body:sessionObj,        
+      headers:this.getClientHeaderParams(),
+      body:payload,
     }).map(res => {
-      return res;
+      debugger;
+      console.log('Response Session from Switch Role is: ', res.response);
+      this.storageService.storeCredentials(res.response);
+      console.log('Even the session has been updated');
+      return Observable.of(res);
     })
     .catch((error)=>{
       return Observable.of(error);
     });
     return promise;      
-} //end: setRoleId
+  }//end: setRoleId
 
 }//end:LoginService

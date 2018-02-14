@@ -103,6 +103,20 @@ export class ReportManagementListComponent implements OnInit {
                             this.router.navigateByUrl('/login');
                         },3000)
                     } 
+                    else if (response.status == 400)
+                    {
+                        if(response.response.generalMessage && response.response.errorCode===1010){
+                            this.alertModel.content = "Error in Initiate Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                            setTimeout( () => {
+                                this.router.navigateByUrl('/login');
+                            },3000)
+                        } else{
+                            this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                            this.isPopupAlertVisible = true;
+                        }
+
+                    }
                     else if (response.status != 401 && response.status != 200 )
                     {
                         if(response.response.generalMessage){
@@ -136,6 +150,20 @@ export class ReportManagementListComponent implements OnInit {
                             this.router.navigateByUrl('/login');
                         },3000)
                     } 
+                    else if (response.status == 400)
+                    {
+                        if(response.response.generalMessage && response.response.errorCode===1010){
+                            this.alertModel.content = "Error in reinitiate Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                            setTimeout( () => {
+                                this.router.navigateByUrl('/login');
+                            },3000)
+                        } else{
+                            this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                            this.isPopupAlertVisible = true;
+                        }
+
+                    }
                     else if (response.status != 401 && response.status != 200 )
                     {
                         if(response.response.generalMessage){
@@ -169,6 +197,20 @@ export class ReportManagementListComponent implements OnInit {
                             this.router.navigateByUrl('/login');
                         },3000)
                     } 
+                    else if (response.status == 400)
+                    {
+                        if(response.response.generalMessage && response.response.errorCode===1010){
+                            this.alertModel.content = "Error in close Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                            setTimeout( () => {
+                                this.router.navigateByUrl('/login');
+                            },3000)
+                        } else{
+                            this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                            this.isPopupAlertVisible = true;
+                        }
+
+                    }
                     else if (response.status != 401 && response.status != 200 )
                     {
                         if(response.response.generalMessage){
@@ -292,6 +334,21 @@ export class ReportManagementListComponent implements OnInit {
                 setTimeout( () => {
                     this.router.navigateByUrl('/login');
                 },3000)
+            }
+            else if (response.status && response.status == 400)
+            {
+                var msg = JSON.parse(response._body)
+                if(msg.generalMessage && msg.errorCode===1010){
+                    this.alertModel.content = "Error in get Report :  " + msg.generalMessage;
+                    this.isPopupAlertVisible = true;
+                    setTimeout( () => {
+                        this.router.navigateByUrl('/login');
+                    },3000)
+                } else{
+                    this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                    this.isPopupAlertVisible = true;
+                }
+
             }
             else if (response.status && response.status != 401 && response.status!=200){
                 var msg = JSON.parse(response._body)

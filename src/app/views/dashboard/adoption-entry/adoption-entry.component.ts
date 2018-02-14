@@ -68,7 +68,7 @@ export class AdoptionEntryComponent implements OnInit {
   private isPopupAlertVisible: boolean;
   private adoptionTable: boolean;
   private isVisible: boolean;
-  private isLocked:boolean
+  private isLocked: boolean
   private isPopupMessageVisible: boolean;
 
 
@@ -118,60 +118,60 @@ export class AdoptionEntryComponent implements OnInit {
     // console.log(this.adoptionResultMap);
   } //end: adoptionChangeHandler
 
-  getTheUnitList(unitTypeId){
+  getTheUnitList(unitTypeId) {
     let unitList;
-    for(var i = 0 ; i < this.unitTypes.length; i++){
-      if(unitTypeId== this.unitTypes[i].id){
-       unitList  =  this.unitTypes[i].unitList;
+    for (var i = 0; i < this.unitTypes.length; i++) {
+      if (unitTypeId == this.unitTypes[i].id) {
+        unitList = this.unitTypes[i].unitList;
       }
-   }
-   return unitList;
+    }
+    return unitList;
   }
 
-  getUnitColor(unitCode,unitList) {
+  getUnitColor(unitCode, unitList) {
     var clasStr;
-    for(var k = 0 ; k < unitList.length; k++){
-      if(unitCode == unitList[k].code){
+    for (var k = 0; k < unitList.length; k++) {
+      if (unitCode == unitList[k].code) {
         clasStr = unitList[k].colorCode;
         //return;
-       // console.log(unitList[k].colorCode+"Colr"+unitList[k].code);
+        // console.log(unitList[k].colorCode+"Colr"+unitList[k].code);
       }
-   }
-   return clasStr;
+    }
+    return clasStr;
   }
   cellClickEvent(agGridData) {
     let rowIndex = agGridData.rowIndex;
     let cellData = agGridData.value;
     let assetId = cellData.assetId;
-    this.createCurrentAgDataSelection(rowIndex,assetId);
-    console.log('assetId='+ assetId + 'row='+ rowIndex+ 'cellData='+ cellData);
+    this.createCurrentAgDataSelection(rowIndex, assetId);
+    console.log('assetId=' + assetId + 'row=' + rowIndex + 'cellData=' + cellData);
   }//end : onCellClicked
 
-  createCurrentAgDataSelection(rowIndex,assetId) {
-   // assetAdoptionData
-   this.adoptionUnitTableData = [];
-   // Data of all the KPI 
-   for (let unitData of Array.from(this.assetAdoptionData.entries())) {
+  createCurrentAgDataSelection(rowIndex, assetId) {
+    // assetAdoptionData
+    this.adoptionUnitTableData = [];
+    // Data of all the KPI 
+    for (let unitData of Array.from(this.assetAdoptionData.entries())) {
       let assetData = unitData[1].productAssetAdoptionResponse[rowIndex]
       let unitList = this.getTheUnitList(unitData[1].unitTypeId);
       console.log(unitList);
-      let unitTableData = { 'value':'', 'class':''};
-      if(assetData.assetDetails.length > 1){
-        for(let i = 0; i < assetData.assetDetails.length; i++){
+      let unitTableData = { 'value': '', 'class': '' };
+      if (assetData.assetDetails.length > 1) {
+        for (let i = 0; i < assetData.assetDetails.length; i++) {
           let singleAsset = assetData.assetDetails[i];
           //unitTypeId
-          if(singleAsset.assetId == assetId ){
-             if(singleAsset.unitType === 'text'){
+          if (singleAsset.assetId == assetId) {
+            if (singleAsset.unitType === 'text') {
               unitTableData.value = singleAsset.unitValue;
               unitTableData.class = singleAsset.colorCode;
-             }
-             else {
-              unitTableData.value = singleAsset.unitCode;              
+            }
+            else {
+              unitTableData.value = singleAsset.unitCode;
               unitTableData.class = this.getUnitColor(singleAsset.unitCode, unitList);
               //console.log(singleAsset);
               //console.log(unitTableData);
-             }
-             this.adoptionUnitTableData.push(unitTableData);
+            }
+            this.adoptionUnitTableData.push(unitTableData);
           }
         }
       }
@@ -186,10 +186,10 @@ export class AdoptionEntryComponent implements OnInit {
     this.confirmModel.title = "Save Report";
     this.confirmModel.type = "save";
     this.isPopupConfirmVisible = true;
-   
+
   } //End:onSaveReport
 
-  disableLoader(){
+  disableLoader() {
     this.isVisible = false;
   }
   enableLoader() {
@@ -201,30 +201,43 @@ export class AdoptionEntryComponent implements OnInit {
     switch (eventData) {
       case "submit": {
         let data = Array.from(this.adoptionResultMap.values());
-    
+
         if (data) {
           this.adoptionService.submitReport(this.selectedReportId, data).subscribe(response => {
-            if (response.status >= 400) {
+            if (response.status === 400) {
+              if (response.response.generalMessage && response.response.errorCode === 1010) {
+                this.alertModel.content = "Error in edit Report :  " + response.response.generalMessage;
+                this.isPopupAlertVisible = true;
+                setTimeout(() => {
+                  this.router.navigateByUrl('/login');
+                }, 3000)
+              } else {
+                this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                this.isPopupAlertVisible = true;
+              }
+
+            }
+            else if (response.status >= 400) {
               console.log(JSON.parse(response._body));
               let errorResp = JSON.parse(response._body);
               this.isPopupErrorVisible = true;
-              this.errorMsg = errorResp.specificMessage;
+              this.errorMsg = response.response.specificMessage;
               this.errorBoolean = true;
               this.errorModel.title = 'Error'
               this.errorModel.content = 'Error on Service,' + this.errorMsg + 'Please try again'
               this.errorModel.button1 = 'logOut';
               this.errorModel.button2 = 'Cancel';
-    
+
             }
             else {
-              this.confirmModel.title ='Success';
+              this.confirmModel.title = 'Success';
               this.confirmModel.content = 'Successfully submitted the report';
               this.isPopupMessageVisible = true;
               this.confirmModel.type = 'submit';
 
             }
           },
-            (error) => {  });
+            (error) => { });
         }
       } break;
       case "save": {
@@ -232,67 +245,82 @@ export class AdoptionEntryComponent implements OnInit {
         if (data.length >= 1) {
           console.log("Save Report");
           console.log(data);
-          setTimeout( () =>{
+          setTimeout(() => {
             this.adoptionService.saveReport(this.selectedReportId, data).subscribe(response => {
-              if(this.exeptionHandling(response)){
-               this.confirmModel.title ='Success';
-               this.confirmModel.content = 'Data saved successfully';
-               this.isPopupMessageVisible = true;
-               this.confirmModel.type = 'saveReport';
+              if (this.exeptionHandling(response)) {
+                this.confirmModel.title = 'Success';
+                this.confirmModel.content = 'Data saved successfully';
+                this.isPopupMessageVisible = true;
+                this.confirmModel.type = 'saveReport';
               }
-             },
-               (error) => { this.isVisible = false });
-          },100);
- 
+            },
+              (error) => { this.isVisible = false });
+          }, 100);
+
         }
-        else{
-          this.alertModel.content ="Nothing to save the data";
+        else {
+          this.alertModel.content = "Nothing to save the data";
           this.isPopupAlertVisible = false;
 
         }
       }; break;
     }
-   
+
   }//end:onPopupConfirmClose
 
-  exeptionHandling(response){
-    if (response.status === 401 ) {
+  exeptionHandling(response) {
+    if (response.status === 401) {
       this.alertModel.content = "Authentication Error  ";
       this.isPopupAlertVisible = true;
-      setTimeout(() =>{
+      setTimeout(() => {
         this.router.navigateByUrl('/login');
-      },1000);
+      }, 1000);
       return false;
-    } 
-    else if(response.status !== 401 && response.status !== 200 ){
+    }
+    else if (response.status === 400) {
+      if (response.response.generalMessage && response.response.errorCode === 1010) {
+        this.alertModel.content = "Error in edit Report :  " + response.response.generalMessage;
+        this.isPopupAlertVisible = true;
+        setTimeout(() => {
+          this.router.navigateByUrl('/login');
+        }, 3000)
+      } else {
+        this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+        this.isPopupAlertVisible = true;
+      }
+      return false;
+
+    }
+    
+    else if (response.status !== 401 && response.status !== 200) {
       console.log("Error other than 401")
       console.log(JSON.parse(response._body));
-      let errorResp ;
-      if(response._body){
-        errorResp =  JSON.parse(response._body);
+      let errorResp;
+      if (response._body) {
+        errorResp = JSON.parse(response._body);
       }
-      this.alertModel.content = "Error in Entry Page."+ " Please try to enter the data" ;
+      this.alertModel.content = "Error in Entry Page." + " Please try to enter the data";
       this.isPopupAlertVisible = true;
       return false;
     }
-    else if(response.status === 200){
+    else if (response.status === 200) {
       return true;
     }
     return false;
 
   }
   confirmMessagePopup(eventData: string) {
-    if(eventData == 'submit'){
-      if(this.logInService.getSelectedRole() === envConfig.premssionEnum.BG){
-        this.router.navigateByUrl('/dashboard/'+ envConfig.routerURL.Adoption_View);
-     }
-     else {
-       this.router.navigateByUrl('/dashboard/'+ envConfig.routerURL.Report_Management);
-     }
+    if (eventData == 'submit') {
+      if (this.logInService.getSelectedRole().id === envConfig.premssionEnum.BG) {
+        this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Adoption_View);
+      }
+      else {
+        this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Report_Management);
+      }
     }
-    else if(eventData == 'saveReport'){
+    else if (eventData == 'saveReport') {
       this.isPopupMessageVisible = false;
-      window.location.reload();     
+      window.location.reload();
     }
 
   }
@@ -318,20 +346,20 @@ export class AdoptionEntryComponent implements OnInit {
     })
   }
 
-  releaseLockReport() { 
+  releaseLockReport() {
     this.adoptionService.releaseLockReport(this.selectedReportId).subscribe(response => {
-       console.log(response);
+      console.log(response);
     })
   }
   getByUnitTypeReport() {
     this.enableLoader();
-    this.adoptionService.getAllUnitsReport().subscribe( async response => {
+    this.adoptionService.getAllUnitsReport().subscribe(async response => {
       if (response.status >= 400) {
         let errorResp = JSON.parse(response._body);
         this.isVisible = false
         this.alertModel.content = errorResp.specificMessage;
         this.isPopupAlertVisible = true;
-       // this.errorMsg = errorResp.specificMessage;
+        // this.errorMsg = errorResp.specificMessage;
         this.errorBoolean = true;
         if (response.status === 401) {
           this.isPopupErrorVisible = true;
@@ -339,8 +367,8 @@ export class AdoptionEntryComponent implements OnInit {
         }
       }
       else {
-        this.selectedReportId =await  response[0].productAssetAdoptionResponse[0].reportId;
-        this.selectedReportName =await  response[0].productAssetAdoptionResponse[0].reportName;
+        this.selectedReportId = await response[0].productAssetAdoptionResponse[0].reportId;
+        this.selectedReportName = await response[0].productAssetAdoptionResponse[0].reportName;
         this.createProductMap(await response[0].productAssetAdoptionResponse);
         for (let singleUnit of response) {
           let unitType = this.unitTypeMap.get(singleUnit.unitTypeId);
@@ -521,9 +549,9 @@ export class AdoptionEntryComponent implements OnInit {
         }
         console.log(this.unitTypesDisplay);
         this.getByUnitTypeReport();
-        this.staticDataService.threeSecondDelay().then(response => {this.isVisible = false; }, (error) => {
-            this.isVisible = false;
-          });
+        this.staticDataService.threeSecondDelay().then(response => { this.isVisible = false; }, (error) => {
+          this.isVisible = false;
+        });
         this.isBreadCrumbVisible = true;
       }
     },

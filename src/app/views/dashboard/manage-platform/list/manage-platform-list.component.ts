@@ -27,7 +27,7 @@ export class ManagePlatformListComponent implements OnInit {
   private isVisibleLoader: boolean;
   private confirmModel: ConfirmModel;
   private isPopupConfirmVisible: boolean;
-  private idDelete: boolean;
+  private idDelete: number;
   private alertModel: AlertModel;
   private isPopupAlertVisible: boolean;
 
@@ -75,29 +75,29 @@ export class ManagePlatformListComponent implements OnInit {
 
   onPopupConfirmOk(eventData: string) {
     this.isPopupConfirmVisible = false;
-      this.managePlatformService.deletePlatform(this.idDelete).subscribe((response) => {
-       if(response.status!=200){
-         var msg = JSON.parse(response._body)
-        this.alertModel.content = "Error in delete Platform :  "+msg.generalMessage;
+    this.managePlatformService.deletePlatform(this.idDelete).subscribe((response) => {
+      if (response.status != 200) {
+        var msg = JSON.parse(response._body)
+        this.alertModel.content = "Error in delete Platform :  " + msg.generalMessage;
         this.isPopupAlertVisible = true;
-       }else{
+      } else {
         window.location.reload();
-       }
-        
-      },
-        (error) => {
-          this.alertModel.content = "Error in delete "
-          this.isPopupAlertVisible = true;
-          console.log(error)
-          // this.isVisible = false;
-        });
+      }
+
+    },
+      (error) => {
+        this.alertModel.content = "Error in delete "
+        this.isPopupAlertVisible = true;
+        console.log(error)
+        // this.isVisible = false;
+      });
   }//end:onPopupConfirmClose
 
   onPopupConfirmCancel(eventData: boolean) {
     this.isPopupConfirmVisible = eventData;
   }//end:onPopupConfirmCancel
 
-  onPopupAlertCancel(eventData: boolean){
+  onPopupAlertCancel(eventData: boolean) {
     this.isPopupAlertVisible = eventData;
   }
 
@@ -118,19 +118,53 @@ export class ManagePlatformListComponent implements OnInit {
     this.alertModel.title = 'Alert '
 
     this.managePlatformService.getAllPlatformConfig().subscribe((response) => {
-      var temp_data = response;
-      temp_data.forEach(element => {
-        if (element.active == 1) {
-          element.active = 'Active'
+      if (response.status && response.status == 401) {
+        this.isVisibleLoader = false;
+        var msg = JSON.parse(response._body)
+        this.alertModel.content = "Error in get Platform :  " + msg.generalMessage;
+        this.isPopupAlertVisible = true;
+        setTimeout(() => {
+          this.router.navigateByUrl('/login');
+        }, 3000)
+      }
+      else if (response.status && response.status == 400) {
+        var msg = JSON.parse(response._body)
+        if (msg.generalMessage && msg.errorCode === 1010) {
+          this.alertModel.content = "Error in get Platform :  " + msg.generalMessage;
+          this.isPopupAlertVisible = true;
+          setTimeout(() => {
+            this.router.navigateByUrl('/login');
+          }, 3000)
         } else {
-          element.active = 'Inactive'
+          this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+          this.isPopupAlertVisible = true;
         }
 
-      });
-      this.platformListData = temp_data;
+      }
+      else if (response.status && response.status != 401 && response.status != 200) {
+        var msg = JSON.parse(response._body)
+        this.alertModel.content = "Error in get platform :  " + msg.generalMessage;
+        this.isPopupAlertVisible = true;
+        this.isVisibleLoader = false;
+      }
+      else {
+        var temp_data = response;
+        temp_data.forEach(element => {
+          if (element.active == 1) {
+            element.active = 'Active'
+          } else {
+            element.active = 'Inactive'
+          }
+
+        });
+        this.platformListData = temp_data;
+        this.isVisibleLoader = false;
+
+      }
       this.isVisibleLoader = false;
     },
       (error) => {
+        console.error("Error in get platform")
         this.isVisible = false;
         this.isVisibleLoader = false;
       });

@@ -42,34 +42,42 @@ export class EditReportComponent implements OnInit {
             checkboxSelectedItemsList.push({id: this.checkboxSelectedItems[i], active: 1})
         }
         obj.unitTypeList = checkboxSelectedItemsList;
-        this
-            .reportManagementService
-            .updateReport(obj)
-            .subscribe((response) => {
-                if (response.status && response.status == 401) {
-                    this.isVisibleLoader = false;
-                    var msg = JSON.parse(response._body)
-                    this.alertModel.content = "Error in Update Report :  " + msg.generalMessage;
+        this.reportManagementService.updateReport(obj).subscribe((response) => {
+            if (response.status == 401) {
+                //var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in edit Report :  " + response.response.generalMessage;
+                this.isPopupAlertVisible = true;
+                setTimeout( () => {
+                    this.router.navigateByUrl('/login');
+                },3000)
+            } 
+            else if (response.status == 400)
+            {
+                if(response.response.generalMessage && response.response.errorCode===1010){
+                    this.alertModel.content = "Error in edit Report :  " + response.response.generalMessage;
                     this.isPopupAlertVisible = true;
-                    setTimeout(() => {
-                        this
-                            .router
-                            .navigateByUrl('/login');
-                    }, 3000)
-                } else if (response.status && response.status != 401 && response.status != 200) {
-                    var msg = JSON.parse(response._body)
-                    this.alertModel.content = "Error in Update Report :  " + msg.generalMessage;
+                    setTimeout( () => {
+                        this.router.navigateByUrl('/login');
+                    },3000)
+                } else{
+                    this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
                     this.isPopupAlertVisible = true;
-                    this.isVisibleLoader = false;
-                } else {
-                    this
-                        .staticDataService
-                        .switchReportTab(0);
-                    this
-                        .router
-                        .navigateByUrl('/dashboard/' + envConfig.routerURL.Report_Management + '/list');
                 }
 
+            }
+            else if (response.status != 401 && response.status != 200 )
+            {
+                if(response.response.generalMessage){
+                    this.alertModel.content = "Error in edit Report :  " + response.response.generalMessage;
+                    this.isPopupAlertVisible = true;
+                } else{
+                    this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                    this.isPopupAlertVisible = true;
+                }
+
+            } else {
+                this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Report_Management + '/list');
+            }        
             }, (error) => {
                 this.alertModel.content = "Error in Update Report "
                 this.isPopupAlertVisible = true;

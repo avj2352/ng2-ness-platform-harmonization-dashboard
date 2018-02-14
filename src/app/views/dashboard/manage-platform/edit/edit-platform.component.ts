@@ -59,11 +59,39 @@ export class EditPlatformComponent implements OnInit {
         }
         // platformobj.id=this.id;
         this.managePlatformService.updatePlatform(platformobj).subscribe((response) => {
-        if (response.status != 200) {
-            var msg = JSON.parse(response._body)
-            this.alertModel.content = "Error in Update Platform :  " + msg.generalMessage;
-            this.isPopupAlertVisible = true;
-        } else {
+            if (response.status == 401) {
+                //var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in Update Platform :  " + response.response.generalMessage;
+                this.isPopupAlertVisible = true;
+                setTimeout( () => {
+                    this.router.navigateByUrl('/login');
+                },3000)
+            } 
+            else if (response.status == 400)
+            {
+                if(response.response.generalMessage && response.response.errorCode===1010){
+                    this.alertModel.content = "Error in Update Platform :  " + response.response.generalMessage;
+                    this.isPopupAlertVisible = true;
+                    setTimeout( () => {
+                        this.router.navigateByUrl('/login');
+                    },3000)
+                } else{
+                    this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                    this.isPopupAlertVisible = true;
+                }
+
+            }
+            else if (response.status != 401 && response.status != 200 )
+            {
+                if(response.response.generalMessage){
+                    this.alertModel.content = "Error in Update Platform :  " + response.response.generalMessage;
+                    this.isPopupAlertVisible = true;
+                } else{
+                    this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                    this.isPopupAlertVisible = true;
+                }
+
+            } else {
             this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Manage_Platform + '/list');
         }
 

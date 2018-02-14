@@ -35,7 +35,7 @@ export class ManageOrganizationListComponent implements OnInit {
     private headingLable: String;
     private confirmModel: ConfirmModel;
     private isPopupConfirmVisible: boolean;
-    private idDelete: boolean;
+    private idDelete: number;
     private alertModel: AlertModel;
     private isPopupAlertVisible: boolean;
 
@@ -174,12 +174,46 @@ export class ManageOrganizationListComponent implements OnInit {
         this.isPopupAlertVisible = false;
         this.alertModel.title = 'Alert '
         this.manageOrgService.getAllOrganizationTypeConfig().subscribe((response) => {
-            console.log('Response from GetAllOrganziation is: ', response);
-            this.organizationTypeListData = response;
-            this.selectOrg = response[0];
-            this.selectOrganizationType(this.selectOrg);
-            this.headingLable = response[0].name;
-            this.isVisibleLoader = false;
+            if (response.status && response.status == 401) {
+                this.isVisibleLoader = false;
+                var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in get Organziation :  " + msg.generalMessage;
+                this.isPopupAlertVisible = true;
+                setTimeout(() => {
+                  this.router.navigateByUrl('/login');
+                }, 3000)
+              }
+              else if (response.status && response.status == 400) {
+                var msg = JSON.parse(response._body)
+                if (msg.generalMessage && msg.errorCode === 1010) {
+                  this.alertModel.content = "Error in get Organziation :  " + msg.generalMessage;
+                  this.isPopupAlertVisible = true;
+                  setTimeout(() => {
+                    this.router.navigateByUrl('/login');
+                  }, 3000)
+                } else {
+                  this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                  this.isPopupAlertVisible = true;
+                }
+        
+              }
+              else if (response.status && response.status != 401 && response.status != 200) {
+                var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in get Organziation :  " + msg.generalMessage;
+                this.isPopupAlertVisible = true;
+                this.isVisibleLoader = false;
+              }
+              else{
+                console.log('Response from GetAllOrganziation is: ', response);
+                this.organizationTypeListData = response;
+                this.selectOrg = response[0];
+                this.selectOrganizationType(this.selectOrg);
+                this.headingLable = response[0].name;
+                this.isVisibleLoader = false;
+
+              }
+              this.isVisibleLoader = false;
+
         },
             (error) => {
                 this.isVisible = false;

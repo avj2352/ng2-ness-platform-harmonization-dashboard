@@ -122,20 +122,38 @@ export class CreateReportComponent implements OnInit {
         reportObj.unitTypeList = checkboxSelectedItemsList;
         console.log("report object"+ reportObj);
         this.reportManagementService.creatReport(reportObj).subscribe((response) => {
-            if (response.status && response.status == 401) {
-                this.isVisibleLoader = false;
-                var msg = JSON.parse(response._body)
-                this.alertModel.content = "Error in create report :  " + msg.generalMessage;
+            if (response.status == 401) {
+                //var msg = JSON.parse(response._body)
+                this.alertModel.content = "Error in create Report :  " + response.response.generalMessage;
                 this.isPopupAlertVisible = true;
                 setTimeout( () => {
                     this.router.navigateByUrl('/login');
                 },3000)
+            } 
+            else if (response.status == 400)
+            {
+                if(response.response.generalMessage && response.response.errorCode===1010){
+                    this.alertModel.content = "Error in create Report :  " + response.response.generalMessage;
+                    this.isPopupAlertVisible = true;
+                    setTimeout( () => {
+                        this.router.navigateByUrl('/login');
+                    },3000)
+                } else{
+                    this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                    this.isPopupAlertVisible = true;
+                }
+
             }
-            else if (response.status && response.status != 401 && response.status!=200){
-                var msg = JSON.parse(response._body)
-                this.alertModel.content = "Error in create report :  " + msg.generalMessage;
-                this.isPopupAlertVisible = true;
-                this.isVisibleLoader = false;
+            else if (response.status != 401 && response.status != 200 )
+            {
+                if(response.response.generalMessage){
+                    this.alertModel.content = "Error in create Report :  " + response.response.generalMessage;
+                    this.isPopupAlertVisible = true;
+                } else{
+                    this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+                    this.isPopupAlertVisible = true;
+                }
+
             } else {
                 this.staticDataService.switchReportTab(0);
                 this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Report_Management + '/list');

@@ -19,19 +19,39 @@ export class LogoutService {
    
    }
 
-   logOut() {
-    this.headers = this.loginService.getHeaderParams();
-    this.options = new RequestOptions({ headers: this.headers }); 
+  //  logOut() {
+  //   this.headers = this.loginService.getHeaderParams();
+  //   this.options = new RequestOptions({ headers: this.headers }); 
+  //   this.localStorage.clearAll();
+  //   this.cookieService.delete('phdSession');
+  //   this.cookieService.delete('JSESSIONID');
+  //   return this.http.put(envConfig.appURL.logoutEndPoint,'',this.options)
+  //   .map(res => {    
+  //     return res.json()
+  //   })
+  //   .catch((error)=>{
+  //     return Observable.of(error);
+  //   });
+  //  }
+
+   logOut() { 
+    this.headers = this.loginService.getSimpleAJAXHeaderParams();
+    let reportParams = { };
     this.localStorage.clearAll();
     this.cookieService.delete('phdSession');
     this.cookieService.delete('JSESSIONID');
-    return this.http.put(envConfig.appURL.logoutEndPoint,'',this.options)
-    .map(res => {    
-      return res.json()
+    let promise = Observable.ajax({
+      url:envConfig.appURL.logoutEndPoint,
+      method:'PUT',
+      headers:this.headers,
+      body:'',        
+    }).map(res => {
+      return res;
     })
     .catch((error)=>{
       return Observable.of(error);
     });
-   }
+    return promise;      
+} //end: logOut
 
 }

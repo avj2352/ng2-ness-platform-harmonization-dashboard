@@ -311,7 +311,7 @@ export class AdoptionEntryComponent implements OnInit {
   }
   confirmMessagePopup(eventData: string) {
     if (eventData == 'submit') {
-      if (this.logInService.getSelectedRole().id === envConfig.premssionEnum.BG) {
+      if (this.logInService.getSelectedRole() === envConfig.premssionEnum.BG) {
         this.router.navigateByUrl('/dashboard/' + envConfig.routerURL.Adoption_View);
       }
       else {

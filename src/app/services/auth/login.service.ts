@@ -165,7 +165,7 @@ export class LoginService {
       body:payload,
     }).map(res => {
       debugger;
-      console.log('Response Session from Switch Role is: ', res.response);
+      console.log('Storing the response from switch role server into cookie: ', res.response);
       this.storageService.storeCredentials(res.response);
       console.log('Even the session has been updated');
       return Observable.of(res);

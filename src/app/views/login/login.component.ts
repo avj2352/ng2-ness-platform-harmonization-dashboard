@@ -36,24 +36,28 @@ export class LoginComponent implements OnInit {
     console.log(this.inputObj);
     this.isVisible = true;
     this.isValidError = false;
-    this.loginService.loginUser(this.inputObj).subscribe(res=>{
-      this.isVisible = false;
-      console.log('Login Response',res);
-      if(res.type=='error' ){
-        this.isValidError = true;
-        this.storageService.removeCredentials();
-        console.error('Login Error: ', res);
-      }else if(res.hasOwnProperty('errorCode')){
-        this.isValidError = true;
-        this.storageService.removeCredentials();
-        console.error('Login Error: ', res);
-      }
-      else{        
-        console.log('Success Response contains: ', res);
-        this.storageService.storeCredentials(res);
-        this.router.navigateByUrl('/dashboard');
-      }
-    });
+    this.storageService.removeCredentials();
+    setTimeout(() =>{
+      this.loginService.loginUser(this.inputObj).subscribe(res=>{
+        this.isVisible = false;
+        console.log('Login Response',res);
+        if(res.type=='error' ){
+          this.isValidError = true;
+          this.storageService.removeCredentials();
+          console.error('Login Error: ', res);
+        }else if(res.hasOwnProperty('errorCode')){
+          this.isValidError = true;
+          this.storageService.removeCredentials();
+          console.error('Login Error: ', res);
+        }
+        else{        
+          console.log('Success Response contains: ', res);
+          this.storageService.storeCredentials(res);
+          this.router.navigateByUrl('/dashboard');
+        }
+      });
+    },100);
+
   }//end:onSubmit
 
   //  checkBrowser(){

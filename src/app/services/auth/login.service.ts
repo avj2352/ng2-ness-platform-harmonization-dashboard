@@ -173,7 +173,6 @@ export class LoginService {
       headers:this.getClientHeaderParams(),
       body:payload,
     }).map(res => {
-      debugger;
       console.log('Storing the response from switch role server into cookie: ', res.response);
       this.storageService.storeCredentials(res.response);
       console.log('Even the session has been updated');

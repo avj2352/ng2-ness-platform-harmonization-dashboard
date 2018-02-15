@@ -49,6 +49,7 @@ export class ReportManagementComponent implements OnInit, DoCheck {
     // if(envConfig.routerURL.Report_Management !== this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management)){
     //   this.router.navigateByUrl('/dashboard/'+this.logInService.verifyAuthScreen(envConfig.routerURL.Report_Management));
     // }
+    this.staticDataService.switchReportTab(0);
     this.selectedDashboardScreen.emit(envConfig.routerURL.Report_Management);
     this.logInService.sentData(envConfig.routerURL.Report_Management);
     this.router.navigateByUrl('/dashboard/'+envConfig.routerURL.Report_Management+'/list');

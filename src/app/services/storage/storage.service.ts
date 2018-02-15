@@ -96,6 +96,7 @@ export class StorageService {
     return this.userStore.selectedRole;
   }//end:getSelectedRole
 
+
   getListOfRoles():UserRoleModel[]{
     this.userStore = this.retrieveCredentials();
     return this.userStore.roleList;

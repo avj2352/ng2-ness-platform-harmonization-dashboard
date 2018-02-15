@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter ,TemplateRef } from '@angular/core';
+import { StorageService } from 'app/services/storage/storage.service';
 
 @Component({
   selector: 'phd-pop-up-confirm',
@@ -14,10 +15,11 @@ export class PopUpConfirmComponent implements OnInit {
   
   @Output() confirmOkPopup:EventEmitter<String>;
   @Output() cancelPopup:EventEmitter<boolean>;
-
-  constructor() { 
+ 
+  constructor(private storageService:StorageService) { 
     this.confirmOkPopup = new EventEmitter<String>();
     this.cancelPopup = new EventEmitter<boolean>();
+    this
   }//end:constructor
 
   confirm(){

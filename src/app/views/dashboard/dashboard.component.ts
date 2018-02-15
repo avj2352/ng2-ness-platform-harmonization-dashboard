@@ -13,6 +13,8 @@ import {map as _map} from 'lodash';
 import {LogoutService} from 'app/services/auth/logout.service';
 import {ManageAssetCategoriesService} from '../../services/dashboard/manage-assetcategories.service';
 import {ConfirmModel} from 'app/views/dashboard/models/confirmModel';
+import { AlertModel } from 'app/views/dashboard/models/alertModel';
+
 import { StorageService } from 'app/services/storage/storage.service';
 
 @Component({
@@ -40,6 +42,9 @@ export class DashboardComponent implements OnInit {
   private confirmModel : ConfirmModel;
   private isPopupConfirmVisible : boolean;
   private roleChange : any;
+  private popUpTitle : string;
+  private alertModel: AlertModel;
+  private isPopupAlertVisible: boolean;
 
   constructor(private router : Router, private storageService:StorageService, private loginService : LoginService, private logOutService : LogoutService, private reportManagementService : ReportManagementService,) {
     this.isVisible = false;
@@ -96,42 +101,48 @@ export class DashboardComponent implements OnInit {
 
   showScreen(screen : string) {
     this.selectedScreen = screen;
+    if(this.userRole.name != this.storageService.getSelectedRole().name){
+      this.alertModel.content ="You are about to log off, Because you are aleady logged in with differnet role";
+      this.isPopupAlertVisible = true;
+    }
     let screenFormatted = screen.replace(/ /g, "_");
     this
       .router
       .navigateByUrl('/dashboard/' + screenFormatted);
     console.log(screenFormatted);
   } //end:showScreen
-
+  onPopupAlertCancel(){
+    this.router.navigateByUrl('/login');
+  }
   setUserRole(role) {
     //Step1: Call popup Step2:
-    // this.roleChange = role;
-    // this.confirmModel.content = "Would you like to switch from your current role? Please save your pending change" +
-    //     "s Click OK to continue."
-    // this.confirmModel.type = "roleChange";
-    // this.isPopupConfirmVisible = true;
-    this.isUserProfileDropdown = false;
-    let changeUserService = this.loginService.setRoleId(role);
-    changeUserService.subscribe(response => {
-      console.log('Reloading');
-      const defaultScreen = this.loginService.verifyAuthScreen({});
-      this.router.navigateByUrl('/dashboard/' + defaultScreen);
-      window.location.reload();
-      });
+    this.roleChange = role;
+    this.confirmModel.content = "Would you like to switch from your current role? Please save your pending change" +
+        "s Click OK to continue."
+    this.confirmModel.type = "roleChange";
+    this.isPopupConfirmVisible = true;
+    // this.isUserProfileDropdown = false;
+    // let changeUserService = this.loginService.setRoleId(role);
+    // changeUserService.subscribe(response => {
+    //   console.log('Reloading');
+    //   const defaultScreen = this.loginService.verifyAuthScreen({});
+    //   this.router.navigateByUrl('/dashboard/' + defaultScreen);
+    //   window.location.reload();
+    //   });
   } //end:setUserRole
 
-  // onPopupConfirmCancel(eventData : string) {
-  //   this.isUserProfileDropdown = false;
-  //   this.isPopupConfirmVisible = false;
-  // } //end:onPopupConfirmCancel
+  onPopupConfirmCancel(eventData : string) {
+    this.isUserProfileDropdown = false;
+    this.isPopupConfirmVisible = false;
+  } //end:onPopupConfirmCancel
 
-  // onPopupConfirmOk(eventData : string) {
-  //   this.isPopupConfirmVisible = false;
-  //   this.isUserProfileDropdown = false;
-  //   this.loginService.setRoleId(this.roleChange).subscribe(response => {
-  //       window.location.reload();
-  //     })
-  // }//end:onPopupConfirmOk
+  onPopupConfirmOk(eventData : string) {
+    this.isPopupConfirmVisible = false;
+    this.isUserProfileDropdown = false;
+    this.loginService.setRoleId(this.roleChange).subscribe(response => {
+        window.location.reload();
+      })
+  }//end:onPopupConfirmOk
 
   selectedDashboardScreen(screen) {
     console.log("screen " + screen)
@@ -151,12 +162,18 @@ export class DashboardComponent implements OnInit {
     this.isUserProfileDropdown = false;
     this.userName = this.storageService.getFullName();
     this.userRole = this.storageService.getSelectedRole();
+    this.popUpTitle = "Do you want to log out?";
     this.screens = this.userRole.screens.map(screen => {
         return screen.replace('_', ' ');
       })
+
+    this.alertModel = new AlertModel();
+    this.isPopupAlertVisible = false;
+    this.alertModel.title = 'Alert '
     this.roleList = this.loginService.getRoleList();
     this.confirmModel = new ConfirmModel();
     this.isPopupConfirmVisible = false;
+    this.isPopupAlertVisible = false;
     this.confirmModel.title = 'Confirmation';
 
     this.router.navigateByUrl('/dashboard/' + this.userRole.screens[0]);

@@ -299,7 +299,8 @@ export class ReportManagementListComponent implements OnInit {
             var blob = new Blob([response._body], { type: "application/vnd.ms-excel" });
             var objectUrl = URL.createObjectURL(blob);
             if (navigator.appVersion.toString()
-                .indexOf('.NET') > 0) {
+                .indexOf('.NET') > 0 || navigator.appVersion.toString()
+                .indexOf( 'Edge' )) {
                 window.navigator.msSaveBlob(blob, fileName);
             } else {
                 var fileURL = URL.createObjectURL(blob);

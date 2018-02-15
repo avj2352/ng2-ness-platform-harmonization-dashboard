@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { StorageService } from 'app/services/storage/storage.service';
 
 @Component({
   selector: 'phd-pop-up-alert',
@@ -13,7 +14,7 @@ export class PopUpAlertComponent implements OnInit {
   
   @Output() cancelAlertPopup:EventEmitter<boolean>;
 
-  constructor() { 
+  constructor(private storageService:StorageService) { 
     this.cancelAlertPopup = new EventEmitter<boolean>();
   }//end:constructor
 

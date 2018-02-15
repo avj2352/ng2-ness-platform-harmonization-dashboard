@@ -1,3 +1,4 @@
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>
 <phd-pop-up-confirm [visible]="isPopupConfirmVisible" title="{{confirmModel.title}}" content="{{confirmModel.content}}" (confirmOkPopup)="onPopupConfirmOk($event)" (cancelPopup)="onPopupConfirmCancel($event)" ></phd-pop-up-confirm>
 <phd-loader content="Content loading..." [visible]="isVisibleLoader"></phd-loader>
 <div class="create-org">

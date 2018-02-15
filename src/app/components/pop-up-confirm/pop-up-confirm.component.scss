@@ -28,7 +28,17 @@
             animation: fadeIn 0.3s ease-in-out;
         }     
     }//end:content
-
+    &__footer {
+        display: flex;
+        width: 100%;
+        font-size: 0.8rem;
+        color: $color-white;
+        position: absolute;        
+        bottom: 0;        
+        flex-direction: column;
+        justify-content: flex-end;        
+        background: linear-gradient(to right,$light-blue-start,$light-blue-end);        
+    }
     &__header {
         display: flex;        
         flex-direction: row;

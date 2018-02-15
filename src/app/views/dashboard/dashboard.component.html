@@ -36,4 +36,5 @@
     </div>
   </section>
 </div>
-<phd-popup-info [visible]="isPopupVisible" title="Do you want to log out?" content="NOTE: Please save your changes before logging out. Continue with Logout?" (closePopup)="onPopupInfoClose($event)" (cancelPopup)="onPopupInfoCancel($event)"></phd-popup-info>
+<phd-pop-up-alert [visible]="isPopupAlertVisible" title="{{alertModel.title}}" content="{{alertModel.content}}"  (cancelAlertPopup)="onPopupAlertCancel($event)" ></phd-pop-up-alert>
+<phd-popup-info [visible]="isPopupVisible" title="{{popUpTitle}}" content="NOTE: Please save your changes before logging out. Continue with Logout?" (closePopup)="onPopupInfoClose($event)" (cancelPopup)="onPopupInfoCancel($event)"></phd-popup-info>

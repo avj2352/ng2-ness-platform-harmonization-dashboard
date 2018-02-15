@@ -10,8 +10,10 @@
         <p>{{content}}</p>
         <div>
             <button class="btn btn-popup" (click)="confirm()"><span>OK</span></button> 
-            <button class="btn btn-popup" (click)="cancel()"><span>Cancel</span></button>
-        </div>
+            <button class="btn btn-popup" (click)="cancel()"><span>Cancel</span></button>          
       </div>
-    </div>
+    </div>   
+    <div class="popup__footer">
+      <span class="footer">You are logged in as {{storageService.getSelectedRole().name}}</span>
+    </div>  
   </div>

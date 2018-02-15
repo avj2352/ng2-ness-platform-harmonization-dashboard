@@ -37,6 +37,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { PopupInfoComponent } from './components/popup-info/popup-info.component';
 import { ButtonDropdownComponent } from './components/button-dropdown/button-dropdown.component';
 import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
+import { ProductRenderer } from './components/agGridRenderer/ag-grid-product-renderer.component';
+
 import { AdoptionEditor } from 'app/components/agGridRenderer/ag-grid-editor.component';
 import { TrackStatusComponent } from 'app/components/track-status/track-status.component';
 import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
@@ -127,6 +129,7 @@ const config: ExtraOptions = {
     ButtonDropdownComponent,
     SideBarComponent,
     AssetRenderer,
+    ProductRenderer,
     AdoptionEditor,
     ManageOrganizationComponent,
     ManagePlatformComponent,
@@ -162,7 +165,7 @@ const config: ExtraOptions = {
       prefix: 'phd-app',
       storageType: 'localStorage'
     }),
-    AgGridModule.withComponents([AssetRenderer, AdoptionEditor]),
+    AgGridModule.withComponents([AssetRenderer, AdoptionEditor, ProductRenderer]),
     Ng2SmartTableModule
   ],
   providers: [

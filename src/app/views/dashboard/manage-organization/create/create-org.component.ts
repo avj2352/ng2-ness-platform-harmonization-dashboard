@@ -120,6 +120,11 @@ export class CreateOrganizationComponent implements OnInit {
                     setTimeout( () => {
                         this.router.navigateByUrl('/login');
                     },3000)
+                } 
+                else if(response.response.generalMessage)
+                {
+                    this.alertModel.content = "Error in Create Organization :  " + response.response.generalMessage;
+                    this.isPopupAlertVisible = true;
                 } else{
                     this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
                     this.isPopupAlertVisible = true;

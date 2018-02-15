@@ -49,7 +49,7 @@ export class ManageAssetCategoriesListComponent implements OnInit {
       },
       columns: {
         hierarchy: {
-          title: '#'
+          title: 'Display Sequence'
         },
         name: {
           title: 'Asset Name'
@@ -133,6 +133,9 @@ export class ManageAssetCategoriesListComponent implements OnInit {
           setTimeout(() => {
             this.router.navigateByUrl('/login');
           }, 3000)
+        } else if (msg.generalMessage) {
+          this.alertModel.content = "Error in get Asset :  " + msg.generalMessage;
+          this.isPopupAlertVisible = true;
         } else {
           this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
           this.isPopupAlertVisible = true;

@@ -117,24 +117,37 @@
             & span.greycell {
                 background: #96938C;
                 color     : $color-black;
+                width: 25px;
+                display: inline-block;
+                text-align: center;
             }
             & span.orangecell {
                 background: #f09a60;
                 color     : black;
-    
+                width: 25px;
+                display: inline-block;
+                text-align: center;
             }
             & span.pinkcell{
                 background: #e5c1bf;
                 color     : black;  
-    
+                width: 25px;  
+                display: inline-block;
+                text-align: center;
             }
             & span.lightgreencell{
                 background: #b5d69a;
                 color     : black; 
+                width: 25px;
+                display: inline-block;
+                text-align: center;
             }
             & span.greencell{
                 background: #458B00;
+                display: inline-block;
+                text-align: center;
                 color     :rgb(24, 22, 22);
+                width: 25px;
             }
         } //End: Legend
         

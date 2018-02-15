@@ -25,8 +25,7 @@ export class LoginService {
     private router: Router,
     private storageService:StorageService
   ){ 
-    this.headers = new Headers({ 'Content-Type': 'application/json', 
-    'Accept': 'application/json'});   
+    this.headers = this.getClientHeaderParamsWithoutSessionID();
     this.options = new RequestOptions({ headers: this.headers }); 
   }//end:constructor
 
@@ -45,6 +44,17 @@ export class LoginService {
       return Observable.of(JSON.parse(error._body));
     });    
   }//end:loginUser
+
+  //NOTE: This is used only for LDAP login
+  getClientHeaderParamsWithoutSessionID(){
+    return new Headers({ 
+      'Content-Type': 'application/json', 
+      'Accept': 'application/json',      
+      'Cache-control':'no-cache',
+      'Pragma': 'no-cache',
+      'Expires': '0', 
+      });  
+  }//end:getClientHeaderParamsWithoutSessionID
   
   //TODO: Move this to Dashboard Service
   getSimpleAJAXHeaderParams():any{
@@ -54,7 +64,7 @@ export class LoginService {
     'Accept': 'application/json',
     'Cache-control':'no-cache',
     'Pragma': 'no-cache',
-    'Expires': 'Sat, 01 Jan 2000 00:00:00 GMT', 
+    'Expires': 'Sat, 01 Jan 2020 00:00:00 GMT', 
     'sessionId':sessionID
     };   
   }//end:getSimpleAJAXHeaderParams
@@ -70,8 +80,7 @@ export class LoginService {
     }
     else{
       console.log('Session ID: ', sessionId);
-      return new Headers
-      ({ 
+      return new Headers({ 
       'Content-Type': 'application/json', 
       'Accept': 'application/json',
       'sessionId':sessionId,
@@ -99,7 +108,7 @@ export class LoginService {
         'Cache-control':'no-cache',
         'Pragma': 'no-cache',
         'Content-Type': 'application/json',
-        'Expires': 'Sat, 01 Jan 2000 00:00:00 GMT'
+        'Expires': 'Sat, 01 Jan 2020 00:00:00 GMT', 
         };
       return headers;
     }
@@ -136,7 +145,7 @@ export class LoginService {
       'sessionId':sessionID,
       'Cache-control':'no-cache',
       'Pragma': 'no-cache',
-      'Expires': '0',
+      'Expires': 'Sat, 01 Jan 2020 00:00:00 GMT', 
     });  
   }//getDownloadHeaderParams
 

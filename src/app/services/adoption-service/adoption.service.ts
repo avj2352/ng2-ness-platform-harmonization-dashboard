@@ -25,28 +25,28 @@ export class AdoptionService {
   }//end:constructor
 
   geUnitType() {
-    // this.headers = this.loginService.getHeaderParams();
-    // this.options = new RequestOptions({ headers: this.headers });
-    // return this.http.get(envConfig.appURL.initiatedReportUnitTypes, this.options)
-    //   .map(res => {
-    //     return res.json()
-    //   })
-    //   .catch((error) => {
-    //     return Observable.of(error);
-    //   });
+    this.headers = this.loginService.getHeaderParams();
+    this.options = new RequestOptions({ headers: this.headers });
+    return this.http.get(envConfig.appURL.initiatedReportUnitTypes, this.options)
+      .map(res => {
+        return res.json()
+      })
+      .catch((error) => {
+        return Observable.of(error);
+      });
 
-    let promise = Observable.ajax({
-      url:envConfig.appURL.initiatedReportUnitTypes,
-      method:'GET',
-      headers:this.loginService.getClientHeaderParams(),      
-    }).map(res => {
-      debugger;            
-      return Observable.of(res);
-    })
-    .catch((error)=>{
-      return Observable.of(error);
-    });
-    return promise;
+    // let promise = Observable.ajax({
+    //   url:envConfig.appURL.initiatedReportUnitTypes,
+    //   method:'GET',
+    //   headers:this.loginService.getClientHeaderParams(),      
+    // }).map(res => {
+    //   debugger;            
+    //   return Observable.of(res.json());
+    // })
+    // .catch((error)=>{
+    //   return Observable.of(error);
+    // });
+    // return promise;
   }//end:geUnitType
 
   getAllUnitsReport() {
@@ -120,7 +120,7 @@ export class AdoptionService {
       return res;
     })
       .catch((error) => {
-        return Observable.of(error._body);
+        return Observable.of(error);
       });
     return promise;
   } //end: saveReport

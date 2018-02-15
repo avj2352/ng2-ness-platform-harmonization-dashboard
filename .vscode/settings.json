@@ -29,7 +29,7 @@
                 "mappings": [
                     {
                         "source": "/dist",
-                        "target":"/usr/local/tomcat8/webapps/shpar-uat/"
+                        "target":"/usr/local/tomcat8/webapps/shpar-dev/"
                     }
                 ]
             }

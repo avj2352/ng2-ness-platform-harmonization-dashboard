@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 //Comp
 import { AssetRenderer } from 'app/components/agGridRenderer/ag-grid-renderer.component';
 import { AdoptionEditor } from 'app/components/agGridRenderer/ag-grid-editor.component';
+import { ProductRenderer } from '../../../components/agGridRenderer/ag-grid-product-renderer.component';
+
 import * as envConfig from 'app/services/constants/env.endpoints';
 
 //Serveice 
@@ -206,28 +208,32 @@ export class AdoptionEntryComponent implements OnInit {
           this.adoptionService.submitReport(this.selectedReportId, data).subscribe(response => {
             if (response.status === 400) {
               if (response.response.generalMessage && response.response.errorCode === 1010) {
-                this.alertModel.content = "Error in edit Report :  " + response.response.generalMessage;
+                this.alertModel.content = "Error in submit Report :  " + response.response.generalMessage;
                 this.isPopupAlertVisible = true;
                 setTimeout(() => {
                   this.router.navigateByUrl('/login');
                 }, 3000)
-              } else {
+              } else if(response.response.generalMessage){
+                this.alertModel.content = "Error in submit Report :  " + response.response.generalMessage;
+                this.isPopupAlertVisible = true;
+              }else {
                 this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
                 this.isPopupAlertVisible = true;
               }
-
             }
-            else if (response.status >= 400) {
+            else if (response.status === 401) {
+              this.router.navigateByUrl('/login');
+            }
+            else if (response.status !== 401 && response.status !== 200) {
+              console.log("Error other than 401")
               console.log(JSON.parse(response._body));
-              let errorResp = JSON.parse(response._body);
-              this.isPopupErrorVisible = true;
-              this.errorMsg = response.response.specificMessage;
-              this.errorBoolean = true;
-              this.errorModel.title = 'Error'
-              this.errorModel.content = 'Error on Service,' + this.errorMsg + 'Please try again'
-              this.errorModel.button1 = 'logOut';
-              this.errorModel.button2 = 'Cancel';
-
+              let errorResp;
+              if (response._body) {
+                errorResp = JSON.parse(response._body);
+              }
+              this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
+              this.isPopupAlertVisible = true;
+              return false;
             }
             else {
               this.confirmModel.title = 'Success';
@@ -279,12 +285,15 @@ export class AdoptionEntryComponent implements OnInit {
     }
     else if (response.status === 400) {
       if (response.response.generalMessage && response.response.errorCode === 1010) {
-        this.alertModel.content = "Error in edit Report :  " + response.response.generalMessage;
+        this.alertModel.content = "Error in save Report :  " + response.response.generalMessage;
         this.isPopupAlertVisible = true;
         setTimeout(() => {
           this.router.navigateByUrl('/login');
         }, 3000)
-      } else {
+      } else if(response.response.generalMessage){
+        this.alertModel.content = "Error in save Report :  " + response.response.generalMessage;
+        this.isPopupAlertVisible = true;
+      }else {
         this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
         this.isPopupAlertVisible = true;
       }
@@ -299,7 +308,7 @@ export class AdoptionEntryComponent implements OnInit {
       if (response._body) {
         errorResp = JSON.parse(response._body);
       }
-      this.alertModel.content = "Error in Entry Page." + " Please try to enter the data";
+      this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
       this.isPopupAlertVisible = true;
       return false;
     }
@@ -335,7 +344,7 @@ export class AdoptionEntryComponent implements OnInit {
   }
   onSubitReport() {
     this.confirmModel.content = envConfig.globalMessage.submitMessage;
-    this.confirmModel.title = "submit";
+    this.confirmModel.title = "Submit Report";
     this.confirmModel.type = "submit";
     this.isPopupConfirmVisible = true;
   }
@@ -389,7 +398,7 @@ export class AdoptionEntryComponent implements OnInit {
             false,
             this.isUserEmail)
         );
-        this.frameworkComponents = { adoptionRenderer: AssetRenderer, adoptionEditor: AdoptionEditor };
+        this.frameworkComponents = { adoptionRenderer: AssetRenderer, adoptionEditor: AdoptionEditor, productRenderer: ProductRenderer };
         this.agGridData = this.reportUnitTypeArray.get(this.selectedUnitTypeID);
         this.displayData = true;
         this.disableLoader();

@@ -88,7 +88,7 @@ export class ManageOrganizationListComponent implements OnInit {
                 // },
                 columns: {
                     hierarchy: {
-                        title: '#'
+                        title: 'Display Sequence'
                     },
                     code: {
                         title: this.headingLable + ' Code'
@@ -191,7 +191,10 @@ export class ManageOrganizationListComponent implements OnInit {
                   setTimeout(() => {
                     this.router.navigateByUrl('/login');
                   }, 3000)
-                } else {
+                } else if (msg.generalMessage) {
+                    this.alertModel.content = "Error in get Organziation :  " + msg.generalMessage;
+                    this.isPopupAlertVisible = true;
+                  }else {
                   this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
                   this.isPopupAlertVisible = true;
                 }

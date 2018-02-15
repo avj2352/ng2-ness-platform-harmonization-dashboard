@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CellRendererFactory } from 'ag-grid/dist/lib/rendering/cellRendererFactory';
 
 @Injectable()
 export class AgGridConfigureService {
@@ -31,10 +32,10 @@ export class AgGridConfigureService {
     var countPlatfrom = true;
     let platFormObj = [];
     productObj.columnDefs.push({headerName:'Product Group', marryChildren: true,    
-      children:[{ headerName: 'Cluster', field: 'clusterCode', width: 60, pinned: 'left' ,columnGroupShow: 'open',  filter: 'agTextColumnFilter' },
-                { headerName: 'BG', field: 'bgCode', width: 80, pinned: 'left' ,columnGroupShow: 'open' , filter: 'agTextColumnFilter'},
-                { headerName: 'BU', field: 'buCode', width: 80, pinned: 'left' ,columnGroupShow: 'open' , filter: 'agTextColumnFilter' },
-                { headerName: 'Product', field: 'productName', width: 160, pinned: 'left' ,  filter: 'agTextColumnFilter'}]
+      children:[{ headerName: 'Cluster', field: 'clusterCode', width: 60, pinned: 'left' ,columnGroupShow: 'open',  filter: 'agTextColumnFilter',  suppressFilter: true , cellRenderer: 'productRenderer'},
+                { headerName: 'BG', field: 'bgCode', width: 80, pinned: 'left' ,columnGroupShow: 'open' , filter: 'agTextColumnFilter', suppressFilter : true, cellRenderer: 'productRenderer'},
+                { headerName: 'BU', field: 'buCode', width: 80, pinned: 'left' ,columnGroupShow: 'open' , filter: 'agTextColumnFilter' , suppressFilter : true, cellRenderer: 'productRenderer'},
+                { headerName: 'Product', field: 'productName', width: 160, pinned: 'left' ,  filter: 'agTextColumnFilter', suppressFilter : true , cellRenderer: 'productRenderer'}]
   });
     //Create the platform and asset headers  
     var productEachArray = ReportEditListArray[0];

@@ -110,8 +110,11 @@ export class ReportManagementListComponent implements OnInit {
                             this.isPopupAlertVisible = true;
                             setTimeout( () => {
                                 this.router.navigateByUrl('/login');
-                            },3000)
-                        } else{
+                            }, 3000)
+                        } else if (response.response.generalMessage) {
+                            this.alertModel.content = "Error in Initiate Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                        } else {
                             this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
                             this.isPopupAlertVisible = true;
                         }
@@ -157,8 +160,11 @@ export class ReportManagementListComponent implements OnInit {
                             this.isPopupAlertVisible = true;
                             setTimeout( () => {
                                 this.router.navigateByUrl('/login');
-                            },3000)
-                        } else{
+                            }, 3000)
+                        } else if (response.response.generalMessage) {
+                            this.alertModel.content = "Error in reinitiate Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                        } else {
                             this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
                             this.isPopupAlertVisible = true;
                         }
@@ -204,8 +210,11 @@ export class ReportManagementListComponent implements OnInit {
                             this.isPopupAlertVisible = true;
                             setTimeout( () => {
                                 this.router.navigateByUrl('/login');
-                            },3000)
-                        } else{
+                            }, 3000)
+                        } else if (response.response.generalMessage) {
+                            this.alertModel.content = "Error in close Report :  " + response.response.generalMessage;
+                            this.isPopupAlertVisible = true;
+                        } else {
                             this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
                             this.isPopupAlertVisible = true;
                         }
@@ -252,21 +261,21 @@ export class ReportManagementListComponent implements OnInit {
 
     delete(item) {
         this.idDelete = item.id
-        this.confirmModel.content = "Are you sure you want to delete report ?"
+        this.confirmModel.content = "Are you sure you want to delete the report ?"
         this.confirmModel.type = "delete";
         this.isPopupConfirmVisible = true;
         // this.confirmModel.type="delete";
     }
     close(item) {
         this.idClose = item.id
-        this.confirmModel.content = "Are you sure you want to close report ?"
+        this.confirmModel.content = "Are you sure you want to close the report ?"
         this.confirmModel.type = "close";
         this.isPopupConfirmVisible = true;
     }//end:close
 
     initiate(item) {
         this.idInitiate = item.id
-        this.confirmModel.content = "Are you sure you want to initiate report ?"
+        this.confirmModel.content = "Are you sure you want to initiate the report ?"
         this.confirmModel.type = "initiate";
         this.isPopupConfirmVisible = true;
 
@@ -274,7 +283,7 @@ export class ReportManagementListComponent implements OnInit {
 
     reinitiate(report) {
         this.idReinitiate = report.id
-        this.confirmModel.content = "Are you sure you want to reinitiate report ?"
+        this.confirmModel.content = "Are you sure you want to reinitiate the report ?"
         this.confirmModel.type = "reinitiate";
         this.isPopupConfirmVisible = true;
     }//end:reinitiate
@@ -343,8 +352,11 @@ export class ReportManagementListComponent implements OnInit {
                     this.isPopupAlertVisible = true;
                     setTimeout( () => {
                         this.router.navigateByUrl('/login');
-                    },3000)
-                } else{
+                    }, 3000)
+                } else if (msg.generalMessage) {
+                    this.alertModel.content = "Error in get Report :  " + msg.generalMessage;
+                    this.isPopupAlertVisible = true;
+                } else {
                     this.alertModel.content = "Internal error : Please try again. If this problem still persist. Please login and logout";
                     this.isPopupAlertVisible = true;
                 }

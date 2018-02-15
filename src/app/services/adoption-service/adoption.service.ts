@@ -112,11 +112,15 @@ export class AdoptionService {
     let reportParams = {};
     saveReportObj = JSON.stringify(saveReportObj);
     let promise = Observable.ajax({
-      url: envConfig.appURL.updateAssetAdoption + '/' + reportId,
+      url: envConfig.appURL.updateAssetAdoption + '/' + reportId,    
       method: 'PUT',
-      headers: this.headers,
+      async:false,
+      hasContent:true,
+      headers: this.headers,           
       body: saveReportObj,
-    }).map(res => {
+    })
+    .retry(20)
+    .map(res => {
       return res;
     })
       .catch((error) => {

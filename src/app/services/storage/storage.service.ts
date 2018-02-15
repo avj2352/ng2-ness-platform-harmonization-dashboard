@@ -35,21 +35,29 @@ export class StorageService {
       this.userStore.roleList = inputObj.roleList;
       this.userStore.sessionID = inputObj.sessionId;      
       //Using Cookies
-      this.cookieService.delete('phdSession');
-      this.cookieService.set('phdSession',JSON.stringify(this.userStore));      
+      // this.cookieService.delete('phdSession');
+      // this.cookieService.set('phdSession',JSON.stringify(this.userStore));      
+      // Using LocalStorage
+      this.localStorage.remove('phdSession');
+      this.localStorage.add('phdSession',JSON.stringify(this.userStore));
       return true;    
   }//end:storeCredentials
 
   updateCredentialsWithRole(inputRole:UserRoleModel){
     this.userStore = this.retrieveCredentials();
     this.userStore.selectedRole = inputRole;
-    this.cookieService.set('phdSession',JSON.stringify(this.userStore));
+    //Using Cookies
+    // this.cookieService.set('phdSession',JSON.stringify(this.userStore));
+    //Using LocalStorage
+    this.localStorage.set('phdSession',JSON.stringify(this.userStore));
     return true;
   }//end:updateCredentialsWithRole
 
   retrieveCredentials():UserProfile{
     //Using Cookies
-    const stringValue = this.cookieService.get('phdSession');
+    // const stringValue = this.cookieService.get('phdSession');
+    //Using localStorage    
+    const stringValue:any = this.localStorage.get('phdSession');
     return JSON.parse(stringValue);
   }//end:retrieveCredentials
 
